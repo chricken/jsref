@@ -1,0 +1,61 @@
+aside {
+    position: relative;
+    display: inline-block;
+    width: 30%;
+    min-width: 250px;
+    min-height: 100px;
+    border: 1px solid #aaa;
+    vertical-align: top;
+}
+
+aside .containerPage {
+    background-color: var(--colorPage);
+}
+
+aside .containerPage.open {
+    background-color: var(--colorActivePage);
+    border-width: 3px;
+}
+
+
+
+aside input.inputHeader {
+    font-size: 1em;
+    font-weight: bold;
+
+}
+
+aside input,
+aside textarea {
+    width: 90%;
+    background: transparent;
+    font-family: 'Museo_Slab_500';
+    font-size: .8em;
+    padding: 5px;
+    border: none;
+}
+aside textarea {
+    height: 75px;
+}
+
+aside .info {
+    position: relative;
+    font-size: .8em;
+    color: var(--colorShyText);
+}
+
+aside input:focus,
+aside input:hover,
+aside textarea:focus,
+aside textarea:hover {
+    background: rgba(255, 255, 255, .8);
+    border: 1px solid #888;
+}
+
+aside .containerPage .details {
+    display: none;
+}
+
+aside .containerPage.open .details {
+    display: block;
+}

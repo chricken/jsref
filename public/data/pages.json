@@ -1,14 +1,1 @@
-{
-    "pages":[
-        {
-            "id":"8947nf243089nv023vn",
-            "title":"Beispiel",
-            "overview": "Dies ist nur ein Beispiel",
-            "crDate":123456,
-            "author": "C. Heisch",
-            "parent":false,
-            "visible": false,
-            "inMenu": true
-        }
-    ]
-}
+{"pages":[{"id":"123","title":"Home","overview":"Erste Seite mit Einführung","crDate":123456,"chDate":123459,"author":"C. Heisch","parent":false,"visible":true},{"id":"8947nf243089nv023vn","title":"Beispiel","overview":"Dies ist nur ein Beispiel von vielen","crDate":123456,"chDate":1234654411256,"author":"C. Heisch","parent":"123","visible":false}]}

@@ -1,0 +1,8 @@
+main {
+    position: relative;
+    display: inline-block;
+    width: 67%;
+    border: 1px solid #aaa;
+    min-height: 100px;
+    vertical-align: top;
+}
