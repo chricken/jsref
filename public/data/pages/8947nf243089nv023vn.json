@@ -1,0 +1,20 @@
+{
+    "content": [
+        {
+            "type": "text",
+            "header": "Yeah, Beispiel",
+            "content": [
+                "Hier ist ein Beispieltext.",
+                "Der totale Wahnsinn, oder?"
+            ]
+        },
+        {
+            "type": "code",
+            "header": "Supercode",
+            "content": [
+                "let x = 42;",
+                "console.log(x);"
+            ]
+        }
+    ]
+}
