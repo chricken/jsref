@@ -20,15 +20,36 @@ const appendEventlisteners = () => {
 }
 
 const renderPages = () => {
-    
+
+    const pgsStr = settings.pagesStructured;
+    els.containerPages.innerHTML = '';
+
     settings.pages.forEach((page, index) => {
+
         // Eintrag für eine Seite im Navigations-Container
-        compPages.pageContainer({
+        // Elemente Erzeugen und in ein Objekt schreiben
+        // Die Komponente liefert ein Objekt mit dem Container und dem Container für Kindelemente
+        pgsStr[page.id] = compPages.pageContainer({
             parent: els.containerPages,
             page,
-            index
+            index,
+            renderPages,
         })
     })
+    // Anhand der ID ineinander verschachteln
+    settings.pages.forEach((page, index) => {
+        console.log(page.id);
+        if (page.parent) {
+            // Wenn die Page ein parent hat,
+            // Dann wird die Page in den Kinder-Container eingehängt
+            pgsStr[page.parent].elChildren.append(pgsStr[page.id].container)
+        }
+
+    });
+    // Object.entries(pgsStr).forEach(([key, val]) => {
+    // console.log(key, val);
+
+    // })
 }
 
 const loadPages = () => {

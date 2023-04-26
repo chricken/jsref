@@ -8,17 +8,27 @@ aside {
     vertical-align: top;
 }
 
-aside .containerPage {
+aside .container.containerPage {
     background-color: var(--colorPage);
+    margin-right: 0;
+    padding-right: 0;
+    border-right: 0;
+    border-radius: 3px 0 0 3px;
+    margin-left: 2px;
 }
 
 aside .containerPage.open {
     background-color: var(--colorActivePage);
     border-width: 3px;
 }
-
-
-
+/*
+aside .containerPage .containerBtns {
+    display: none;
+}
+aside .containerPage.open .containerBtns {
+    display: block;
+}
+*/
 aside input.inputHeader {
     font-size: 1em;
     font-weight: bold;
@@ -34,6 +44,7 @@ aside textarea {
     padding: 5px;
     border: none;
 }
+
 aside textarea {
     height: 75px;
 }
@@ -56,6 +67,6 @@ aside .containerPage .details {
     display: none;
 }
 
-aside .containerPage.open .details {
+aside .containerPage.open > .details {
     display: block;
 }

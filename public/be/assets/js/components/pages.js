@@ -5,18 +5,20 @@ import ajax from '../ajax.js';
 import settings from '../settings.js';
 
 class Page {
-    constructor() {
-        let id = (Math.random()*1e17).toString(36);
+    constructor({
+        parent = ''
+    }) {
+        let id = (Math.random() * 1e17).toString(36);
         while (settings.pages.find(val => val.id == id)) {
             id = (Math.random() * 1e17).toString(36);
         }
-        
+
         this.id = id;
         this.author = '';
         this.crDate = Date.now();
         this.chDate = Date.now();
         this.overview = '';
-        this.parent = '';
+        this.parent = parent;
         this.title = '';
         this.visible = false;
     }
@@ -26,10 +28,11 @@ const pages = {
     pageContainer({
         parent = false,
         page = {},
-        index = false
+        index = false,
+        renderPages = () => { },
     } = {}) {
 
-        console.log(page);
+        // console.log(page);
 
         const container = dom.create({
             parent,
@@ -52,7 +55,8 @@ const pages = {
             classes: ['inputHeader'],
             listeners: {
                 input(evt) {
-                    page.title = evt.target.value
+                    page.title = evt.target.value;
+                    page.chDate = Date.now();
                 }
             }
         })
@@ -77,7 +81,8 @@ const pages = {
             value: page.overview,
             listeners: {
                 input(evt) {
-                    page.overview = evt.target.value
+                    page.overview = evt.target.value;
+                    page.chDate = Date.now();
                 }
             }
         })
@@ -117,39 +122,133 @@ const pages = {
             listeners: {
                 change(evt) {
                     page.visible = evt.target.checked;
-                    console.log(page);
+                    page.chDate = Date.now();
                 }
             }
         })
         if (page.visible) cbVisible.checked = true;
 
-        // Speichern-Button
+        // Kinder-Elemente
+        let elChildren = dom.create({
+            parent: container,
+            classes: ['childrenContainer']
+        })
+
+        // Buttons
         let btnSave = dom.create({
             type: 'button',
             parent: details,
             content: 'Save',
             listeners: {
-                click() {
+                click(evt) {
                     evt.stopPropagation();
-                    ajax.savePages()
+                    ajax.savePages().then(
+                        renderPages
+                    )
                 }
             }
         })
 
-        // Neue Page unter dieser
-        let btnNewBelow = dom.create({
+        // Andere Buttons
+        const containerBtn = dom.create({
+            classes: ['containerBtns'],
+            parent: container
+        })
+
+        // Neue Page ÜBER dieser
+        dom.create({
             type: 'button',
-            parent: container,
+            parent: containerBtn,
+            content: '+ above',
+            listeners: {
+                click(evt) {
+                    evt.stopPropagation();
+
+                    // Neue Seite erzeugen
+                    let newPage = new Page({
+                        parent: page.parent
+                    });
+
+                    // Neue Seite in Liste eintragen
+                    settings.pages.splice(index, 0, newPage);
+
+                    // Pages sichern, dann neu rendern
+                    ajax.savePages().then(
+                        renderPages
+                    )
+                }
+            }
+        })
+
+        // Neue Seite UNTER dieser
+        dom.create({
+            type: 'button',
+            parent: containerBtn,
             content: '+ below',
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-                    let newPage = new Page();
 
+                    // Neue Seite erzeugen
+                    let newPage = new Page({
+                        parent: page.parent
+                    });
+
+                    // Neue Seite in Liste eintragen
+                    settings.pages.splice(index + 1, 0, newPage);
+
+                    // Pages sichern, dann neu rendern
+                    ajax.savePages().then(
+                        renderPages
+                    )
                 }
             }
         })
 
+        // Neue Seite IN dieser
+        dom.create({
+            type: 'button',
+            parent: containerBtn,
+            content: '+ inside',
+            listeners: {
+                click(evt) {
+                    evt.stopPropagation();
+
+                    // Neue Seite erzeugen
+                    let newPage = new Page({
+                        parent: page.id
+                    });
+
+                    // Neue Seite in Liste eintragen
+                    settings.pages.splice(index + 1, 0, newPage);
+
+                    // Pages sichern, dann neu rendern
+                    ajax.savePages().then(
+                        renderPages
+                    )
+                }
+            }
+        })
+
+        // Diese Seite entfernen
+        dom.create({
+            type: 'button',
+            parent: containerBtn,
+            content: 'Löschen',
+            listeners: {
+                click(evt) {
+                    evt.stopPropagation();
+                    if (confirm(`Seite "${page.title}" wirklich löschen?\nACHTUNG: Diese Aktion kann nicht zurückgenommen werden!`)) {
+                        settings.pages.splice(index, 1);
+                        ajax.savePages().then(
+                            renderPages
+                        );
+                    }
+                }
+            }
+        })
+
+        return { container, elChildren };
 
     }
 }
