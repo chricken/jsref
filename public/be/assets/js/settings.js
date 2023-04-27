@@ -4,7 +4,8 @@ const settings = {
     urlPages:'/data/pages.json',
     elements: {},
     pages:false,
-    pagesStructured:{}
+    pagesStructured:{},
+    activePageID:false,
 }
 
 export default settings;

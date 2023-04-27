@@ -16,6 +16,7 @@ server.use(express.json());
 // Variablen
 const paths = {
     pages: 'public/data/pages.json',
+    pageFiles: 'public/data/pages/',
 }
 
 const init = () => {
@@ -24,7 +25,7 @@ const init = () => {
 
 // Routen
 server.post('/savePages', (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     if (request.body) {
         fs.writeFile(
             paths.pages,
@@ -35,7 +36,40 @@ server.post('/savePages', (request, response) => {
             }
         )
     }
+})
 
+server.post('/createPageFile', (request, response) => {
+    fs.writeFile(
+        `${paths.pageFiles}${request.body.id}.json`,
+        JSON.stringify({
+            content: []
+        }),
+        err => {
+            if (err) response.json({ status: 'err', err })
+            else response.json({ status: 'ok' })
+        }
+    )
+})
+
+server.post('/getSinglePage', (request, response) => {
+    // console.log(request.body.id);
+    fs.readFile(
+        `${paths.pageFiles}${request.body.id}.json`,
+        (err, content) => {
+            if (err) {
+                console.log(err);
+                response.json({
+                    status: err,
+                    err
+                })
+            } else {
+                response.json({
+                    status: 'ok',
+                    content: JSON.parse(content.toString())
+                });
+            }
+        }
+    )
 })
 
 init();

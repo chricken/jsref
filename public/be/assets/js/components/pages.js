@@ -23,8 +23,30 @@ class Page {
         this.visible = false;
     }
 }
-
 const pages = {
+    createNewPage(newIndex, parentID, callback) {
+        // Neue Seite erzeugen
+        let newPage = new Page({
+            parent: parentID
+        });
+
+        // Neue Seitendatei anlegen
+        ajax.createPageFile(newPage.id);
+
+        // Neue Seite in Liste eintragen
+        settings.pages.splice(newIndex, 0, newPage);
+
+        // Pages sichern, dann neu rendern
+        ajax.savePages().then(
+            callback
+        ).then(
+            () => {
+                let el = settings.pagesStructured[newPage.id].container;
+                el.classList.add('open');
+                el.querySelector('.inputHeader').focus();
+            }
+        )
+    },
     pageContainer({
         parent = false,
         page = {},
@@ -38,11 +60,29 @@ const pages = {
             parent,
             classes: ['container', 'containerPage'],
             listeners: {
-                click() {
+                click(evt) {
+                    evt.stopPropagation();
                     dom.$$('aside .containerPage').forEach(el => {
                         el.classList.remove('open')
                     })
-                    container.classList.add('open')
+                    container.classList.add('open');
+                    settings.activePageID = page.id;
+                    ajax.openSinglePage();
+                },
+                mouseenter(evt) {
+                    evt.stopPropagation();
+                    /*
+                    console.log(evt.target);
+                    dom.$$('aside .containerPage').forEach(el => {
+                        el.classList.remove('hover')
+                    })
+                    */
+                    container.classList.add('hover')
+                },
+                mouseleave(evt) {
+                    dom.$$('aside .containerPage')
+                    evt.stopPropagation();
+                    container.classList.remove('hover')
                 }
             }
         })
@@ -50,21 +90,34 @@ const pages = {
         // Title
         dom.create({
             parent: container,
-            type: 'input',
-            value: page.title,
-            classes: ['inputHeader'],
-            listeners: {
-                input(evt) {
-                    page.title = evt.target.value;
-                    page.chDate = Date.now();
-                }
-            }
+            content: page.title,
+            classes: ['divHeader'],
         })
 
         // Container für Details, die ausgeblendet werden können
         const details = dom.create({
             parent: container,
             classes: ['details']
+        })
+
+        // Title
+        dom.create({
+            parent: details,
+            type: 'input',
+            value: page.title,
+            classes: ['inputHeader'],
+            attr: {
+                type: 'text'
+            },
+            listeners: {
+                input(evt) {
+                    page.title = evt.target.value;
+                    page.chDate = Date.now();
+                },
+                change() {
+                    ajax.savePages();
+                }
+            }
         })
 
         // ID
@@ -83,6 +136,9 @@ const pages = {
                 input(evt) {
                     page.overview = evt.target.value;
                     page.chDate = Date.now();
+                },
+                change() {
+                    ajax.savePages();
                 }
             }
         })
@@ -123,22 +179,19 @@ const pages = {
                 change(evt) {
                     page.visible = evt.target.checked;
                     page.chDate = Date.now();
+                    ajax.savePages();
                 }
             }
         })
         if (page.visible) cbVisible.checked = true;
 
-        // Kinder-Elemente
-        let elChildren = dom.create({
-            parent: container,
-            classes: ['childrenContainer']
-        })
 
         // Buttons
         let btnSave = dom.create({
             type: 'button',
             parent: details,
-            content: 'Save',
+            content: '🖫',
+            classes: ['btnHighlight'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
@@ -158,24 +211,13 @@ const pages = {
         // Neue Page ÜBER dieser
         dom.create({
             type: 'button',
-            parent: containerBtn,
-            content: '+ above',
+            parent: details,
+            content: '⇗',
+            classes: ['btnShy'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-
-                    // Neue Seite erzeugen
-                    let newPage = new Page({
-                        parent: page.parent
-                    });
-
-                    // Neue Seite in Liste eintragen
-                    settings.pages.splice(index, 0, newPage);
-
-                    // Pages sichern, dann neu rendern
-                    ajax.savePages().then(
-                        renderPages
-                    )
+                    pages.createNewPage(index, page.parent, renderPages);
                 }
             }
         })
@@ -183,24 +225,13 @@ const pages = {
         // Neue Seite UNTER dieser
         dom.create({
             type: 'button',
-            parent: containerBtn,
-            content: '+ below',
+            parent: details,
+            content: '⇘',
+            classes: ['btnShy'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-
-                    // Neue Seite erzeugen
-                    let newPage = new Page({
-                        parent: page.parent
-                    });
-
-                    // Neue Seite in Liste eintragen
-                    settings.pages.splice(index + 1, 0, newPage);
-
-                    // Pages sichern, dann neu rendern
-                    ajax.savePages().then(
-                        renderPages
-                    )
+                    pages.createNewPage(index + 1, page.parent, renderPages);
                 }
             }
         })
@@ -208,24 +239,13 @@ const pages = {
         // Neue Seite IN dieser
         dom.create({
             type: 'button',
-            parent: containerBtn,
-            content: '+ inside',
+            parent: details,
+            content: '⇒',
+            classes: ['btnShy'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-
-                    // Neue Seite erzeugen
-                    let newPage = new Page({
-                        parent: page.id
-                    });
-
-                    // Neue Seite in Liste eintragen
-                    settings.pages.splice(index + 1, 0, newPage);
-
-                    // Pages sichern, dann neu rendern
-                    ajax.savePages().then(
-                        renderPages
-                    )
+                    pages.createNewPage(index + 1, page.id, renderPages);
                 }
             }
         })
@@ -233,8 +253,9 @@ const pages = {
         // Diese Seite entfernen
         dom.create({
             type: 'button',
-            parent: containerBtn,
-            content: 'Löschen',
+            parent: details,
+            content: '✖',
+            classes: ['btnShy'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
@@ -246,6 +267,12 @@ const pages = {
                     }
                 }
             }
+        })
+
+        // Kinder-Elemente
+        let elChildren = dom.create({
+            parent: container,
+            classes: ['childrenContainer']
         })
 
         return { container, elChildren };

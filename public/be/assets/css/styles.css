@@ -12,7 +12,9 @@
 :root {
     --colorShyText: #888;
     --colorPage: #eee;
-    --colorActivePage: #f5f5f5;
+    --colorActivePage: #e9eea7;
+    --colorHoverPage: #ffffff;
+    --colorHighlight: #6a4914;;
 }
 
 html,
@@ -31,4 +33,24 @@ body {
     background: #eee;
     border: 1px solid #aaa;
     border-radius: 5px;
+}
+button {
+    font-size:1.5em;
+    font-weight: bold;
+    cursor: pointer;
+}
+button.btnShy {
+    border: none;
+    font-weight: normal;
+    background: transparent;
+    cursor: pointer;
+    border-radius:5px;
+}
+button:hover {
+    background: #000;
+    color: #fff;
+}
+button.btnHighlight {
+    background: var(--colorHighlight);
+    color:#fff;
 }

@@ -1,1 +1,34 @@
-{"pages":[{"id":"123","title":"Home","overview":"Erste Seite mit Einführung, krass","crDate":123456,"chDate":1682518896301,"author":"C. Heisch","parent":false,"visible":true},{"id":"1vqfogzg7mp","author":"","crDate":1682518762260,"chDate":1682518762260,"overview":"","parent":"123","title":"Welt","visible":false},{"id":"8947nf243089nv023vn","title":"Beispiel","overview":"Dies ist nur ein Beispiel von vielen","crDate":123456,"chDate":1234654411256,"author":"C. Heisch","parent":"123","visible":false}]}
+{
+    "pages": [
+        {
+            "id": "123",
+            "title": "Home",
+            "overview": "Erste Seite mit Einführung, krass",
+            "crDate": 1672518896301,
+            "chDate": 1682518896301,
+            "author": "C. Heisch",
+            "parent": false,
+            "visible": true
+        },
+        {
+            "id": "h9un3qghdco",
+            "author": "",
+            "crDate": 1682600633015,
+            "chDate": 1682600639157,
+            "overview": "",
+            "parent": false,
+            "title": "Neue Seite",
+            "visible": false
+        },
+        {
+            "id": "95ju0mwg8c4",
+            "author": "",
+            "crDate": 1682600931646,
+            "chDate": 1682600946131,
+            "overview": "",
+            "parent": "h9un3qghdco",
+            "title": "inner",
+            "visible": false
+        }
+    ]
+}

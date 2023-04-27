@@ -12,27 +12,40 @@ aside .container.containerPage {
     background-color: var(--colorPage);
     margin-right: 0;
     padding-right: 0;
-    border-right: 0;
-    border-radius: 3px 0 0 3px;
-    margin-left: 2px;
+    border: 0;
+    border-left: 3px solid #aaa;
+    border-radius: 0;
+    margin-left: 0px;
+    padding: 3px;
 }
 
+aside .containerPage:hover {
+    /* background-color: var(--colorHoverPage); */
+
+}
 aside .containerPage.open {
     background-color: var(--colorActivePage);
-    border-width: 3px;
+    border: 2px solid #f00;
 }
-/*
+
 aside .containerPage .containerBtns {
     display: none;
 }
-aside .containerPage.open .containerBtns {
+
+/* aside .containerPage.hover > .containerBtns , */
+aside .containerPage.open>.containerBtns {
     display: block;
 }
-*/
+
+aside .containerPage .divHeader {}
+
+aside .containerPage.open > .divHeader {
+    display: none;
+}
+
 aside input.inputHeader {
     font-size: 1em;
-    font-weight: bold;
-
+    /* font-weight: bold; */
 }
 
 aside input,
@@ -43,6 +56,16 @@ aside textarea {
     font-size: .8em;
     padding: 5px;
     border: none;
+    border-radius: 2px;
+}
+
+aside input[type="checkbox"] {
+    width: auto;
+}
+
+aside input[type="text"]:focus,
+aside textarea:focus {
+    outline: 1px solid #000;
 }
 
 aside textarea {
@@ -67,6 +90,10 @@ aside .containerPage .details {
     display: none;
 }
 
-aside .containerPage.open > .details {
+aside .containerPage.open>.details {
     display: block;
+}
+
+aside .containerBtns {
+    margin: 5px;
 }
