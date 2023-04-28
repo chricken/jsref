@@ -54,7 +54,7 @@ const ajax = {
         ).then(
             res => {
                 console.log(res);
-                content.renderPageContent(res)
+                content.renderPageContent(res.payload)
             }
         )
     },

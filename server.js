@@ -52,7 +52,7 @@ server.post('/createPageFile', (request, response) => {
 })
 
 server.post('/getSinglePage', (request, response) => {
-    // console.log(request.body.id);
+    console.log(request.body.id);
     fs.readFile(
         `${paths.pageFiles}${request.body.id}.json`,
         (err, content) => {
@@ -65,7 +65,7 @@ server.post('/getSinglePage', (request, response) => {
             } else {
                 response.json({
                     status: 'ok',
-                    content: JSON.parse(content.toString())
+                    payload: JSON.parse(content.toString())
                 });
             }
         }

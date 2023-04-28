@@ -54,3 +54,7 @@ button.btnHighlight {
     background: var(--colorHighlight);
     color:#fff;
 }
+
+input, textarea {
+    font-family: 'Museo_Slab_500';
+}

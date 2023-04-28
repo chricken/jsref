@@ -38,7 +38,6 @@ const renderPages = () => {
     })
     // Anhand der ID ineinander verschachteln
     settings.pages.forEach((page, index) => {
-        console.log(page.id);
         if (page.parent) {
             // Wenn die Page ein parent hat,
             // Dann wird die Page in den Kinder-Container eingehängt

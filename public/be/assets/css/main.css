@@ -6,3 +6,11 @@ main {
     min-height: 100px;
     vertical-align: top;
 }
+
+.containerParagraph textarea {
+    width: 90%;
+    height: 150px;
+    font-family: 'Museo_Slab_500';
+    font-size: .8em;
+    color: #444;
+}

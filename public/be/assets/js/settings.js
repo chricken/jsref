@@ -6,6 +6,7 @@ const settings = {
     pages:false,
     pagesStructured:{},
     activePageID:false,
+    cutPage:false
 }
 
 export default settings;

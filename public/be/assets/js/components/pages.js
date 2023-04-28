@@ -269,6 +269,51 @@ const pages = {
             }
         })
 
+        // Diese Seite entfernen
+        dom.create({
+            type: 'button',
+            parent: details,
+            content: '✂',
+            classes: ['btnShy'],
+            listeners: {
+                click(evt) {
+                    evt.stopPropagation();
+                    console.log(page);
+                    settings.cutPage = page;
+                    renderPages();
+                }
+            }
+        })
+        // Testen, ob die Seite eingefügt werden darf
+        let canBePasted = true;
+        if (!settings.cutPage) canBePasted = false;
+        // Sichergehen, dass ein Element nicht ein eigenes Kind-Element verschoben wird
+        const checkID = page => {
+
+            if (settings.cutPage.id == page.id) canBePasted = false;
+            // Eltern-Element prüfen, ob hier eine Übereinstimmung vorliegt
+            if (page.parent) checkID(settings.pages.find(val => val.id == page.parent));
+        }
+        checkID(page);
+
+        // In diese Seite einfügen
+        if (canBePasted) {
+            dom.create({
+                type: 'button',
+                parent: details,
+                content: '⎘',
+                classes: ['btnShy'],
+                listeners: {
+                    click(evt) {
+                        evt.stopPropagation();
+                        settings.cutPage.parent = page.id;
+                        renderPages();
+
+                    }
+                }
+            })
+        }
+
         // Kinder-Elemente
         let elChildren = dom.create({
             parent: container,
