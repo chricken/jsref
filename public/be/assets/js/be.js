@@ -36,6 +36,7 @@ const renderPages = () => {
             renderPages,
         })
     })
+    
     // Anhand der ID ineinander verschachteln
     settings.pages.forEach((page, index) => {
         if (page.parent) {

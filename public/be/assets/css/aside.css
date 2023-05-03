@@ -7,6 +7,12 @@ aside {
     border: 1px solid #aaa;
     vertical-align: top;
 }
+aside .divHeader {
+    cursor: pointer;
+}
+aside .divHeader:hover {
+    background-color: rgba(0,0,0,.1);
+}
 
 aside .container.containerPage {
     background-color: var(--colorPage);

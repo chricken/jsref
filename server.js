@@ -72,4 +72,24 @@ server.post('/getSinglePage', (request, response) => {
     )
 })
 
+server.post('/savePageFile', (request, response) => {
+    console.log(request.body);
+    fs.writeFile(
+        `public/data/pages/${request.body.id}.json`,
+        JSON.stringify(request.body.payload),
+        err => {
+            if(err){
+                response.json({
+                    status: 'err',
+                    err
+                })
+            }else {
+                response.json({
+                    status: 'ok'
+                })
+            }
+        }
+    )
+})
+
 init();

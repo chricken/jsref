@@ -1,0 +1,28 @@
+{
+    "content": [
+        {
+            "type": "header",
+            "text": "Krass"
+        },
+        {
+            "type": "paragraph",
+            "text": "A content management system, or CMS for short, is a software application that allows you to create, manage, and publish digital content. CMSs are designed to make it easy for non-technical users to publish content to the web without needing to know HTML or other coding languages."
+        },
+        {
+            "type": "subheader",
+            "text": "Superkrass"
+        },
+        {
+            "type": "paragraph",
+            "text": "There are many different CMSs available, ranging from small and simple ones that are easy to set up, to large and complex ones that are used by major corporations and government agencies. Some of the most popular CMSs include WordPress, Drupal, and Joomla."
+        },
+        {
+            "type": "code",
+            "text": "'use strict';\nlet x = 42;\nconsole.log(x);"
+        },
+        {
+            "type": "paragraph",
+            "text": "CMSs make it easy to create different types of content, such as blog posts, pages, and even e-commerce products. You can customize the design and layout of your website using themes or templates, which can be found within the CMS or purchased from third-party providers."
+        }
+    ]
+}

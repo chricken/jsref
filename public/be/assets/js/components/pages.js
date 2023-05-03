@@ -71,12 +71,6 @@ const pages = {
                 },
                 mouseenter(evt) {
                     evt.stopPropagation();
-                    /*
-                    console.log(evt.target);
-                    dom.$$('aside .containerPage').forEach(el => {
-                        el.classList.remove('hover')
-                    })
-                    */
                     container.classList.add('hover')
                 },
                 mouseleave(evt) {

@@ -7,10 +7,33 @@ main {
     vertical-align: top;
 }
 
-.containerParagraph textarea {
-    width: 90%;
+.containerParagraph textarea,
+.containerCode textarea {
+    width: 95%;
     height: 150px;
-    font-family: 'Museo_Slab_500';
+    padding: 5px;
     font-size: .8em;
+    border:1px solid #888;
+    border-radius: 5px;
+}
+
+.containerParagraph textarea {
+    font-family: 'allerregular';
     color: #444;
+}
+.container.containerCode  {
+    background-color: rgb(194, 194, 214);
+}
+.containerCode textarea {
+    font-family: 'luxi_monoregular';
+    color: #384d68;
+}
+.containerHeader input {
+    font-size: 2em;
+}
+.containerSubheader input {
+    font-size: 1.1em;
+}
+.containerBtns {
+    text-align: right;
 }

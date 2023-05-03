@@ -9,6 +9,23 @@
     font-style: normal;
 }
 
+@font-face {
+    font-family: 'allerregular';
+    src: url('/assets/fonts/Aller/webfontkit-20230503-085131/aller_rg-webfont.woff2') format('woff2'),
+         url('/assets/fonts/Aller/webfontkit-20230503-085131/aller_rg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'luxi_monoregular';
+    src: url('/assets/fonts/Luxi-Mono/webfontkit-20230503-085057/luximr-webfont.woff2') format('woff2'),
+         url('/assets/fonts/Luxi-Mono/webfontkit-20230503-085057/luximr-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
 :root {
     --colorShyText: #888;
     --colorPage: #eee;
@@ -35,9 +52,20 @@ body {
     border-radius: 5px;
 }
 button {
+    /*
     font-size:1.5em;
     font-weight: bold;
+    */
     cursor: pointer;
+}
+button.rot {
+    background-color: rgb(238, 173, 173);
+}
+button.yellow {
+    background-color: rgb(238, 228, 173);
+}
+button.green {
+    background-color: rgb(186, 238, 173);
 }
 button.btnShy {
     border: none;

@@ -29,6 +29,25 @@ const ajax = {
         )
     },
 
+    savePageFile() {
+        // console.log(settings.activePageID);
+        // console.log(settings.pageData);
+        return fetch('/savePageFile', {
+            method: 'post',
+            headers: { 'content-type': 'application/json' },
+            body: JSON.stringify({
+                id: settings.activePageID,
+                payload: settings.pageData
+            })
+        }).then(
+            res => res.json()
+        ).then(
+            console.log
+        ).catch(
+            console.warn
+        )
+    },
+
     createPageFile(id) {
 
         return fetch('/createPageFile', {
@@ -53,8 +72,9 @@ const ajax = {
             res => res.json()
         ).then(
             res => {
-                console.log(res);
-                content.renderPageContent(res.payload)
+                // console.log(res);
+                settings.pageData = res.payload;
+                content.renderPageContent()
             }
         )
     },
