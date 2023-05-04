@@ -103,3 +103,7 @@ aside .containerPage.open>.details {
 aside .containerBtns {
     margin: 5px;
 }
+aside .container.containerPage.moveMe {
+    border-left-width: 10px;
+    border-left-color: #f00;
+}

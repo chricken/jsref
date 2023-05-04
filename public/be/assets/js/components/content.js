@@ -7,18 +7,23 @@ import ajax from '/be/assets/js/ajax.js';
 const content = {
     data: {},
     addContentGedoens(parent) {
-        
+
     },
     plusParagraph(index, parent) {
         // Header erzeugen
         dom.create({
             type: 'button',
             content: '+ Header',
-            classes:['green'],
+            classes: ['green'],
             parent,
             listeners: {
                 click() {
-                    settings.pageData.content.splice(index, 0, { type: 'header', text: '' });
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'header',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        text: ''
+                    });
                     content.renderPageContent(content.data);
                 }
             }
@@ -27,11 +32,16 @@ const content = {
         dom.create({
             type: 'button',
             content: '+ Subheader',
-            classes:['green'],
+            classes: ['green'],
             parent,
             listeners: {
                 click() {
-                    settings.pageData.content.splice(index, 0, { type: 'subheader', text: '' });
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'subheader',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        text: ''
+                    });
                     content.renderPageContent(content.data);
                 }
             }
@@ -40,11 +50,16 @@ const content = {
         dom.create({
             type: 'button',
             content: '+ Text',
-            classes:['green'],
+            classes: ['green'],
             parent,
             listeners: {
                 click() {
-                    settings.pageData.content.splice(index, 0, { type: 'paragraph', text: '' });
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'paragraph',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        text: ''
+                    });
                     content.renderPageContent(content.data);
                 }
             }
@@ -53,11 +68,16 @@ const content = {
         dom.create({
             type: 'button',
             content: '+ Code',
-            classes:['green'],
+            classes: ['green'],
             parent,
             listeners: {
                 click() {
-                    settings.pageData.content.splice(index, 0, { type: 'code', text: '' });
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'code',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        text: ''
+                    });
                     content.renderPageContent(content.data);
                 }
             }
@@ -70,7 +90,7 @@ const content = {
             type: 'button',
             content: '- Paragraph',
             parent,
-            classes:['rot'],
+            classes: ['rot'],
             listeners: {
                 click() {
                     settings.pageData.content.splice(index, 1);
@@ -79,13 +99,13 @@ const content = {
             }
         })
     },
-    
+
     // Button, um den Inhalt zu speichern
     saveContent(parent) {
         dom.create({
             type: 'button',
             content: 'Save Content',
-            classes:['yellow'],
+            classes: ['yellow'],
             parent,
             listeners: {
                 click() {
@@ -93,6 +113,30 @@ const content = {
                 }
             }
         })
+    },
+
+    // Timestamps, um die Aktualität einzuschätzen
+    timestamps(el, parent) {
+
+        const elTimestamp = dom.create({
+            parent,
+            classes: ['timestamps']
+        })
+
+        if (el.crDate) {
+            dom.create({
+                parent: elTimestamp,
+                type: 'span',
+                content: `Created: ${new Date(el.crDate).toLocaleDateString()}`
+            })
+        }
+        if (el.crDate) {
+            dom.create({
+                parent: elTimestamp,
+                type: 'span',
+                content: `Last Changed: ${new Date(el.chDate).toLocaleDateString()}`
+            })
+        }
     },
 
     paragraph(el, index) {
@@ -108,7 +152,8 @@ const content = {
             listeners: {
                 input(evt) {
                     el.text = evt.target.value;
-                    // console.log(el);
+                    el.chDate = Date.now();
+                    console.log(el);
                 }
             }
         })
@@ -121,6 +166,8 @@ const content = {
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
         content.saveContent(container);
+
+        content.timestamps(el, container);
 
     },
 
@@ -137,7 +184,7 @@ const content = {
             listeners: {
                 input(evt) {
                     el.text = evt.target.value;
-                    // console.log(el);
+                    el.chDate = Date.now();
                 }
             }
         })
@@ -150,6 +197,8 @@ const content = {
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
         content.saveContent(container);
+
+        content.timestamps(el, container);
 
     },
 
@@ -169,7 +218,7 @@ const content = {
             listeners: {
                 input(evt) {
                     el.text = evt.target.value;
-                    // console.log(el);
+                    el.chDate = Date.now();
                 }
             }
         })
@@ -182,6 +231,8 @@ const content = {
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
         content.saveContent(container);
+
+        content.timestamps(el, container);
     },
 
     subheader(el, index) {
@@ -200,7 +251,7 @@ const content = {
             listeners: {
                 input(evt) {
                     el.text = evt.target.value;
-                    // console.log(el);
+                    el.chDate = Date.now();
                 }
             }
         })
@@ -213,6 +264,8 @@ const content = {
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
         content.saveContent(container);
+
+        content.timestamps(el, container);
     },
 
     renderPageContent() {

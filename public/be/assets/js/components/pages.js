@@ -58,7 +58,7 @@ const pages = {
 
         const container = dom.create({
             parent,
-            classes: ['container', 'containerPage'],
+            classes: ['container', 'containerPage', page.moveMe ? 'moveMe' : ''],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
@@ -181,9 +181,13 @@ const pages = {
 
 
         // Buttons
+        let containerBtns = dom.create({
+            parent: details
+        })
+
         let btnSave = dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '🖫',
             classes: ['btnHighlight'],
             listeners: {
@@ -197,7 +201,8 @@ const pages = {
         })
 
         // Andere Buttons
-        const containerBtn = dom.create({
+        containerBtns = dom.create({
+            content: 'Erzeugen: ',
             classes: ['containerBtns'],
             parent: container
         })
@@ -205,7 +210,7 @@ const pages = {
         // Neue Page ÜBER dieser
         dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '⇗',
             classes: ['btnShy'],
             listeners: {
@@ -219,7 +224,7 @@ const pages = {
         // Neue Seite UNTER dieser
         dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '⇘',
             classes: ['btnShy'],
             listeners: {
@@ -233,7 +238,7 @@ const pages = {
         // Neue Seite IN dieser
         dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '⇒',
             classes: ['btnShy'],
             listeners: {
@@ -247,7 +252,7 @@ const pages = {
         // Diese Seite entfernen
         dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '✖',
             classes: ['btnShy'],
             listeners: {
@@ -263,16 +268,26 @@ const pages = {
             }
         })
 
+        containerBtns = dom.create({
+            content: 'Copy Paste: ',
+            classes: ['containerBtns'],
+            parent: container
+        })
+
         // Diese Seite entfernen
         dom.create({
             type: 'button',
-            parent: details,
+            parent: containerBtns,
             content: '✂',
             classes: ['btnShy'],
             listeners: {
                 click(evt) {
+                    // moveMe bedeutet: Dieses Element wird verschoben
+                    // Allen cutOut-Elementen die Klasse entfernen
+                    settings.pages.forEach(page => page.moveMe = false);
+                    page.moveMe = true;
                     evt.stopPropagation();
-                    console.log(page);
+                    // console.log(page);
                     settings.cutPage = page;
                     renderPages();
                 }
@@ -290,8 +305,93 @@ const pages = {
         }
         checkID(page);
 
-        // In diese Seite einfügen
+        // ÜBER diese einfügen
         if (canBePasted) {
+            dom.create({
+                type: 'button',
+                parent: containerBtns,
+                content: '⇗',
+                classes: ['btnShy'],
+                listeners: {
+                    click(evt) {
+                        evt.stopPropagation();
+                        // Seite ausschneiden
+                        settings.pages = settings.pages.filter(
+                            page => page != settings.cutPage
+                        );
+                        // An der richtigen Stelle neu einfügen
+                        let newIndex = settings.pages.indexOf(page);
+                        settings.pages.splice(newIndex, 0, settings.cutPage);
+                        // Eltern-ID übertragen
+                        settings.cutPage.parent = page.parent;
+                        settings.cutPage.moveMe = false;
+                        settings.cutPage = false;
+                        // Speichern
+                        ajax.savePages().then(
+                            renderPages
+                        )
+                    }
+                }
+            })
+
+            // UNTER diese verschieben
+            dom.create({
+                type: 'button',
+                parent: containerBtns,
+                content: '⇘',
+                classes: ['btnShy'],
+                listeners: {
+                    click(evt) {
+                        evt.stopPropagation();
+                        // Seite ausschneiden
+                        settings.pages = settings.pages.filter(
+                            page => page != settings.cutPage
+                        );
+                        // An der richtigen Stelle neu einfügen
+                        let newIndex = settings.pages.indexOf(page);
+                        settings.pages.splice(newIndex + 1, 0, settings.cutPage);
+                        // Eltern-ID übertragen
+                        settings.cutPage.parent = page.parent;
+                        settings.cutPage.moveMe = false;
+                        settings.cutPage = false;
+                        // Speichern
+                        ajax.savePages().then(
+                            renderPages
+                        )
+                    }
+                }
+            })
+
+            // IN diese einfügen
+            dom.create({
+                type: 'button',
+                parent: containerBtns,
+                content: '⇒',
+                classes: ['btnShy'],
+                listeners: {
+                    click(evt) {
+                        evt.stopPropagation();
+                        // Seite ausschneiden
+                        settings.pages = settings.pages.filter(
+                            page => page != settings.cutPage
+                        );
+                        // An der richtigen Stelle neu einfügen
+                        // let newIndex = settings.pages.indexOf(page);
+                        // Neues Element ans Ende des Array hängen hat den Effekt, dass die Seite als letztes gefunden und in das Parent-Element eingehängt wird.
+                        settings.pages.push(settings.cutPage);
+                        // Eltern-ID übertragen
+                        settings.cutPage.parent = page.id;
+                        settings.cutPage.moveMe = false;
+                        settings.cutPage = false;
+                        // Speichern
+                        console.log(settings.pages);
+                        ajax.savePages().then(
+                            renderPages
+                        )
+                    }
+                }
+            })
+            /*
             dom.create({
                 type: 'button',
                 parent: details,
@@ -306,6 +406,7 @@ const pages = {
                     }
                 }
             })
+            */
         }
 
         // Kinder-Elemente

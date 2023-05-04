@@ -52,7 +52,7 @@ server.post('/createPageFile', (request, response) => {
 })
 
 server.post('/getSinglePage', (request, response) => {
-    console.log(request.body.id);
+    // console.log(request.body.id);
     fs.readFile(
         `${paths.pageFiles}${request.body.id}.json`,
         (err, content) => {
@@ -73,7 +73,7 @@ server.post('/getSinglePage', (request, response) => {
 })
 
 server.post('/savePageFile', (request, response) => {
-    console.log(request.body);
+    // console.log(request.body);
     fs.writeFile(
         `public/data/pages/${request.body.id}.json`,
         JSON.stringify(request.body.payload),

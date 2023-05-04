@@ -1,1 +1,22 @@
-{"content":[{"type":"header","text":"Krass"},{"type":"paragraph","text":"A content management system, or CMS for short, is a software application that allows you to create, manage, and publish digital content. CMSs are designed to make it easy for non-technical users to publish content to the web without needing to know HTML or other coding languages."},{"type":"subheader","text":"Superkrass"},{"type":"paragraph","text":"There are many different CMSs available, ranging from small and simple ones that are easy to set up, to large and complex ones that are used by major corporations and government agencies. Some of the most popular CMSs include WordPress, Drupal, and Joomla."},{"type":"code","text":"'use strict';\nlet x = 42;\nconsole.log(x);"},{"type":"paragraph","text":"CMSs make it easy to create different types of content, such as blog posts, pages, and even e-commerce products. You can customize the design and layout of your website using themes or templates, which can be found within the CMS or purchased from third-party providers."}]}
+{
+    "content": [
+        {
+            "crDate": 1683203099843,
+            "chDate": 1683203099843,
+            "type": "header",
+            "text": "JS Referenz"
+        },
+        {
+            "crDate": 1683203099843,
+            "chDate": 1683203099843,
+            "type": "paragraph",
+            "text": "Diese Webseite ist im Zuge des Javascript-Kurses von <a href=\"http://alfatraining.de\" target=\"_blank\">Alfa-Training</a> entstanden.\nHier wird der gesamte Inhalt des Kurses in Form einer Referenz dargestellt. Diese Referenz dient nicht dazu, Javascript von vorn bis hinten zu lernen sondern nur als Referenz und setzt ein gewisses Grundverständnis voraus."
+        },
+        {
+            "crDate": 1683203099843,
+            "chDate": 1683203099843,
+            "type": "paragraph",
+            "text": "Auf dieser Webseite wird ausschließlich moderner Code verwendet. Jedenfalls \"modern\" zum Zeitpunkt des Schreibens ;)\nSyntax, die mittlerweile duch bessere Alternativen ersetzt wurde, wird hier nicht weiter behandelt, bestenfalls erwähnt. Jede Seite und jeder Absatz trägt ein Datum der letzten Änderung, damit die Aktualität abgeschätzt werden kann."
+        }
+    ]
+}
