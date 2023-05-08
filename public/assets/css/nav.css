@@ -1,9 +1,57 @@
-nav {
-
-}
+nav {}
 
 nav .link {
     position: relative;
     display: block;
-    margin-left: 10px;
+    margin-left: 12px;
+}
+
+.link>.link {
+    display: none;
+}
+
+.link.open>.link {
+    display: block;
+}
+
+nav .link .extender {
+    position: absolute;
+    display: block;
+    border: 2px solid #000;
+    width: 10px;
+    height: 10px;
+    left: -17px;
+    top: 3px;
+}
+
+nav .link .iconPlus,
+nav .link .iconMinus {
+    position: absolute;
+    background: #000;
+    color: #fff;
+    text-align: center;
+    width: 8px;
+    height: 8px;
+    left: 1px;
+    top: 1px;
+    background-image: url(/assets/img/icon_plus.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+nav .link>a>.extender .iconMinus {
+    background-image: url(/assets/img/icon_minus.png);
+    display: none;  
+}
+
+nav .link>a>.extender .iconPlus {
+    display: block;
+}
+
+nav .link.open>a>.extender .iconPlus {
+    display: none;
+}
+
+nav .link.open>a>.extender .iconMinus {
+    display: block;
 }

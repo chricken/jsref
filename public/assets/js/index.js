@@ -37,13 +37,23 @@ const parentize = arrPages => {
     })
 }
 
+const anyChildrenVisible = page => {
+    return page.children.some(el => el.visible);
+}
+
 const renderNav = () => {
     // Funktion, um Element anzulegen
     const createLink = (page, parent) => {
         // console.log(page);
         if (page.visible) {
-        const link = components.navLink(page, parent);
-            page.children.forEach(page => createLink(page, link));
+            // Navigationslink erzeugen. Die Rückgabewerte sind der Container und das a-Tag (Link)
+            const {container, link} = components.navLink(page, parent);
+
+            // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
+            if(anyChildrenVisible(page)){
+                components.linkExtender(link);
+                page.children.forEach(page => createLink(page, container));
+            }
         }
     }
 

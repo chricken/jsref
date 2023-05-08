@@ -1,8 +1,9 @@
 'use strict';
 
 const settings = {
-    elements:{},
-    pages:[],
+    elements: {},
+    pages: [],
+    currentID: false
 }
 
 export default settings;
