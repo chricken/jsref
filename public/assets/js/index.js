@@ -47,12 +47,15 @@ const renderNav = () => {
         // console.log(page);
         if (page.visible) {
             // Navigationslink erzeugen. Die Rückgabewerte sind der Container und das a-Tag (Link)
-            const {container, link} = components.navLink(page, parent);
+            const { container, link } = components.navLink(page, parent, refreshContents);
 
             // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
-            if(anyChildrenVisible(page)){
-                components.linkExtender(link);
+            if (anyChildrenVisible(page)) {
+                const extender = components.linkExtender(link);
                 page.children.forEach(page => createLink(page, container));
+                extender.addEventListener('click', () =>
+                    container.classList.toggle('open')
+                )
             }
         }
     }
@@ -63,7 +66,7 @@ const renderNav = () => {
 }
 
 const refreshPages = () => {
-    ajax.loadPages().then(
+    return ajax.loadPages().then(
         res => {
             // Leeres Kind-Array anlegen
             res.pages.map(page => page.children = [])
@@ -79,8 +82,12 @@ const refreshPages = () => {
         }
     ).then(
         renderNav
-    ).then(
-        // () => console.log(settings.pages)
+    )
+}
+
+const refreshContents = pageID => {
+    ajax.loadContents(pageID).then(
+        components.contents
     ).catch(
         console.warn
     )
@@ -89,7 +96,11 @@ const refreshPages = () => {
 const init = () => {
     domMapping();
     appendEventlisteners();
-    refreshPages();
+    refreshPages().then(
+        () => refreshContents(123)
+    ).catch(
+        console.warn
+    )
 }
 
 // INIT

@@ -5,6 +5,11 @@ const ajax = {
         return fetch('/data/pages.json').then(
             res => res.json()
         )
+    },
+    loadContents(pageID){
+        return fetch(`/data/pages/${pageID}.json`).then(
+            res => res.json()
+        )
     }
 }
 

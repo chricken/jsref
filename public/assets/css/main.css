@@ -1,0 +1,29 @@
+.container {
+    position: relative;
+    display: block;
+    padding: 5px;
+    margin: 5px;
+    background: #eee;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.container.code {
+    background-color: rgb(235, 223, 197);
+    border: 2px solid rgba(0, 0, 0, .5);
+    font-family: luxi_monoregular;
+    font-size: .9em;
+}
+.container.code p{
+    padding-left: 50px;
+    padding-right: 150px;
+}
+
+.timestamps {
+    text-align: right;
+    color: rgba(0, 0, 0, .5);
+    font-size:.8em;
+}
+.timestamps span {
+    margin-left: 20px;
+}

@@ -1,1 +1,48 @@
 @import "./nav.css";
+@import "./main.css";
+
+/* SCHRIFTEN */
+@font-face {
+    font-family: 'Museo_Slab_500';
+    src: url('/assets/fonts/museoslab_500_macroman/Museo_Slab_500_2-webfont.woff2') format('woff2'),
+        url('/assets/fonts/museoslab_500_macroman/Museo_Slab_500_2-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'allerregular';
+    src: url('/assets/fonts/Aller/webfontkit-20230503-085131/aller_rg-webfont.woff2') format('woff2'),
+         url('/assets/fonts/Aller/webfontkit-20230503-085131/aller_rg-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+
+@font-face {
+    font-family: 'luxi_monoregular';
+    src: url('/assets/fonts/Luxi-Mono/webfontkit-20230503-085057/luximr-webfont.woff2') format('woff2'),
+         url('/assets/fonts/Luxi-Mono/webfontkit-20230503-085057/luximr-webfont.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+/* STYLES */
+html, body {
+    font-family: Museo_Slab_500;
+}
+all {
+    display: flex;
+
+}
+
+nav {
+    width: 200px;
+    /* background-color: #eee; */
+    margin-right: 10px;
+}
+
+main {
+    flex: 1;
+    /* background-color: #eee; */
+}
