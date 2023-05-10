@@ -35,7 +35,9 @@ all {
     display: flex;
 
 }
-
+i {
+    color: #ae4a00;
+}
 nav {
     width: 200px;
     /* background-color: #eee; */

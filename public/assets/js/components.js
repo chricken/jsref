@@ -80,6 +80,8 @@ const components = {
     paragraph(content) {
         // console.log('paragraph', content);
 
+        let text = content.text.replaceAll('\n', '<br />');
+
         const container = dom.create({
             classes: ['container', 'paragraph'],
             parent
@@ -88,14 +90,17 @@ const components = {
         dom.create({
             type: 'p',
             parent: container,
-            content: content.text
+            content: text
         })
 
         components.timestamps(content, container);
 
     },
     code(content) {
-        // console.log('code', content);
+        console.log('code', content);
+
+        let text = content.text.replaceAll('\t', '');
+        console.log(text);
 
         const container = dom.create({
             classes: ['container', 'code'],
@@ -105,7 +110,7 @@ const components = {
         dom.create({
             type: 'p',
             parent: container,
-            content: content.text
+            textContent: text
         })
 
         components.timestamps(content, container);

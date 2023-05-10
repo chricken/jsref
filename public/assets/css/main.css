@@ -17,6 +17,7 @@
 .container.code p{
     padding-left: 50px;
     padding-right: 150px;
+    white-space: pre;
 }
 
 .timestamps {

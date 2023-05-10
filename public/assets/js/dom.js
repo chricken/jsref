@@ -3,6 +3,7 @@
 const dom = {
     create({
         content = '',
+        textContent = '',
         type = 'div',
         parent = false,
         classes = [],
@@ -14,6 +15,7 @@ const dom = {
     } = {}) {
         let neu = document.createElement(type);
         if (content) neu.innerHTML = content;
+        if (textContent) neu.innerText = textContent;
         if (value) neu.value = value;
         if (classes.length) neu.className = classes.join(' ');
 
