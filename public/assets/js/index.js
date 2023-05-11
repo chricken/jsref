@@ -51,7 +51,7 @@ const renderNav = () => {
 
             // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
             if (anyChildrenVisible(page)) {
-                const extender = components.linkExtender(link);
+                const extender = components.linkExtender(container);
                 page.children.forEach(page => createLink(page, container));
                 extender.addEventListener('click', () =>
                     container.classList.toggle('open')

@@ -3,7 +3,7 @@
 const settings = {
     elements: {},
     pages: [],
-    currentID: false
+    currentID: 123
 }
 
 export default settings;

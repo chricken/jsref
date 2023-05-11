@@ -8,13 +8,19 @@ const els = settings.elements;
 const parent = dom.$('main');
 
 const components = {
+    setActiveLink() {
+        dom.$$('.link').forEach(link => link.classList.remove('current'));
+        dom.$('.id' + settings.currentID).classList.add('current');
+    },
     // NAVIGATION
     navLink(page, parent, callback) {
         // console.log(parent);
         const container = dom.create({
-            classes: ['link'],
+            classes: ['link', 'id' + page.id],
             parent,
         })
+
+        // console.log(settings.currentID, page.id);
 
         container.dataset.pageid = page.id;
 
@@ -25,8 +31,11 @@ const components = {
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-                    // container.classList.toggle('open');
-                    console.log(page.id);
+
+                    settings.currentID = page.id;
+
+                    components.setActiveLink();
+
                     callback(page.id);
                 }
             }
@@ -96,6 +105,7 @@ const components = {
         components.timestamps(content, container);
 
     },
+
     code(content) {
         console.log('code', content);
 
@@ -116,6 +126,7 @@ const components = {
         components.timestamps(content, container);
 
     },
+
     header(content) {
         // console.log('header', content);
 
@@ -141,7 +152,7 @@ const components = {
         contents.content.forEach(
             content => components[content.type](content)
         )
-
+        components.setActiveLink();
     }
 }
 

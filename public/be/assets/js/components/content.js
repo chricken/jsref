@@ -93,8 +93,10 @@ const content = {
             classes: ['rot'],
             listeners: {
                 click() {
-                    settings.pageData.content.splice(index, 1);
-                    content.renderPageContent(content.data);
+                    if (confirm('Soll der Abschnitt wirklich gelöscht werden?\nDiese Aktion kann nicht rückgängig gemacht werden.')) {
+                        settings.pageData.content.splice(index, 1);
+                        content.renderPageContent(content.data);
+                    }
                 }
             }
         })
@@ -113,6 +115,73 @@ const content = {
                 }
             }
         })
+    },
+
+    // Auswahl, welche Art von Element dies ist
+    selectType(el, parent) {
+
+        dom.create({
+            type: 'span',
+            content: 'Select type',
+            parent
+        })
+
+        const select = dom.create({
+            type: 'select',
+            parent,
+            listeners: {
+                change() {
+                    el.type = select.value;
+                    console.log(el);
+                }
+            }
+        })
+
+        let types = ['header', 'subheader', 'paragraph', 'code'];
+        types.forEach(type => {
+            dom.create({
+                type: 'option',
+                parent: select,
+                content: type
+            })
+        })
+        select.value = el.type;
+
+    },
+
+    // Move up and down
+    moveUpDown(el, parent, index) {
+        if (index > 0) {
+            dom.create({
+                type: 'button',
+                content: '⇑',
+                parent,
+                listeners: {
+                    click() {
+                        let cutOut = settings.pageData.content.splice(index, 1)[0];
+                        settings.pageData.content.splice(index - 1, 0, cutOut);
+                        ajax.savePageFile(content.data);
+                        content.renderPageContent();
+                    }
+                }
+            })
+        }
+
+        if (index < settings.pageData.content.length - 1) {
+            dom.create({
+                type: 'button',
+                content: '⇓',
+                parent,
+                listeners: {
+                    click() {
+                        let cutOut = settings.pageData.content.splice(index, 1)[0];
+                        settings.pageData.content.splice(index + 1, 0, cutOut);
+                        ajax.savePageFile(content.data)
+                        content.renderPageContent();
+                    }
+                }
+            })
+        }
     },
 
     // Timestamps, um die Aktualität einzuschätzen
@@ -169,6 +238,14 @@ const content = {
 
         content.timestamps(el, container);
 
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
+
     },
 
     code(el, index) {
@@ -199,6 +276,14 @@ const content = {
         content.saveContent(container);
 
         content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
 
     },
 
@@ -233,6 +318,14 @@ const content = {
         content.saveContent(container);
 
         content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
     },
 
     subheader(el, index) {
@@ -266,6 +359,14 @@ const content = {
         content.saveContent(container);
 
         content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
     },
 
     renderPageContent() {
