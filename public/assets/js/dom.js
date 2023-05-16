@@ -6,7 +6,7 @@ const dom = {
         textContent = '',
         type = 'div',
         parent = false,
-        classes = [],
+        classes = false,
         attr = {},
         listeners = {},
         styles = {},
@@ -17,7 +17,11 @@ const dom = {
         if (content) neu.innerHTML = content;
         if (textContent) neu.innerText = textContent;
         if (value) neu.value = value;
-        if (classes.length) neu.className = classes.join(' ');
+        if(classes){
+            if (Array.isArray(classes)) neu.className = classes.join(' ');
+            else neu.className = classes;
+
+        }
 
         Object.entries(attr).forEach(el => neu.setAttribute(...el));
         Object.entries(listeners).forEach(el => neu.addEventListener(...el));

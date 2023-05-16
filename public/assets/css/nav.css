@@ -55,19 +55,19 @@ nav .link .iconMinus {
     background-size: cover;
 }
 
-nav .link>a>.extender .iconMinus {
+nav .link>.extender .iconMinus {
     background-image: url(/assets/img/icon_minus.png);
     display: none;
 }
 
-nav .link>a>.extender .iconPlus {
+nav .link>.extender .iconPlus {
     display: block;
 }
 
-nav .link.open>a>.extender .iconPlus {
+nav .link.open>.extender .iconPlus {
     display: none;
 }
 
-nav .link.open>a>.extender .iconMinus {
+nav .link.open>.extender .iconMinus {
     display: block;
 }

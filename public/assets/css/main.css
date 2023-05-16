@@ -16,9 +16,23 @@
 }
 
 .container.code p {
-    padding-left: 50px;
+    margin-left: 20px;
+    padding-left: 10px;
     padding-right: 150px;
     white-space: pre;
+    border-left: 4px solid rgba(0, 0, 0, .1);
+}
+
+.container.links {
+    background-color: rgb(197, 223, 235);
+    font-size: .9em;
+}
+
+.container.links a,
+.container.links a:visited {
+    color: rgb(42, 50, 66);
+    display: block;
+    line-height: 1.6em;
 }
 
 .timestamps {

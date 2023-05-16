@@ -11,6 +11,7 @@ const components = {
     setActiveLink() {
         dom.$$('.link').forEach(link => link.classList.remove('current'));
         dom.$('.id' + settings.currentID).classList.add('current');
+        dom.$('.id' + settings.currentID).classList.add('open');
     },
     // NAVIGATION
     navLink(page, parent, callback) {
@@ -31,7 +32,7 @@ const components = {
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-
+                    dom.$('title').innerHTML = page.title;
                     settings.currentID = page.id;
 
                     components.setActiveLink();
@@ -58,6 +59,7 @@ const components = {
             classes: ['iconMinus'],
             parent: container
         })
+        // Die Klasse wird in der index.js umgeschaltet
         return container;
     },
 
@@ -146,6 +148,27 @@ const components = {
             parent
         })
 
+    },
+
+    links(content) {
+        const container = dom.create({
+            parent,
+            classes:['container','links']
+        })
+        // console.log(content);
+        content.links.forEach(link => {
+            dom.create({
+                type:'a',
+                parent: container,
+                content: `${link.title} (${link.url})`,
+                attr:{
+                    href:link.url,
+                    target: '_blank'
+                }
+            })
+        })
+
+        components.timestamps(content, container);
     },
     contents(contents) {
         parent.innerHTML = '';

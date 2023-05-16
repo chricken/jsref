@@ -5,7 +5,47 @@ main {
     border: 1px solid #aaa;
     min-height: 100px;
     vertical-align: top;
-    margin-left:33%;
+    margin-left: 33%;
+}
+
+main>.container:hover {
+    background: rgba(214, 221, 205, 1);
+    outline: 2px solid #000;
+}
+
+main>.container textarea,
+main>.container input,
+main>.container select,
+main>.container button,
+main>.container {
+    color: #888;
+}
+
+main>.container:hover textarea,
+main>.container:hover input,
+main>.container:hover select,
+main>.container:hover button,
+main>.container:hover {
+    color: #000;
+}
+
+main>.container textarea:focus,
+main>.container input:focus{
+    color: #000;
+}
+
+main>.container button:hover{
+    color: #fff;
+}
+
+main>.container.containerParagraph textarea:focus
+main>.container.containerParagraph:hover textarea {
+    color: #444;
+}
+
+main>.container.containerCode textarea:focus,
+main>.container.containerCode:hover textarea {
+    color: #384d68;
 }
 
 .containerParagraph textarea,
@@ -20,7 +60,7 @@ main {
 
 .containerParagraph textarea {
     font-family: 'allerregular';
-    color: #444;
+    /* color: #444; */
     max-width: 98%;
 }
 
@@ -30,7 +70,7 @@ main {
 
 .containerCode textarea {
     font-family: 'luxi_monoregular';
-    color: #384d68;
+    /* color: #384d68; */
 }
 
 .containerHeader input {

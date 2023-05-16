@@ -64,6 +64,7 @@ const content = {
                 }
             }
         })
+
         // Code erzeugen
         dom.create({
             type: 'button',
@@ -77,6 +78,25 @@ const content = {
                         crDate: Date.now(),
                         chDate: Date.now(),
                         text: ''
+                    });
+                    content.renderPageContent(content.data);
+                }
+            }
+        })
+
+        // Links erzeugen
+        dom.create({
+            type: 'button',
+            content: '+ Links',
+            classes: ['green'],
+            parent,
+            listeners: {
+                click() {
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'links',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        links: []
                     });
                     content.renderPageContent(content.data);
                 }
@@ -208,6 +228,7 @@ const content = {
         }
     },
 
+    // ABSATZ
     paragraph(el, index) {
         const container = dom.create({
             classes: ['container', 'containerParagraph'],
@@ -222,7 +243,7 @@ const content = {
                 input(evt) {
                     el.text = evt.target.value;
                     el.chDate = Date.now();
-                    console.log(el);
+                    // c    onsole.log(el);
                 }
             }
         })
@@ -248,6 +269,7 @@ const content = {
 
     },
 
+    // CODE
     code(el, index) {
         const container = dom.create({
             classes: ['container', 'containerCode'],
@@ -287,6 +309,7 @@ const content = {
 
     },
 
+    // HEADER
     header(el, index) {
         const container = dom.create({
             classes: ['container', 'containerHeader'],
@@ -328,6 +351,7 @@ const content = {
         content.moveUpDown(el, containerControl, index);
     },
 
+    // SUBHEADER
     subheader(el, index) {
         const container = dom.create({
             classes: ['container', 'containerSubheader'],
@@ -367,6 +391,134 @@ const content = {
         })
         content.selectType(el, containerControl);
         content.moveUpDown(el, containerControl, index);
+    },
+
+    // LINK
+    singleLink(link, parent, allLinks, index) {
+        const container = dom.create({
+            parent,
+            classes: 'container'
+        })
+        // Link-Eingaben
+        dom.create({
+            type: 'input',
+            value: link.title,
+            parent: container,
+            attr: {
+                placeholder: 'Title'
+            },
+            listeners: {
+                input(evt) {
+                    link.title = evt.target.value;
+                }
+            }
+        })
+        dom.create({
+            type: 'span',
+            content: ' - ',
+            parent: container,
+        })
+        dom.create({
+            type: 'input',
+            value: link.url,
+            parent: container,
+            attr: {
+                placeholder: 'URL'
+            },
+            styles: {
+                width: '300px'
+            },
+            listeners: {
+                input(evt) {
+                    link.url = evt.target.value;
+                }
+            }
+        })
+
+        // Button zum Entfernen        
+        dom.create({
+            type: 'span',
+            content: ' - ',
+            parent: container,
+        })
+
+        dom.create({
+            type: 'button',
+            content: 'delete',
+            parent: container,
+            listeners: {
+                click() {
+                    allLinks.splice(index, 1);
+                    content.renderPageContent();
+                }
+            }
+        })
+    },
+
+    // LINKS
+    links(el, index) {
+        const container = dom.create({
+            classes: ['container', 'containerLinks'],
+            parent: settings.elements.containerContent
+        })
+
+        dom.create({
+            content: 'Links',
+            type: 'h5',
+            parent: container
+        })
+
+        // Links iterieren
+        const containerLinks = dom.create({
+            parent: container
+        })
+
+        // Button für einen neuen Link
+        dom.create({
+            parent: container,
+            type: 'button',
+            content: 'New Link',
+            listeners: {
+                click() {
+                    // Neuen Link anlegen
+                    el.links.push({
+                        title: '',
+                        url: ''
+                    });
+
+                    content.renderPageContent();
+                }
+            }
+        })
+
+        el.links.forEach((link, index) => {
+            content.singleLink(link, containerLinks, el.links, index);
+        })
+
+
+        // Neues Element hierunter anlegen
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch'],
+            parent: container
+        })
+        content.minusParagraph(index, container)
+        content.plusParagraph(index + 1, container)
+        content.saveContent(container);
+
+        content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        // console.log(containerControl);
+        // Linklisten können nicht umgewandelt werden
+        // content.selectType(el, containerControl);
+
+        content.moveUpDown(el, containerControl, index);
+
     },
 
     renderPageContent() {
