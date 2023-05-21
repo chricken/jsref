@@ -26,6 +26,10 @@ aside .container.containerPage {
     padding: 3px;
 }
 
+aside .container.containerPage.hidden {
+    color: #888;
+}
+
 aside .containerPage:hover {
     /* background-color: var(--colorHoverPage); */
 

@@ -102,6 +102,24 @@ const content = {
                 }
             }
         })
+
+        // Bild erzeugen
+        dom.create({
+            type: 'button',
+            content: '+ Img',
+            classes: ['green'],
+            parent,
+            listeners: {
+                click() {
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'image',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                    });
+                    content.renderPageContent(content.data);
+                }
+            }
+        })
     },
 
     // Button, um einen neuen Absatz zu erzeugen
@@ -124,7 +142,7 @@ const content = {
 
     // Button, um den Inhalt zu speichern
     saveContent(parent) {
-        dom.create({
+        return dom.create({
             type: 'button',
             content: 'Save Content',
             classes: ['yellow'],
@@ -519,6 +537,148 @@ const content = {
 
         content.moveUpDown(el, containerControl, index);
 
+    },
+
+    // Image
+    image(el, index) {
+        const container = dom.create({
+            classes: ['container', 'containerSubheader'],
+            parent: settings.elements.containerContent
+        })
+
+        dom.create({
+            type: 'h5',
+            content: 'Image',
+            parent: container
+        })
+
+        // Bild als Vorschau
+        if (el.filename) {
+            dom.create({
+                type: 'img',
+                attr: {
+                    src: `/assets/img/uploads/${el.filename}`
+                },
+                parent: container,
+                classes: 'contentImg'
+            })
+        }
+
+        // Platzhalter
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch', 'containerBtns'],
+            parent: container
+        })
+
+        // Formular, um den Upload sauber und einfach zu erledigen
+        const myForm = dom.create({
+            parent: container,
+            type: 'form',
+            listeners: {
+                submit(evt) {
+                    evt.preventDefault();
+                }
+            }
+        })
+        dom.create({
+            type: 'input',
+            parent: myForm,
+            attr: {
+                type: 'file',
+                name: 'upload',
+            },
+            listeners: {
+                change(evt) {
+                    // console.log(evt.target.files[0].name);
+                    elSaveContent.disabled = true;
+                    fetch('/uploadImg', {
+                        method: 'post',
+                        body: new FormData(myForm)
+                    }).then(
+                        res => res.json()
+                    ).then(
+                        res => {
+                            if (res.status == 'ok') {
+                                el.filename = res.filename;
+                                elSaveContent.removeAttribute('disabled')
+                                content.renderPageContent(content.data);
+                            }
+                        }
+                    ).catch(
+                        console.warn
+                    )
+                }
+            }
+        })
+
+        // Platzhalter
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch', 'containerBtns'],
+            parent: container
+        })
+
+        dom.create({
+            type: 'input',
+            parent: container,
+            value: el.subtext,
+            listeners: {
+                input(evt) {
+                    el.subtext = evt.target.value
+                }
+            },
+            attr: {
+                placeholder: 'Subtext'
+            },
+            styles:{
+                width: '400px'
+            }
+        })
+
+        // Platzhalter
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch', 'containerBtns'],
+            parent: container
+        })
+
+        dom.create({
+            type: 'input',
+            parent: container,
+            value: el.width,
+            listeners: {
+                input(evt) {
+                    el.width = evt.target.value
+                }
+            },
+            attr: {
+                placeholder: 'width'
+            }
+        })
+
+        // Platzhalter
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch', 'containerBtns'],
+            parent: container
+        })
+
+
+        content.minusParagraph(index, container)
+        content.plusParagraph(index + 1, container)
+        const elSaveContent = content.saveContent(container);
+
+        content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        // Ein Image nachträglich zu ändern macht keinen Sinn, da die Daten nicht sinnvoll übertragen werden können
+        // content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
     },
 
     renderPageContent() {

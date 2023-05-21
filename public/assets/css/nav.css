@@ -22,11 +22,11 @@ nav .link a:hover {
     border-bottom: 2px solid #000;
 }
 
-.link>.link {
+.link>.children {
     display: none;
 }
 
-.link.open>.link {
+.link.open>.children {
     display: block;
 }
 
@@ -71,3 +71,26 @@ nav .link.open>.extender .iconPlus {
 nav .link.open>.extender .iconMinus {
     display: block;
 }
+
+
+.inPageLinks {
+    display: none;
+    color: #888;
+    font-size: .75em;
+}
+.current > .inPageLinks {
+    display: block;
+}
+
+.inPageLink {
+    margin:5px;
+}
+.inPageLink:hover a {
+    color: #000;
+    border-bottom: 1px solid #000;
+}
+/*
+.inPageLink:nth-of-type(odd){
+    color: #555;
+}
+*/

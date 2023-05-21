@@ -58,7 +58,7 @@ const pages = {
 
         const container = dom.create({
             parent,
-            classes: ['container', 'containerPage', page.moveMe ? 'moveMe' : ''],
+            classes: ['container', 'containerPage'],
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
@@ -80,6 +80,8 @@ const pages = {
                 }
             }
         })
+        page.moveMe && container.classList.add('moveMe');
+        page.visible || container.classList.add('hidden');
 
         // Title
         dom.create({

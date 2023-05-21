@@ -2,6 +2,9 @@
 
 // Modules
 const fs = require('fs');
+const formidable = require('formidable');
+
+// Server
 const express = require('express');
 const server = express();
 
@@ -78,18 +81,33 @@ server.post('/savePageFile', (request, response) => {
         `public/data/pages/${request.body.id}.json`,
         JSON.stringify(request.body.payload),
         err => {
-            if(err){
+            if (err) {
                 response.json({
                     status: 'err',
                     err
                 })
-            }else {
+            } else {
                 response.json({
                     status: 'ok'
                 })
             }
         }
     )
+})
+
+server.post('/uploadImg', (request, response) => {
+    const myForm = formidable({
+        keepExtensions: true,
+        uploadDir: 'public/assets/img/uploads'
+    })
+
+    myForm.parse(request, (err, fields, files) => {
+        console.log(files.upload);
+        response.json({
+            status:'ok',
+            filename: files.upload.newFilename
+        })
+    })
 })
 
 init();

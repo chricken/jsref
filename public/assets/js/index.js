@@ -47,12 +47,12 @@ const renderNav = () => {
         // console.log(page);
         if (page.visible) {
             // Navigationslink erzeugen. Die Rückgabewerte sind der Container und das a-Tag (Link)
-            const { container, link } = components.navLink(page, parent, refreshContents);
+            const { container, link, containerChildren } = components.navLink(page, parent, refreshContents);
 
             // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
             if (anyChildrenVisible(page)) {
                 const extender = components.linkExtender(container);
-                page.children.forEach(page => createLink(page, container));
+                page.children.forEach(page => createLink(page, containerChildren));
                 extender.addEventListener('click', () =>
                     container.classList.toggle('open')
                 )

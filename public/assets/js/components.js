@@ -10,20 +10,19 @@ const parent = dom.$('main');
 const components = {
     setActiveLink() {
         dom.$$('.link').forEach(link => link.classList.remove('current'));
-        dom.$('.id' + settings.currentID).classList.add('current');
-        dom.$('.id' + settings.currentID).classList.add('open');
+        dom.$('.id_' + settings.currentID).classList.add('current');
+        dom.$('.id_' + settings.currentID).classList.add('open');
     },
     // NAVIGATION
     navLink(page, parent, callback) {
         // console.log(parent);
         const container = dom.create({
-            classes: ['link', 'id' + page.id],
+            classes: ['link', 'id_' + page.id],
             parent,
         })
-
         // console.log(settings.currentID, page.id);
 
-        container.dataset.pageid = page.id;
+        container.dataset.page_id = page.id;
 
         const link = dom.create({
             type: 'a',
@@ -42,7 +41,17 @@ const components = {
             }
         })
 
-        return { container, link };
+        dom.create({
+            classes: ['inPageLinks'],
+            parent: container
+        })
+
+        const containerChildren = dom.create({
+            classes: ['children'],
+            parent: container
+        })
+
+        return { container, link, containerChildren };
     },
     linkExtender(parent) {
         const container = dom.create({
@@ -109,10 +118,7 @@ const components = {
     },
 
     code(content) {
-        console.log('code', content);
-
         let text = content.text.replaceAll('\t', '');
-        console.log(text);
 
         const container = dom.create({
             classes: ['container', 'code'],
@@ -132,7 +138,7 @@ const components = {
     header(content) {
         // console.log('header', content);
 
-        dom.create({
+        return dom.create({
             type: 'h2',
             content: content.text,
             parent
@@ -142,7 +148,7 @@ const components = {
     subheader(content) {
         // console.log('subheader', content);
 
-        dom.create({
+        return dom.create({
             type: 'h3',
             content: content.text,
             parent
@@ -150,19 +156,49 @@ const components = {
 
     },
 
+    image(content) {
+        const container = dom.create({
+            parent,
+            classes: ['container', 'image']
+        })
+
+        const elImage = dom.create({
+            type: 'img',
+            parent: container,
+            attr: {
+                src: `/assets/img/uploads/${content.filename}`
+            },
+            classes: ['contentImage']
+        })
+
+        // Bildbreite eintragen
+        console.log(content.width);
+        if (content.width) elImage.setAttribute('width', String(content.width));
+
+        if (content.subtext) {
+            dom.create({
+                parent: container,
+                type: 'p',
+                content: content.subtext
+            })
+        }
+
+        components.timestamps(content, container);
+    },
+
     links(content) {
         const container = dom.create({
             parent,
-            classes:['container','links']
+            classes: ['container', 'links']
         })
         // console.log(content);
         content.links.forEach(link => {
             dom.create({
-                type:'a',
+                type: 'a',
                 parent: container,
                 content: `${link.title} (${link.url})`,
-                attr:{
-                    href:link.url,
+                attr: {
+                    href: link.url,
                     target: '_blank'
                 }
             })
@@ -172,10 +208,37 @@ const components = {
     },
     contents(contents) {
         parent.innerHTML = '';
-        contents.content.forEach(
-            content => components[content.type](content)
-        )
+        // Im Menü den richtigen Link auf 'current' setzen
         components.setActiveLink();
+        let inPageLinks = dom.$('.current>.inPageLinks');
+        inPageLinks.innerHTML = '';
+
+        contents.content.forEach(
+            content => {
+                const contentEl = components[content.type](content);
+                if (content.type == 'header' || content.type == 'subheader') {
+                    const containerLink = dom.create({
+                        parent: inPageLinks,
+                        classes: ['inPageLink']
+                    })
+                    dom.create({
+                        parent: containerLink,
+                        content:
+                            // Nur die ersten Zeichen sollen sichtbar sein
+                            (content.text.length < settings.maxLengthInPageHeader)
+                                ? content.text
+                                : content.text.substr(0, settings.maxLengthInPageHeader - 2) + '...',
+                        type: 'a',
+                        listeners: {
+                            click(evt) {
+                                console.log(contentEl);
+                                contentEl.scrollIntoView();
+                            }
+                        }
+                    })
+                }
+            }
+        )
     }
 }
 

@@ -86,6 +86,11 @@ main>.container.containerCode:hover textarea {
      text-align: right;
     */
 }
+.container .contentImg {
+    position: relative;
+    display: block;
+    height: 100px;
+}
 
 .timestamps>span {
     color: rgba(0, 0, 0, .5);
