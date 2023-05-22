@@ -32,7 +32,11 @@ html, body {
     font-family: Museo_Slab_500;
 }
 all {
+    position: relative;
     display: flex;
+    width: 1000px;
+    margin-left: auto;
+    margin-right: auto;
 
 }
 i {
