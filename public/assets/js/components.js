@@ -13,6 +13,7 @@ const components = {
         dom.$('.id_' + settings.currentID).classList.add('current');
         dom.$('.id_' + settings.currentID).classList.add('open');
     },
+
     // NAVIGATION
     navLink(page, parent, callback) {
         // console.log(parent);
@@ -33,6 +34,7 @@ const components = {
                     evt.stopPropagation();
                     dom.$('title').innerHTML = page.title;
                     settings.currentID = page.id;
+                    settings.currentPageName = page.title;
 
                     components.setActiveLink();
 
@@ -53,6 +55,7 @@ const components = {
 
         return { container, link, containerChildren };
     },
+
     linkExtender(parent) {
         const container = dom.create({
             classes: ['extender'],
@@ -145,6 +148,7 @@ const components = {
         })
 
     },
+
     subheader(content) {
         // console.log('subheader', content);
 
@@ -206,6 +210,7 @@ const components = {
 
         components.timestamps(content, container);
     },
+
     contents(contents) {
         parent.innerHTML = '';
         // Im Menü den richtigen Link auf 'current' setzen
@@ -213,9 +218,17 @@ const components = {
         let inPageLinks = dom.$('.current>.inPageLinks');
         inPageLinks.innerHTML = '';
 
+        dom.create({
+            type:'h1',
+            content: settings.currentPageName,
+            parent: parent
+        })
+
         contents.content.forEach(
             content => {
                 const contentEl = components[content.type](content);
+
+                // Links zu den Überschriften generieren
                 if (content.type == 'header' || content.type == 'subheader') {
                     const containerLink = dom.create({
                         parent: inPageLinks,
@@ -233,6 +246,7 @@ const components = {
                             click(evt) {
                                 console.log(contentEl);
                                 contentEl.scrollIntoView();
+                                document.documentElement.scrollTop -= 15;
                             }
                         }
                     })

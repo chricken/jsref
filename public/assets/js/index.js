@@ -17,9 +17,17 @@ const domMapping = () => {
 }
 
 const appendEventlisteners = () => {
-
+    window.addEventListener('scroll', handleScroll);
 }
 
+// Navigation verschieben, um weiterhin sichtbar zu sein
+const handleScroll = () => {
+    // console.log(document.documentElement.scrollTop);
+    // let pos = Math.min(document.documentElement.scrollTop, 200)
+    // els.nav.style.marginTop = pos + 'px';
+}
+
+// Navigationslinks ineinander verschachteln
 const parentize = arrPages => {
     // Pages leeren
     settings.pages = [];

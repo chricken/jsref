@@ -16,6 +16,7 @@
 }
 
 .paragraph p {
+    /* font-family: 'Lora', serif; */
     line-height: 1.4em;
 }
 
@@ -47,4 +48,9 @@
 
 .timestamps span {
     margin-left: 20px;
+}
+
+h2 {
+    font-family: acre-semibold;
+    font-weight: normal;
 }
