@@ -11,10 +11,12 @@ nav .link {
 nav .link a {
     position: relative;
     cursor: pointer;
+    color: #006698;
 }
 
 nav .link.current > a {
     background: rgba(100, 0, 0, .2);
+    outline: 4px solid rgba(100, 0, 0, .2);
 }
 
 nav .link a:hover {
@@ -75,7 +77,8 @@ nav .link.open>.extender .iconMinus {
 
 .inPageLinks {
     display: none;
-    color: #888;
+    /* color: #888; */
+    color: #6cbbf3;
     font-size: .75em;
 }
 .current > .inPageLinks {
