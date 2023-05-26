@@ -101,16 +101,18 @@ const components = {
     },
 
     paragraph(content) {
-        console.log('paragraph', content.text);
+        // console.log('paragraph', content.text);
         
         let text = content.text.replaceAll('\n', '<br />');
         // Für einige im Code liegenden Zeilenumbrüche das <br>-Tag entfernen
+        text = text.replaceAll('<br>', '<br />');
+        text = text.replaceAll('<br /><br />', '<br />');
         text = text.replaceAll('<td><br />', '<td>');
         text = text.replaceAll('</td><br />', '</td>');
         text = text.replaceAll('<tr><br />', '<tr>');
         text = text.replaceAll('</tr><br />', '</tr>');
         
-        console.log('paragraph', text);
+        // console.log('paragraph', text);
 
         const container = dom.create({
             classes: ['container', 'paragraph'],
