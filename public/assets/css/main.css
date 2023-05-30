@@ -58,16 +58,20 @@
 }
 
 h1, h2, h3 {
-    font-size: 2em;
+    font-size: 2.2em;
     /* font-family: acre-semibold; */
     font-weight: normal;
     color: #006698;
 }
+h1 {
+    font-weight: bold;
+}
 h2 {
-    font-size: 1.8em;
-    color: #0b93f5;
+    font-weight: bold;
+    font-size: 1.5em;
+    color: #006698;
 }
 h3 {
     font-size: 1.2em;
-    color: #6cbbf3;
+    color: #006698;
 }

@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1685447312828,"chDate":1685447314391,"text":"In einem Objekt werden die Slots mit eindeutigen Strings bezeichnet.\nAls Besonderheit kann ein Objekt auch Funktionen enthalten, die einfach aufgerufen werden können.\nEin Objekt kann nicht iteriert werden, da die Reihenfolge der Slots nicht definiert ist."}]}

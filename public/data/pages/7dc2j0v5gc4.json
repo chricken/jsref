@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1685447163810,"chDate":1685447165195,"text":"Ein Wert vom Datentyp Symbol hat keinen echten Inhalt. Es ist nur ein leerer Container.\nDas besondere daran ist, dass Symbols einmalig sind. Sie werden also anhand ihrer Identität miteinander verglichen.\nEiner der häufigsten Anwendungsfälle ist die Benutzung als Schlüssel für Objekte, um eine Art <i>Encapsulation</i> zu erzeugen."}]}

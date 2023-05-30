@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1685447137685,"chDate":1685447139301,"text":"Null steht für ein absichtliches Fehlen eines Wertes, im Gegensatz zu undefined, was meist unbeabsichtigt ist. Der Wert null wird bspw. zurückgegeben, wenn eine <i>document.querySelector()</i>-Operation nichts gefunden hat.\nLeider wird der Datentyp von null als <i>object</i> angezeigt, was mindestens irritierend ist. Manche Entwickler:innen halten das für einen Bug in Javascript."}]}

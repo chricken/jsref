@@ -78,15 +78,19 @@ nav .link.open>.extender .iconMinus {
 .inPageLinks {
     display: none;
     /* color: #888; */
-    color: #6cbbf3;
+    color: #898b8d;
     font-size: .75em;
 }
 .current > .inPageLinks {
     display: block;
 }
 
-.inPageLink {
+nav .link .inPageLink {
     margin:5px;
+    margin-left:0;
+}
+nav .link .inPageLink a {
+    color:#898b8d;
 }
 .inPageLink:hover a {
     color: #000;

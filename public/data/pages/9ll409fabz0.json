@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1685447036891,"chDate":1685447037740,"text":"Undefined ist kein wirklicher Datentyp, kann aber als solcher behandelt werden.\nVielmehr wird der Wert undefined zurückgegeben, wenn eine Variable keinen Wert enthält. \nEin nicht vorhandener Wert kan auch keinen Datentyp haben. Dieser wird damit also als undefined angezeigt."}]}
