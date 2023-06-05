@@ -31,7 +31,7 @@
     margin-left: 20px;
     padding-left: 10px;
     padding-right: 150px;
-    white-space: pre;
+    /* white-space: pre; */
     border-left: 4px solid rgba(0, 0, 0, .1);
 }
 
