@@ -131,6 +131,7 @@ const components = {
 
     code(content) {
         let text = content.text.replaceAll('\t', '');
+        // text = text.replaceAll(' ', '&nbsp;');
 
         const container = dom.create({
             classes: ['container', 'code'],
