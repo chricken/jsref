@@ -130,18 +130,21 @@ const components = {
     },
 
     code(content) {
+        // let text = content.text;
         let text = content.text.replaceAll('\t', '');
-        // text = text.replaceAll(' ', '&nbsp;');
-
+        text = text.replaceAll(' ', '&nbsp;');
+        text = text.replaceAll('\n', '<br />');
         const container = dom.create({
             classes: ['container', 'code'],
             parent
         })
+        
+        // console.log(text);
 
         dom.create({
             type: 'p',
             parent: container,
-            textContent: text
+            content: text
         })
 
         components.timestamps(content, container);

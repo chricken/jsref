@@ -3,9 +3,11 @@ nav {}
 nav .link {
     position: relative;
     display: block;
-    margin-left: 12px;
-    margin-top: 5px;
-    margin-bottom: 5px;
+    margin-left: 0px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-left: 2px dotted #ccc;
+    padding-left: 10px;
 }
 
 nav .link a {
@@ -14,9 +16,11 @@ nav .link a {
     color: #006698;
 }
 
-nav .link.current > a {
-    background: rgba(100, 0, 0, .2);
-    outline: 4px solid rgba(100, 0, 0, .2);
+nav .link.current>a {
+    background: #006698;
+    outline: 3px solid #006698;
+    color: #fff;
+    border-radius: 1px;
 }
 
 nav .link a:hover {
@@ -38,8 +42,8 @@ nav .link .extender {
     border: 2px solid #000;
     width: 8px;
     height: 8px;
-    left: -17px;
-    top: 3px;
+    left: -7px;
+    top: 8px;
     opacity: .5;
 }
 
@@ -82,22 +86,26 @@ nav .link.open>.extender .iconMinus {
     color: #898b8d;
     font-size: .75em;
 }
-.current > .inPageLinks {
+
+.current>.inPageLinks {
     display: block;
     /* display: n   one; */
 }
 
 nav .link .inPageLink {
-    margin:5px;
-    margin-left:0;
+    margin: 5px;
+    margin-left: 0;
 }
+
 nav .link .inPageLink a {
-    color:#898b8d;
+    color: #898b8d;
 }
+
 .inPageLink:hover a {
     color: #000;
     border-bottom: 1px solid #000;
 }
+
 /*
 .inPageLink:nth-of-type(odd){
     color: #555;
