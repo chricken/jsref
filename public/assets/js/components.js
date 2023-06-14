@@ -111,6 +111,10 @@ const components = {
         text = text.replaceAll('</td><br />', '</td>');
         text = text.replaceAll('<tr><br />', '<tr>');
         text = text.replaceAll('</tr><br />', '</tr>');
+        text = text.replaceAll('<ul><br />', '<ul>');
+        text = text.replaceAll('<ul><br>', '<ul>');
+        text = text.replaceAll('</li><br />', '</li>');
+        text = text.replaceAll('</li><br>', '</li>');
         
         // console.log('paragraph', text);
 
