@@ -6,6 +6,7 @@ const settings = {
     currentID: 123,
     currentPageName: '',
     maxLengthInPageHeader: 20,
+    
 }
 
 export default settings;

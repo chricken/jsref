@@ -33,6 +33,8 @@
     padding-right: 10px;
     /* white-space: pre; */
     border-left: 4px solid rgba(0, 0, 0, .1);
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
 .container.links {
@@ -49,7 +51,7 @@
 
 .timestamps {
     text-align: right;
-    color: rgba(0, 0, 0, .2);
+    color: rgba(0, 0, 0, .4);
     font-size: .8em;
 }
 
@@ -57,21 +59,38 @@
     margin-left: 20px;
 }
 
-h1, h2, h3 {
+h1,
+h2,
+h3 {
     font-size: 2.2em;
     /* font-family: acre-semibold; */
     font-weight: normal;
     color: #006698;
+    margin-left: 5px;
 }
+
 h1 {
     font-weight: bold;
+    margin-top: 0;
 }
+
+h1:empty {
+    display: none;
+}
+
 h2 {
     font-weight: bold;
     font-size: 1.5em;
     color: #006698;
 }
+
 h3 {
     font-size: 1.2em;
-    color: #006698;
+    background-color: #006698;
+    color: #fff;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    margin-top: 5px;
+    margin-top: 20px;
 }

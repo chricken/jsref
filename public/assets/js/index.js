@@ -5,6 +5,7 @@ import settings from './settings.js';
 import ajax from './ajax.js';
 import dom from './dom.js';
 import components from './components.js';
+import helpers from './helpers.js';
 
 // KONSTANTEN / VARIABLEN
 const els = settings.elements;
@@ -12,6 +13,7 @@ const els = settings.elements;
 // FUNKTIONEN
 const domMapping = () => {
     els.nav = dom.$('nav');
+    els.subnav = dom.$('subnav inner');
     els.main = dom.$('main');
     els.footer = dom.$('footer');
 }
@@ -23,8 +25,8 @@ const appendEventlisteners = () => {
 // Navigation verschieben, um weiterhin sichtbar zu sein
 const handleScroll = () => {
     // console.log(document.documentElement.scrollTop);
-    // let pos = Math.min(document.documentElement.scrollTop, 200)
-    // els.nav.style.marginTop = pos + 'px';
+    // let pos = Math.max(document.documentElement.scrollTop, document.body.scrollTop)
+    // els.subnav.style.marginTop = pos + 'px';
 }
 
 // Navigationslinks ineinander verschachteln
@@ -55,11 +57,12 @@ const renderNav = () => {
         // console.log(page);
         if (page.visible) {
             // Navigationslink erzeugen. Die Rückgabewerte sind der Container und das a-Tag (Link)
-            const { container, link, containerChildren } = components.navLink(page, parent, refreshContents);
+            const { container, elLink, containerChildren } = components.navLink(page, parent, refreshContents);
 
             // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
             if (anyChildrenVisible(page)) {
                 const extender = components.linkExtender(container);
+                // Kinder iterieren
                 page.children.forEach(page => createLink(page, containerChildren));
                 extender.addEventListener('click', () =>
                     container.classList.toggle('open')
@@ -68,10 +71,11 @@ const renderNav = () => {
         }
     }
 
-    // console.log(els.nav);
+    // console.log(settings.pages);
     settings.pages.forEach(page => createLink(page, els.nav));
 
 }
+
 
 const refreshPages = () => {
     return ajax.loadPages().then(
@@ -95,6 +99,10 @@ const refreshPages = () => {
 
 const refreshContents = pageID => {
     ajax.loadContents(pageID).then(
+        result => settings.page = result
+    ).then(
+        () => settings.currentID = pageID
+    ).then(
         components.contents
     ).catch(
         console.warn
@@ -105,7 +113,23 @@ const init = () => {
     domMapping();
     appendEventlisteners();
     refreshPages().then(
-        () => refreshContents(123)
+        () => {
+            let query = window.location.search;
+            if (query === '') {
+                refreshContents(123);
+            } else {
+                query = query.substring(1);
+                query = query.split('&');
+                let objQuery = {};
+                query.forEach(val => {
+                    val = val.split('=');
+                    objQuery[val[0]] = val[1];
+                })
+                // console.log(objQuery.id);
+                refreshContents(objQuery.id);
+
+            }
+        }
     ).catch(
         console.warn
     )

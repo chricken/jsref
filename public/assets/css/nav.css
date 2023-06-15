@@ -1,4 +1,4 @@
-nav {}
+
 
 nav .link {
     position: relative;
@@ -12,8 +12,10 @@ nav .link {
 
 nav .link a {
     position: relative;
+    display: block;
     cursor: pointer;
     color: #006698;
+    border-bottom: 1px solid transparent;
 }
 
 nav .link.current>a {
@@ -25,7 +27,7 @@ nav .link.current>a {
 
 nav .link a:hover {
     /* background-color: rgba(0, 0, 0, .1); */
-    border-bottom: 2px solid #000;
+    border-bottom-color: #006698;
 }
 
 .link>.children {
@@ -79,6 +81,35 @@ nav .link.open>.extender .iconMinus {
     display: block;
 }
 
+subnav {
+    position: fixed;
+    background: #efefef;
+    z-index: 100;
+    left:0;
+    right:0;
+    top:0;
+    padding:10px;
+    border-bottom: 1px solid #d0d0d0;
+    box-shadow: 0 0 15px 2px rgba(0,0,0,.2);
+}
+subnav inner {
+    position: relative;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 1000px;
+    padding-left: 340px;
+
+}
+subnav .inPageLink {
+    display:inline-block;
+    margin-right:20px;
+    cursor: pointer;
+    font-size:.8em;
+}
+subnav .inPageLink a {
+    color:#666;
+}
 
 .inPageLinks {
     display: none;

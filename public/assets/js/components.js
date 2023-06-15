@@ -3,15 +3,36 @@
 import dom from './dom.js';
 import settings from './settings.js';
 import ajax from './ajax.js';
+import helpers from './helpers.js';
 
 const els = settings.elements;
 const parent = dom.$('main');
 
 const components = {
     setActiveLink() {
-        dom.$$('.link').forEach(link => link.classList.remove('current'));
-        dom.$('.id_' + settings.currentID).classList.add('current');
-        dom.$('.id_' + settings.currentID).classList.add('open');
+        dom.$$('.link').forEach(link => {
+            link.classList.remove('current')
+            link.classList.remove('open')
+        });
+        const currentLink = dom.$('.id_' + settings.currentID);
+        currentLink.classList.add('current');
+
+        // Alle Elternelemente ggf öffen
+        const openLink = el => {
+            
+            // öffnen, falls es ein link-Element ist
+            if (el.classList.contains('link')) el.classList.add('open');
+
+            // Eltern-Element prüfen
+            if (el.parentElement) openLink(el.parentElement);
+        }
+        openLink(currentLink);
+    },
+
+    setTitle(){
+        let page = helpers.deepSearch(settings.pages, 'id', settings.currentID);
+        settings.currentPageName = page.title;
+        dom.$('title').innerHTML = page.title;
     },
 
     // NAVIGATION
@@ -25,18 +46,22 @@ const components = {
 
         container.dataset.page_id = page.id;
 
-        const link = dom.create({
+        const elLink = dom.create({
             type: 'a',
             content: page.title,
             parent: container,
             listeners: {
                 click(evt) {
                     evt.stopPropagation();
-                    dom.$('title').innerHTML = page.title;
                     settings.currentID = page.id;
-                    settings.currentPageName = page.title;
+                    // settings.currentPageName = page.title;
 
+                    // Links öffnen
+                    components.setTitle();
                     components.setActiveLink();
+
+                    // Adressleiste anpassen
+                    window.history.pushState(null, null, `?id=${page.id}`);
 
                     callback(page.id);
                 }
@@ -53,7 +78,7 @@ const components = {
             parent: container
         })
 
-        return { container, link, containerChildren };
+        return { container, elLink, containerChildren };
     },
 
     linkExtender(parent) {
@@ -102,7 +127,7 @@ const components = {
 
     paragraph(content) {
         // console.log('paragraph', content.text);
-        
+
         let text = content.text.replaceAll('\n', '<br />');
         // Für einige im Code liegenden Zeilenumbrüche das <br>-Tag entfernen
         text = text.replaceAll('<br>', '<br />');
@@ -115,7 +140,7 @@ const components = {
         text = text.replaceAll('<ul><br>', '<ul>');
         text = text.replaceAll('</li><br />', '</li>');
         text = text.replaceAll('</li><br>', '</li>');
-        
+
         // console.log('paragraph', text);
 
         const container = dom.create({
@@ -142,13 +167,14 @@ const components = {
             classes: ['container', 'code'],
             parent
         })
-        
+
         // console.log(text);
 
         dom.create({
             type: 'p',
             parent: container,
-            content: text
+            content: text,
+            // textContent: text,
         })
 
         components.timestamps(content, container);
@@ -207,6 +233,7 @@ const components = {
         components.timestamps(content, container);
     },
 
+    // Elemente für Linksammlungen im Content
     links(content) {
         const container = dom.create({
             parent,
@@ -228,29 +255,34 @@ const components = {
         components.timestamps(content, container);
     },
 
-    contents(contents) {
+    contents() {
         parent.innerHTML = '';
         // Im Menü den richtigen Link auf 'current' setzen
         components.setActiveLink();
+        components.setTitle();
         let inPageLinks = dom.$('.current>.inPageLinks');
         inPageLinks.innerHTML = '';
+        els.subnav.innerHTML = '';
 
         dom.create({
-            type:'h1',
+            type: 'h1',
             content: settings.currentPageName,
             parent: parent
         })
 
-        contents.content.forEach(
+        settings.page.content.forEach(
             content => {
                 const contentEl = components[content.type](content);
 
                 // Links zu den Überschriften generieren
                 if (content.type == 'header' || content.type == 'subheader') {
+                    // Submenü füllen
                     const containerLink = dom.create({
-                        parent: inPageLinks,
+                        parent: els.subnav,
                         classes: ['inPageLink']
                     })
+
+                    // Content füllen
                     dom.create({
                         parent: containerLink,
                         content:
@@ -261,9 +293,9 @@ const components = {
                         type: 'a',
                         listeners: {
                             click(evt) {
-                                console.log(contentEl);
+                                // console.log(contentEl);
                                 contentEl.scrollIntoView();
-                                document.documentElement.scrollTop -= 15;
+                                document.documentElement.scrollTop -= 50;
                             }
                         }
                     })
