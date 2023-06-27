@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1687868321819,"chDate":1687868323045,"text":"Module in Node.js dienen der Organisation und Strukturierung von Code in einem Projekt. Durch die Verwendung von Modulen können Funktionen und Variablen in separate Dateien aufgeteilt werden, wodurch die Wiederverwendbarkeit erhöht und die Code-Wartung erleichtert wird. Module können auch in andere Module importiert und exportiert werden, um den Code in unterschiedlichen Teilen einer Anwendung zu nutzen."}]}

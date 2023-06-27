@@ -181,6 +181,29 @@ const components = {
 
     },
 
+    terminal(content) {
+        // let text = content.text;
+        let text = content.text.replaceAll('\t', '');
+        text = text.replaceAll(' ', '&nbsp;');
+        text = text.replaceAll('\n', '<br />');
+        const container = dom.create({
+            classes: ['container', 'terminal'],
+            parent
+        })
+
+        // console.log(text);
+
+        dom.create({
+            type: 'p',
+            parent: container,
+            content: text,
+            // textContent: text,
+        })
+
+        components.timestamps(content, container);
+
+    },
+
     header(content) {
         // console.log('header', content);
 
@@ -273,6 +296,8 @@ const components = {
         settings.page.content.forEach(
             content => {
                 const contentEl = components[content.type](content);
+                
+                console.log(contentEl);
 
                 // Links zu den Überschriften generieren
                 if (content.type == 'header' || content.type == 'subheader') {
