@@ -50,8 +50,14 @@ main>.container.containerCode textarea:focus,
 main>.container.containerCode:hover textarea {
     color: #384d68;
 }
+main>.container.containerTerminal textarea:focus ,
+main>.container.containerTerminal:hover textarea {
+    color:#fff;
+    background-color:#000;
+}
 
 .containerParagraph textarea,
+.containerTerminal textarea,
 .containerCode textarea {
     width: 98%;
     height: 200px;
@@ -73,7 +79,19 @@ main>.container.containerCode:hover textarea {
 
 .containerCode textarea {
     font-family: 'luxi_monoregular';
+    max-width: 98%;
     /* color: #384d68; */
+}
+
+.container.containerTerminal {
+    background-color: rgb(194, 214, 203);
+}
+
+.containerTerminal textarea {
+    font-family: 'luxi_monoregular';
+    max-width: 98%;
+    color: #ccc;
+    background-color: #222;
 }
 
 .containerHeader input {

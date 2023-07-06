@@ -83,6 +83,25 @@ const content = {
                 }
             }
         })
+        
+        // Terminalbefehl erzeugen
+        dom.create({
+            type: 'button',
+            content: '+ Terminal',
+            classes: ['green'],
+            parent,
+            listeners: {
+                click() {
+                    settings.pageData.content.splice(index, 0, {
+                        type: 'terminal',
+                        crDate: Date.now(),
+                        chDate: Date.now(),
+                        text: ''
+                    });
+                    content.renderPageContent(content.data);
+                }
+            }
+        })
 
         // Links erzeugen
         dom.create({
@@ -175,7 +194,7 @@ const content = {
             }
         })
 
-        let types = ['header', 'subheader', 'paragraph', 'code'];
+        let types = ['header', 'subheader', 'paragraph', 'code', 'terminal'];
         types.forEach(type => {
             dom.create({
                 type: 'option',
@@ -291,6 +310,46 @@ const content = {
     code(el, index) {
         const container = dom.create({
             classes: ['container', 'containerCode'],
+            parent: settings.elements.containerContent
+        })
+
+        dom.create({
+            type: 'textarea',
+            value: el.text,
+            parent: container,
+            listeners: {
+                input(evt) {
+                    el.text = evt.target.value;
+                    el.chDate = Date.now();
+                }
+            }
+        })
+
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch'],
+            parent: container
+        })
+        content.minusParagraph(index, container)
+        content.plusParagraph(index + 1, container)
+        content.saveContent(container);
+
+        content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
+
+    },
+
+    // Terminal
+    terminal(el, index) {
+        const container = dom.create({
+            classes: ['container', 'containerTerminal'],
             parent: settings.elements.containerContent
         })
 
