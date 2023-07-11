@@ -8,6 +8,7 @@ const dom = {
         parent = false,
         classes = false,
         attr = {},
+        dataset = {},
         listeners = {},
         styles = {},
         amEnde = true,
@@ -26,6 +27,7 @@ const dom = {
         Object.entries(attr).forEach(el => neu.setAttribute(...el));
         Object.entries(listeners).forEach(el => neu.addEventListener(...el));
         Object.entries(styles).forEach(style => neu.style[style[0]] = style[1]);
+        Object.entries(dataset).forEach(data => neu.dataset[data[0]] = data[1]);
 
         if (parent) {
             if (!amEnde) parent.prepend(neu);

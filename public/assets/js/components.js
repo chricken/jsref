@@ -170,12 +170,17 @@ const components = {
 
         // console.log(text);
 
-        dom.create({
+        const elText = dom.create({
             type: 'p',
             parent: container,
             content: text,
+            dataset:{
+                content: text
+            }
             // textContent: text,
         })
+
+        // settings.observerTextWriting.observe(elText);
 
         components.timestamps(content, container);
 
@@ -297,7 +302,7 @@ const components = {
             content => {
                 const contentEl = components[content.type](content);
                 
-                console.log(contentEl);
+                // console.log(contentEl);
 
                 // Links zu den Überschriften generieren
                 if (content.type == 'header' || content.type == 'subheader') {
