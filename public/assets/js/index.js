@@ -100,7 +100,6 @@ const refreshPages = () => {
 const refreshContents = (pageID, loadID) => {
     // Wenn eine loadID übergeben wurde, soll die geladen werden.
     // Das soll die Möglichkeit eröffnen, die Inhalt einer anderen Seite zu laden
-    console.log(loadID, pageID);
     ajax.loadContents(loadID || pageID).then(
         result => settings.page = result
     ).then(
@@ -121,6 +120,9 @@ const init = () => {
             if (query === '') {
                 refreshContents(123);
             } else {
+                // Wenn die Seite neu geladen wird, soll auf Basis der Adressleiste die Seite
+                // oder die Seite, deren Inhalt angezeigt werden soll, geladen werden
+
                 // Herausfinden, welche Seite gerade geladen ist
                 query = query.substring(1);
                 query = query.split('&');
@@ -129,6 +131,7 @@ const init = () => {
                     val = val.split('=');
                     objQuery[val[0]] = val[1];
                 })
+                
                 // objQuery.id enthält die ID der aktuellen Seite
                 // Aus den Pages die Seite picken
                 let currentID = objQuery.id;
@@ -147,8 +150,6 @@ const init = () => {
 
                 // Rekursion starten. Seite mit der ID suchen
                 settings.pages.forEach(findID)
-
-                console.log(currentPage);
 
                 if (currentPage.showContentOf && currentPage.showContentOf != '') {
                     refreshContents(currentPage.id, currentPage.showContentOf);

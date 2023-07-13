@@ -298,13 +298,12 @@ const components = {
             parent: parent
         })
 
+        
         settings.page.content.forEach(
             content => {
                 const contentEl = components[content.type](content);
-                
-                // console.log(contentEl);
 
-                // Links zu den Überschriften generieren
+                // Links zu den Überschriften ins Submenü einfügen
                 if (content.type == 'header' || content.type == 'subheader') {
                     // Submenü füllen
                     const containerLink = dom.create({
@@ -332,6 +331,7 @@ const components = {
                 }
             }
         )
+        
     }
 }
 

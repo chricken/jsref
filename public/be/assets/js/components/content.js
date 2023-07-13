@@ -298,7 +298,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         content.selectType(el, containerControl);
@@ -338,7 +338,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         content.selectType(el, containerControl);
@@ -378,7 +378,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         content.selectType(el, containerControl);
@@ -421,7 +421,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         content.selectType(el, containerControl);
@@ -463,7 +463,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         content.selectType(el, containerControl);
@@ -587,7 +587,7 @@ const content = {
 
         // Elemente, um den Typ und die Position zu steuern
         const containerControl = dom.create({
-            classes: ['container'],
+            classes: ['container', 'control'],
             parent: container
         })
         // console.log(containerControl);
