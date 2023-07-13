@@ -97,8 +97,11 @@ const refreshPages = () => {
     )
 }
 
-const refreshContents = pageID => {
-    ajax.loadContents(pageID).then(
+const refreshContents = (pageID, loadID) => {
+    // Wenn eine loadID übergeben wurde, soll die geladen werden.
+    // Das soll die Möglichkeit eröffnen, die Inhalt einer anderen Seite zu laden
+    console.log(loadID, pageID);
+    ajax.loadContents(loadID || pageID).then(
         result => settings.page = result
     ).then(
         () => settings.currentID = pageID
@@ -118,6 +121,7 @@ const init = () => {
             if (query === '') {
                 refreshContents(123);
             } else {
+                // Herausfinden, welche Seite gerade geladen ist
                 query = query.substring(1);
                 query = query.split('&');
                 let objQuery = {};
@@ -125,11 +129,35 @@ const init = () => {
                     val = val.split('=');
                     objQuery[val[0]] = val[1];
                 })
-                // console.log(objQuery.id);
-                refreshContents(objQuery.id);
+                // objQuery.id enthält die ID der aktuellen Seite
+                // Aus den Pages die Seite picken
+                let currentID = objQuery.id;
+                let currentPage = false;
 
+                // Rekursive Funktion, die alle Kinder nach der ID durchsucht
+                const findID = twig => {
+                    if (twig.id == currentID) {
+                        currentPage = twig
+                    } else {
+                        if (twig.children) {
+                            twig.children.forEach(findID)
+                        }
+                    }
+                }
+
+                // Rekursion starten. Seite mit der ID suchen
+                settings.pages.forEach(findID)
+
+                console.log(currentPage);
+
+                if (currentPage.showContentOf && currentPage.showContentOf != '') {
+                    refreshContents(currentPage.id, currentPage.showContentOf);
+                } else {
+                    refreshContents(currentPage.id);
+                }
             }
         }
+
     ).catch(
         console.warn
     )

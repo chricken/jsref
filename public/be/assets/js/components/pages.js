@@ -139,6 +139,52 @@ const pages = {
             }
         })
 
+        // Zeige Inhalt von anderer Seite
+        dom.create({
+            type: 'span',
+            parent: details,
+            content: 'Zeige Inhalt von: '
+        })
+
+        let elSelectShowContentOf = dom.create({
+            type: 'select',
+            parent: details,
+            listeners: {
+                change() {
+                    console.log(elSelectShowContentOf.value);
+                    page.showContentOf = elSelectShowContentOf.value;
+                }
+            }
+        })
+
+        // Option für "keine Seite gewählt"
+        dom.create({
+            type: 'option',
+            parent: elSelectShowContentOf,
+            content: 'keine',
+            attr: {
+                value: ''
+            },
+        })
+
+        // Seiten zur Auswahl hinzufügen
+        settings.pages.forEach(page => {
+            dom.create({
+                type: 'option',
+                parent: elSelectShowContentOf,
+                content: `${page.title} <span style="font-size:.5em">(${page.id})</span>`,
+                attr: {
+                    value: page.id
+                }
+            })
+        })
+
+        
+        if (page.showContentOf && page.showContentOf != '') {
+            elSelectShowContentOf.value = page.showContentOf;
+        }
+
+
         // CreationDate
         dom.create({
             classes: ['info'],

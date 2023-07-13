@@ -1,5 +1,7 @@
 'use strict';
 
+// Intersection Observer, der Text Zeichen für Zeichen schreiben soll
+// Problem: HTML-Code wird nicht interpretiert
 const handleIntersectionTextWriting = (entries, observer) => {
     entries.forEach(entry => {
         // Prüfen, ob das Element sichtbar ist

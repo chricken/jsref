@@ -63,7 +63,7 @@ const components = {
                     // Adressleiste anpassen
                     window.history.pushState(null, null, `?id=${page.id}`);
 
-                    callback(page.id);
+                    callback(page.id, page.showContentOf);
                 }
             }
         })
