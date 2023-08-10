@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1691673721646,"chDate":1691673723275,"text":"Der Event-Handling-Prozess besteht aus zwei Phasen: Capture und Bubble. Die Capture-Phase beginnt mit dem Root-Element des Dokuments und arbeitet sich dann zum Zielelement hinunter. Die Bubble-Phase beginnt mit dem Zielelement und arbeitet sich dann zum Root-Element hinauf."}]}
