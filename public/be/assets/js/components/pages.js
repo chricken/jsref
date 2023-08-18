@@ -47,52 +47,15 @@ const pages = {
             }
         )
     },
-    pageContainer({
+
+    pageDetails({
         parent = false,
         page = {},
-        index = false,
-        renderPages = () => { },
     } = {}) {
-
-        // console.log(page);
-
-        const container = dom.create({
-            parent,
-            classes: ['container', 'containerPage'],
-            listeners: {
-                click(evt) {
-                    evt.stopPropagation();
-                    dom.$$('aside .containerPage').forEach(el => {
-                        el.classList.remove('open')
-                    })
-                    container.classList.add('open');
-                    settings.activePageID = page.id;
-                    ajax.openSinglePage();
-                },
-                mouseenter(evt) {
-                    evt.stopPropagation();
-                    container.classList.add('hover')
-                },
-                mouseleave(evt) {
-                    dom.$$('aside .containerPage')
-                    evt.stopPropagation();
-                    container.classList.remove('hover')
-                }
-            }
-        })
-        page.moveMe && container.classList.add('moveMe');
-        page.visible || container.classList.add('hidden');
-
-        // Title
-        dom.create({
-            parent: container,
-            content: page.title,
-            classes: ['divHeader'],
-        })
 
         // Container für Details, die ausgeblendet werden können
         const details = dom.create({
-            parent: container,
+            parent,
             classes: ['details']
         })
 
@@ -123,6 +86,7 @@ const pages = {
             parent: details
         })
 
+        /*
         // Eingabefeld für Übersichtstext
         dom.create({
             type: 'textarea',
@@ -138,7 +102,7 @@ const pages = {
                 }
             }
         })
-
+*/
         // Zeige Inhalt von anderer Seite
         dom.create({
             type: 'span',
@@ -179,12 +143,12 @@ const pages = {
             })
         })
 
-        
+
         if (page.showContentOf && page.showContentOf != '') {
             elSelectShowContentOf.value = page.showContentOf;
         }
 
-
+        
         // CreationDate
         dom.create({
             classes: ['info'],
@@ -226,6 +190,60 @@ const pages = {
             }
         })
         if (page.visible) cbVisible.checked = true;
+        return details
+    },
+    pageContainer({
+        parent = false,
+        page = {},
+        index = false,
+        renderPages = () => { },
+    } = {}) {
+
+        // console.log(page);
+
+        // Container für einen Menüeintrag
+        const container = dom.create({
+            parent,
+            classes: ['container', 'containerPage'],
+            listeners: {
+                click(evt) {
+                    evt.stopPropagation();
+                    dom.$$('aside .containerPage').forEach(el => {
+                        el.classList.remove('open')
+                    })
+                    container.classList.add('open');
+                    settings.activePageID = page.id;
+                    localStorage.setItem('activePageID', page.id);
+                    ajax.openSinglePage();
+                },
+                mouseenter(evt) {
+                    evt.stopPropagation();
+                    container.classList.add('hover')
+                },
+                mouseleave(evt) {
+                    dom.$$('aside .containerPage')
+                    evt.stopPropagation();
+                    container.classList.remove('hover')
+                }
+            },
+            attr:{
+                'data-pageid': page.id
+            }
+        })
+        page.moveMe && container.classList.add('moveMe');
+        page.visible || container.classList.add('hidden');
+
+        // Title
+        dom.create({
+            parent: container,
+            content: page.title,
+            classes: ['divHeader'],
+        })
+
+        let details = pages.pageDetails({
+            parent:container,
+            page
+        })
 
 
         // Buttons
@@ -251,7 +269,7 @@ const pages = {
         // Andere Buttons
         containerBtns = dom.create({
             content: 'Erzeugen: ',
-            classes: ['containerBtns'],
+            classes: ['containerBtns', 'btnShy'],
             parent: container
         })
 
