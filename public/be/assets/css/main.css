@@ -121,17 +121,20 @@ main>.container.containerTerminal:hover textarea {
 .container .timestamps,
 .container .umbruch,
 .container .control {
-    display: none;
+   /* display: none;*/
+	opacity: 0.2;
 }
 
 .container:hover button {
     display: inline-block;
+	opacity: 1;
 }
 
 .container:hover .umbruch,
 .container:hover .timestamps,
 .container:hover .control {
     display: block;
+	opacity: 1;
 }
 
 .timestamps>span {

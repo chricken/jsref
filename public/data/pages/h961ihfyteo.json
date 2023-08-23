@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1692618971026,"chDate":1692619354606,"text":"Observer sind eine Variante von Eventlistenern. Ein Zustand wird beobachtet und bei einer Änderung wird eine Callback-Funktion aufgerufen.\nDie Callback-Funktion bekommt dann eine Liste aller Elemente übergeben, für die sich die Änderung ergeben hat und diese können dann verarbeitet werden."}]}
