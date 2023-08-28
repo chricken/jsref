@@ -83,7 +83,7 @@ const content = {
                 }
             }
         })
-        
+
         // Terminalbefehl erzeugen
         dom.create({
             type: 'button',
@@ -690,7 +690,7 @@ const content = {
             attr: {
                 placeholder: 'Subtext'
             },
-            styles:{
+            styles: {
                 width: '400px'
             }
         })
@@ -750,6 +750,16 @@ const content = {
 
         content.plusParagraph(0, container);
         content.saveContent(container);
+
+        // Interval zum Speichern der Pagedaten
+        if (settings.saveIntervalID !== false) {
+            clearInterval(settings.saveIntervalID)
+        }
+        settings.saveIntervalID = setInterval(
+            ajax.savePageFile,
+            1000 * 60,
+            content.data
+        )
 
         settings.pageData.content.forEach((el, index) => {
             content[el.type](el, index);

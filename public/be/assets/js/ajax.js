@@ -44,7 +44,7 @@ const ajax = {
         ).then(
             console.log
         ).catch(
-            console.warn
+           err =>  alert(`Seite konnte nicht gespeichert werden.\nFehler: ${err}`)
         )
     },
 

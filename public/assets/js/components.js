@@ -297,7 +297,6 @@ const components = {
             content: settings.currentPageName,
             parent: parent
         })
-
         
         settings.page.content.forEach(
             content => {
@@ -330,8 +329,7 @@ const components = {
                     })
                 }
             }
-        )
-        
+        )        
     }
 }
 
