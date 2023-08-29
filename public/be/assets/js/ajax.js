@@ -42,7 +42,7 @@ const ajax = {
         }).then(
             res => res.json()
         ).then(
-            console.log
+            //console.log
         ).catch(
            err =>  alert(`Seite konnte nicht gespeichert werden.\nFehler: ${err}`)
         )
