@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1693491229915,"chDate":1693491553187,"text":"Die <i>v-on</i>-Methode weist einem Webseiten-Element einen Eventlistener zu. Die v-on-Methode wird durch einen Doppelpunkt mit dem gewünschten Evenet verknüpft. \nWenn der Event auftritt, wird die Vue-Methode aufgerufen, die im Parameter hinterlegt ist."},{"type":"subheader","crDate":1693491557284,"chDate":1693491561194,"text":"Kurzsyntax"},{"type":"subheader","crDate":1693491564139,"chDate":1693491566980,"text":"Klammern"}]}
