@@ -10,6 +10,7 @@ aside {
 }
 aside .divHeader {
     cursor: pointer;
+    margin-left: 3px;
 }
 aside .divHeader:hover {
     background-color: rgba(0,0,0,.1);
@@ -20,10 +21,11 @@ aside .container.containerPage {
     margin-right: 0;
     padding-right: 0;
     border: 0;
-    border-left: 3px solid #aaa;
+    border-left: 5px solid #aaa;
     border-radius: 0;
-    margin-left: 0px;
-    padding: 3px;
+    margin-left: 2px;
+    padding: 1px;
+    padding-left: 0px;
 }
 
 aside .container.containerPage.hidden {
@@ -31,8 +33,7 @@ aside .container.containerPage.hidden {
 }
 
 aside .containerPage:hover {
-    /* background-color: var(--colorHoverPage); */
-
+    border-left-color: rgb(0, 0, 0) !important;
 }
 aside .containerPage.open {
     background-color: var(--colorActivePage);

@@ -102,7 +102,7 @@ server.post('/uploadImg', (request, response) => {
     })
 
     myForm.parse(request, (err, fields, files) => {
-        console.log(files.upload);
+        // console.log(files.upload);
         response.json({
             status:'ok',
             filename: files.upload.newFilename

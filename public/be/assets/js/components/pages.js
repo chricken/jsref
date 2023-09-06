@@ -230,6 +230,9 @@ const pages = {
                 'data-pageid': page.id
             }
         })
+
+        container.style.borderLeftColor = `hsl(${~~(Math.random()*360)},100%,40%)`;
+
         page.moveMe && container.classList.add('moveMe');
         page.visible || container.classList.add('hidden');
 
