@@ -174,6 +174,26 @@ const content = {
         })
     },
 
+    // Button, um den Inhalt zu speichern
+    btnHTMLToSpecialChars(parent, el) {
+        const btn = dom.create({
+            type: 'button',
+            content: '< to &amp;lt;',
+            parent,
+            listeners: {
+                click() {
+                    let ta = parent.querySelector('textarea');
+                    let val = ta.value;
+                    val = val.replaceAll('<', '&lt;');
+                    ta.value = val;
+                    el.text = ta.value;
+                    el.chDate = Date.now();
+                }
+            }
+        })
+        return btn;
+    },
+
     // Auswahl, welche Art von Element dies ist
     selectType(el, parent) {
 
@@ -292,6 +312,8 @@ const content = {
         })
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
+        
+        // content.btnHTMLToSpecialChars(container, el);
         content.saveContent(container);
 
         content.timestamps(el, container);
@@ -313,7 +335,7 @@ const content = {
             parent: settings.elements.containerContent
         })
 
-        dom.create({
+        let ta = dom.create({
             type: 'textarea',
             value: el.text,
             parent: container,
@@ -332,6 +354,8 @@ const content = {
         })
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
+
+        content.btnHTMLToSpecialChars(container, el);
         content.saveContent(container);
 
         content.timestamps(el, container);
@@ -750,6 +774,7 @@ const content = {
 
         content.plusParagraph(0, container);
         content.saveContent(container);
+        // content.btnHTMLToSpecialChars(container);
 
         // Interval zum Speichern der Pagedaten
         if (settings.saveIntervalID !== false) {

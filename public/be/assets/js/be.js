@@ -36,7 +36,7 @@ const renderPages = () => {
             renderPages,
         })
     })
-    
+
     // Anhand der ID ineinander verschachteln
     settings.pages.forEach((page, index) => {
         if (page.parent) {
@@ -48,12 +48,13 @@ const renderPages = () => {
 
     // Zuletzt geladene Seite anzeigen
     let activePageID = localStorage.getItem('activePageID');
-    if(activePageID){
+    if (activePageID) {
         settings.activePageID = activePageID;
         ajax.openSinglePage();
 
         // Seite im Menü hervorheben
-        document.querySelector(`[data-pageid=${activePageID}]`).classList.add('open');
+        let el = document.querySelector(`[data-pageid="${activePageID}"]`);
+        if (el) el.classList.add('open');
     }
 }
 
