@@ -231,7 +231,12 @@ const pages = {
             }
         })
 
-        container.style.borderLeftColor = `hsl(${~~(Math.random()*360)},100%,40%)`;
+        // container.style.borderLeftColor = `hsl(${~~(Math.random()*360)},100%,40%)`;
+
+        dom.create({
+            parent: container,
+            classes:['kante']
+        })
 
         page.moveMe && container.classList.add('moveMe');
         page.visible || container.classList.add('hidden');
