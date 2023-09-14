@@ -37,7 +37,9 @@ const settings = {
     currentID: 123,
     currentPageName: '',
     maxLengthInPageHeader: 20,
-    observerTextWriting: new IntersectionObserver(handleIntersectionTextWriting)
+    observerTextWriting: new IntersectionObserver(handleIntersectionTextWriting),
+    searchContent:false,
+    pageNamesByIds:false,
 }
 
 export default settings;

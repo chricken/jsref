@@ -22,6 +22,70 @@ const appendEventlisteners = () => {
     window.addEventListener('scroll', handleScroll);
 }
 
+const initializeSearchContent = () => {
+
+    // Anzeige, dass gesucht wird
+    els.containerSearch.innerHTML = '';
+
+    dom.create({
+        parent: els.containerSearch,
+        content: 'Suche wird initialisiert'
+    })
+
+    // Daten laden und füllen
+    fetch('/data/pages.json').then(
+        res => res.json()
+    ).then(
+        res => {
+            return Promise
+                .all(
+                    res.pages
+                        .map(page => page.id)
+                        .map(id => fetch(`/data/pages/${id}.json`)))
+        }
+    ).then(
+        res => Promise.all(res.map(response => {
+            // der Response muss noch um die ID erweitert werden. Das wird hier erledigt
+            return response.json().then(
+                res => {
+                    // ID der Seite suchen
+                    let url = response.url.split('/');
+                    url = url[url.length-1];
+                    url = url.split('.')[0];
+                    res.id = url;
+                    return res
+                }
+            )
+        }))
+    ).then(
+        res => settings.searchContent = res
+    ).then(
+        () => console.log(settings.searchContent)
+    ).then(
+        () => {
+            
+            els.containerSearch.innerHTML = '';
+            components.suche(searchContent);
+        }
+    ).catch(
+        console.warn
+    )
+}
+
+const searchContent = value => {
+    // console.log(value);
+    let found = settings.searchContent.filter(page =>
+        page.content.some(el => {
+            if (!el.text) return false;
+            else return el.text.includes(value)
+        })
+    )
+    found = found.map(page => {
+        page.id = settings.pageNamesByIds.get()
+    })
+    console.log(found);
+}
+
 // Navigation verschieben, um weiterhin sichtbar zu sein
 const handleScroll = () => {
     // console.log(document.documentElement.scrollTop);
@@ -80,6 +144,9 @@ const renderNav = () => {
 const refreshPages = () => {
     return ajax.loadPages().then(
         res => {
+            // Anlegen einer Map mit der id -> title Zuordnung
+            settings.pageNamesByIds = new Map(res.pages.map(el => [el.id, el.title]))
+
             // Leeres Kind-Array anlegen
             res.pages.map(page => page.children = [])
 
@@ -116,6 +183,30 @@ const init = () => {
     appendEventlisteners();
     refreshPages().then(
         () => {
+            els.containerSearch = dom.create({
+                parent: els.nav,
+                classes: ['container']
+            })
+
+            // Beschriftung
+            dom.create({
+                parent: els.containerSearch,
+                type: 'h4',
+                content: 'Suche'
+            })
+
+            // SendButton
+            dom.create({
+                type: 'button',
+                parent: els.containerSearch,
+                content: 'Initialisieren',
+                listeners: {
+                    click: initializeSearchContent
+                }
+            })
+        }
+    ).then(
+        () => {
             let query = window.location.search;
             if (query === '') {
                 refreshContents(123);
@@ -131,7 +222,7 @@ const init = () => {
                     val = val.split('=');
                     objQuery[val[0]] = val[1];
                 })
-                
+
                 // objQuery.id enthält die ID der aktuellen Seite
                 // Aus den Pages die Seite picken
                 let currentID = objQuery.id;

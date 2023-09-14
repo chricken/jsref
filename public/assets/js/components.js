@@ -19,7 +19,7 @@ const components = {
 
         // Alle Elternelemente ggf öffen
         const openLink = el => {
-            
+
             // öffnen, falls es ein link-Element ist
             if (el.classList.contains('link')) el.classList.add('open');
 
@@ -29,7 +29,7 @@ const components = {
         openLink(currentLink);
     },
 
-    setTitle(){
+    setTitle() {
         let page = helpers.deepSearch(settings.pages, 'id', settings.currentID);
         settings.currentPageName = page.title;
         dom.$('title').innerHTML = page.title;
@@ -174,7 +174,7 @@ const components = {
             type: 'p',
             parent: container,
             content: text,
-            dataset:{
+            dataset: {
                 content: text
             }
             // textContent: text,
@@ -283,6 +283,30 @@ const components = {
         components.timestamps(content, container);
     },
 
+    suche(callback) {
+        // suche
+        const inputSearch = dom.create({
+            type: 'input',
+            parent: els.containerSearch,
+            attr: {
+                placeholder: 'Suchstring'
+            },
+            listeners: {
+                input: () => callback(inputSearch.value)
+            }
+        })
+
+        // SendButton
+        dom.create({
+            type: 'button',
+            parent: els.containerSearch,
+            content: 'send',
+            listeners: {
+                click: () => callback(inputSearch.value)
+            }
+        })
+    },
+
     contents() {
         parent.innerHTML = '';
         // Im Menü den richtigen Link auf 'current' setzen
@@ -297,7 +321,7 @@ const components = {
             content: settings.currentPageName,
             parent: parent
         })
-        
+
         settings.page.content.forEach(
             content => {
                 const contentEl = components[content.type](content);
@@ -329,7 +353,7 @@ const components = {
                     })
                 }
             }
-        )        
+        )
     }
 }
 
