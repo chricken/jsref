@@ -307,6 +307,49 @@ const components = {
         })
     },
 
+    // Ergebnisse der Suche
+    searchResults(found, searchVal, callback) {
+
+        found.forEach(page => {
+            let count = JSON.stringify(page);
+            count = count.toLowerCase()
+            count = count.split(searchVal.toLowerCase()).length - 1
+            page.count = count;
+        })
+
+        found.sort((a, b) => b.count - a.count)
+
+        // console.log(found, searchVal);
+
+        found.forEach(page => {
+            const containerLink = dom.create({
+                parent: els.containerSearchResults,
+                classes: ['link'],
+                /*                
+                attr: {
+                    href: `/?id=${page.id}`
+                }
+                */
+                listeners: {
+                    click() {
+                        callback(page.id)
+                    }
+                }
+            })
+            dom.create({
+                type: 'h4',
+                content: page.title,
+                parent: containerLink
+            })
+            dom.create({
+                content: `Fundstellen: ${page.count}`,
+                parent: containerLink
+            })
+
+
+        })
+    },
+
     contents() {
         parent.innerHTML = '';
         // Im Menü den richtigen Link auf 'current' setzen

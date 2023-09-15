@@ -50,7 +50,7 @@ const initializeSearchContent = () => {
                 res => {
                     // ID der Seite suchen
                     let url = response.url.split('/');
-                    url = url[url.length-1];
+                    url = url[url.length - 1];
                     url = url.split('.')[0];
                     res.id = url;
                     return res
@@ -63,7 +63,6 @@ const initializeSearchContent = () => {
         () => console.log(settings.searchContent)
     ).then(
         () => {
-            
             els.containerSearch.innerHTML = '';
             components.suche(searchContent);
         }
@@ -73,17 +72,29 @@ const initializeSearchContent = () => {
 }
 
 const searchContent = value => {
-    // console.log(value);
     let found = settings.searchContent.filter(page =>
         page.content.some(el => {
             if (!el.text) return false;
-            else return el.text.includes(value)
+            else return el.text.toLowerCase().includes(value.toLowerCase())
         })
     )
-    found = found.map(page => {
-        page.id = settings.pageNamesByIds.get()
+
+    found.forEach(page => {
+        page.title = settings.pageNamesByIds.get(page.id)
     })
-    console.log(found);
+
+    if (els.containerSearchResults)
+        els.containerSearchResults.remove();
+
+    if (value) {
+        els.containerSearchResults = dom.create({
+            parent: els.containerSearch,
+            classes: ['container', 'searchResults', 'transit']
+        })
+    }
+    components.searchResults(found, value, refreshContents)
+    // console.log(found);
+
 }
 
 // Navigation verschieben, um weiterhin sichtbar zu sein

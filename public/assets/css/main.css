@@ -23,6 +23,28 @@
     font-size: .9em;
 }
 
+.container.searchResults {
+    margin: 0px;
+    /* border-radius: 0; */
+    margin-top: 10px;
+}
+
+.container.searchResults .link {
+    position: relative;
+    display: block;
+    text-decoration: none;
+    margin-bottom:10px;
+    cursor: pointer;
+}
+.container.searchResults .link:hover {
+    color:#fff;
+    background-color: #0ab;
+}
+
+.container.searchResults h4 {
+    margin: 0;
+}
+
 .paragraph p {
     /* font-family: 'Lora', serif; */
     line-height: 1.4em;
