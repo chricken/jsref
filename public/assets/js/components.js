@@ -283,6 +283,48 @@ const components = {
         components.timestamps(content, container);
     },
 
+    // Element, das die letzten Änderungen anzeigen soll
+    lastChanges(callback) {
+
+        dom.create({
+            type: 'h3',
+            content: `Änderungen der letzten ${settings.daysToBeNew} Tage`,
+            parent
+        })
+        const container = dom.create({
+            parent,
+            classes: ['container', 'image']
+        })
+
+        settings.lastChanges.forEach(page => {
+            let containerLink = dom.create({
+                type: 'p',
+                parent: container,
+                content: page.title,
+                classes: ['innerLink', 'transit'],
+                listeners: {
+                    click(evt) {
+                        // ajax.loadContents(page.id)
+                        evt.stopPropagation();
+                        settings.currentID = page.id;
+                        // settings.currentPageName = page.title;
+
+                        // Links öffnen
+                        components.setTitle();
+                        components.setActiveLink();
+
+                        // Adressleiste anpassen
+                        window.history.pushState(null, null, `?id=${page.id}`);
+
+                        callback(page.id);
+                    }
+                }
+            })
+
+        })
+
+    },
+
     suche(callback) {
         // suche
         const inputSearch = dom.create({

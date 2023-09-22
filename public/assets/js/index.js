@@ -60,15 +60,37 @@ const initializeSearchContent = () => {
     ).then(
         res => settings.searchContent = res
     ).then(
-        () => console.log(settings.searchContent)
+        // () => console.log(settings.searchContent)
     ).then(
         () => {
             els.containerSearch.innerHTML = '';
             components.suche(searchContent);
         }
+    ).then(
+        () => {
+            // Änderungen in den letzten Tagen suchen
+            settings.lastChanges = settings.searchContent.filter(contents => {
+                // console.log(contents.content);
+                return contents.content.some(el => {
+                    let threshold = settings.daysToBeNew * 24 * 60 * 60 * 1000;
+                    return el.chDate > (Date.now() - threshold)
+                })
+            })
+            // Daten in eine nützliche Form konvertieren
+            settings.lastChanges = settings.lastChanges.map(page => {
+                return {
+                    id: page.id,
+                    title: settings.pageNamesByIds.get(page.id)
+                }
+            })
+            // Letzte Änderugen als Linkliste ausgeben
+            // console.log(settings.lastChanges);
+            components.lastChanges(refreshContents);
+        }
     ).catch(
         console.warn
     )
+
 }
 
 const searchContent = value => {
@@ -194,6 +216,7 @@ const init = () => {
     appendEventlisteners();
     refreshPages().then(
         () => {
+            // Suche aufbauen
             els.containerSearch = dom.create({
                 parent: els.nav,
                 classes: ['container']
@@ -207,14 +230,8 @@ const init = () => {
             })
 
             // SendButton
-            dom.create({
-                type: 'button',
-                parent: els.containerSearch,
-                content: 'Initialisieren',
-                listeners: {
-                    click: initializeSearchContent
-                }
-            })
+            initializeSearchContent();
+
         }
     ).then(
         () => {

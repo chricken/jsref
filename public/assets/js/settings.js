@@ -40,6 +40,8 @@ const settings = {
     observerTextWriting: new IntersectionObserver(handleIntersectionTextWriting),
     searchContent:false,
     pageNamesByIds:false,
+    daysToBeNew:14,
+    lastChanges:[],
 }
 
 export default settings;

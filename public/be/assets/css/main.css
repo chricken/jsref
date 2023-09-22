@@ -23,6 +23,11 @@ main>.container select,
 main>.container button,
 main>.container {
     color: #888;
+    line-height: 1.4em;
+}
+
+main>.container input {
+    font-family: acre-semibold;
 }
 
 main>.container:hover textarea,
@@ -69,7 +74,7 @@ main>.container.containerTerminal:hover textarea {
 }
 
 .containerParagraph textarea {
-    font-family: 'allerregular';
+    font-family: 'acre-light';
     /* color: #444; */
     max-width: 98%;
 }
@@ -79,7 +84,7 @@ main>.container.containerTerminal:hover textarea {
 }
 
 .containerCode textarea {
-    font-family: 'luxi_monoregular';
+    font-family: 'hackregular';
     max-width: 98%;
     /* color: #384d68; */
 }
@@ -89,7 +94,7 @@ main>.container.containerTerminal:hover textarea {
 }
 
 .containerTerminal textarea {
-    font-family: 'luxi_monoregular';
+    font-family: 'hackregular';
     max-width: 98%;
     color: #ccc;
     background-color: #222;
@@ -121,20 +126,20 @@ main>.container.containerTerminal:hover textarea {
 .container .timestamps,
 .container .umbruch,
 .container .control {
-   /* display: none;*/
-	opacity: 0.2;
+    /* display: none;*/
+    opacity: 0.2;
 }
 
 .container:hover button {
     display: inline-block;
-	opacity: 1;
+    opacity: 1;
 }
 
 .container:hover .umbruch,
 .container:hover .timestamps,
 .container:hover .control {
     display: block;
-	opacity: 1;
+    opacity: 1;
 }
 
 .timestamps>span {

@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"subheader","crDate":1695040629245,"chDate":1695040634749,"text":"list()"},{"type":"paragraph","crDate":1695040670310,"chDate":1695041305068,"text":"Liefert ein Array mit allen Dokumenten in der Datenbank.\nDas Rückgabe-Array ist in ein Objekt geschachtelt, das neben den Nutzdaten die Anzahl der Datensätze und einen offset (dazu unten mehr) enthält.\n"}]}
