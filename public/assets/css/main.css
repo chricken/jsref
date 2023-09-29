@@ -33,16 +33,24 @@
     position: relative;
     display: block;
     text-decoration: none;
-    margin-bottom:10px;
+    margin-bottom: 10px;
     cursor: pointer;
 }
+
 .container.searchResults .link:hover {
-    color:#fff;
+    color: #fff;
     background-color: #0ab;
 }
 
 .container.searchResults h4 {
     margin: 0;
+}
+
+.container .contentImage {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background:#fff;
+    box-shadow: 2px 2px 5px 0 rgba(0,0,0,.1);
 }
 
 .paragraph p {
@@ -56,12 +64,15 @@
     background: rgba(0, 0, 0, .1);
     vertical-align: top;
 }
+
 p.innerLink {
     cursor: pointer;
 }
+
 p.innerLink:hover {
-    background-color: rgba(0,0,0,.2);
+    background-color: rgba(0, 0, 0, .2);
 }
+
 .container.code p {
     margin-left: 20px;
     padding-left: 10px;

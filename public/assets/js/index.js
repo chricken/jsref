@@ -68,24 +68,39 @@ const initializeSearchContent = () => {
         }
     ).then(
         () => {
-            // Änderungen in den letzten Tagen suchen
-            settings.lastChanges = settings.searchContent.filter(contents => {
-                // console.log(contents.content);
-                return contents.content.some(el => {
-                    let threshold = settings.daysToBeNew * 24 * 60 * 60 * 1000;
-                    return el.chDate > (Date.now() - threshold)
+            if (settings.currentID == 123) {
+                // Änderungen in den letzten Tagen suchen
+                settings.lastChanges = settings.searchContent.filter(contents => {
+                    // console.log(contents.content);
+                    return contents.content.some(el => {
+                        let threshold = settings.daysToBeNew * 24 * 60 * 60 * 1000;
+                        return el.chDate > (Date.now() - threshold)
+                    })
                 })
-            })
-            // Daten in eine nützliche Form konvertieren
-            settings.lastChanges = settings.lastChanges.map(page => {
-                return {
-                    id: page.id,
-                    title: settings.pageNamesByIds.get(page.id)
-                }
-            })
-            // Letzte Änderugen als Linkliste ausgeben
-            // console.log(settings.lastChanges);
-            components.lastChanges(refreshContents);
+                settings.lastChanges.sort((a, b) => {
+                    let aChDate = Math.max(...a.content.map(el=>el.chDate));
+                    let bChDate = Math.max(...b.content.map(el=>el.chDate));
+                    a.lastChange = aChDate;
+                    b.lastChange = bChDate;
+                    return aChDate > bChDate ? -1 : 1;
+                })
+                // console.log(settings.lastChanges);
+                // Daten in eine nützliche Form konvertieren
+                
+                settings.lastChanges = settings.lastChanges.map(page => {
+                    return {
+                        id: page.id,
+                        title: settings.pageNamesByIds.get(page.id),
+                        // Alter in Tagen
+                        lastChange: ~~((Date.now() - page.lastChange) / 1000 / 60 / 60 / 24)
+                    }
+                })
+
+                // Letzte Änderugen als Linkliste ausgeben
+                // console.log(settings.lastChanges);
+                components.lastChanges(refreshContents);
+                
+            }
         }
     ).catch(
         console.warn

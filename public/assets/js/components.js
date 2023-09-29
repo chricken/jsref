@@ -297,10 +297,11 @@ const components = {
         })
 
         settings.lastChanges.forEach(page => {
+            // console.log(page);
             let containerLink = dom.create({
                 type: 'p',
                 parent: container,
-                content: page.title,
+                content: `${page.title} (${page.lastChange} Tag${page.lastChange == 1 ? '' : 'e'})`,
                 classes: ['innerLink', 'transit'],
                 listeners: {
                     click(evt) {
