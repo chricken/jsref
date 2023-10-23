@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1697638004756,"chDate":1697638553324,"text":"Ein häufiger Wunsch ist es, Dateien, die über ein <i>file</i>-Inputfield ausgewählt wurden, auf der Webseite anzuzeigen.\nDie Schwierigkeit dabei ist, dass die Pfade zu den Dateien im Client nicht ersichtlich sind / sein dürfen. Daher gibt es die Lösung, dass die Dateien in eine temporäre Datensammlung gelegt und von dort gelesen werden können."}]}
