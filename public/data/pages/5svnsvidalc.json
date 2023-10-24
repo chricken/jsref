@@ -1,0 +1,1 @@
+{"content":[{"type":"paragraph","crDate":1698160426841,"chDate":1698160569461,"text":"Relativ häufig kommt es vor, dass in ein React-Modul zusätzliche Daten importiert werden müssen. Dies können Bilder, JSON- oder CSS-Dateien oder anderes sein.\nDiese Dateien können mit einem einfachen import eingebunden werden.\nIm <i>Build</i>-Prozess werden auch diese Dateien inkludiert."}]}
