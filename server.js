@@ -1,6 +1,7 @@
 'use strict';
 
 // Modules
+const opn = require('better-opn');
 const fs = require('fs');
 const formidable = require('formidable');
 
@@ -23,7 +24,14 @@ const paths = {
 }
 
 const init = () => {
-    server.listen(80, err => console.log(err || 'Server läuft'));
+    server.listen(8910, err => {
+        if (err) console.log(err);
+        else {
+            console.log('Server läuft');
+            opn('http://localhost:8910/be');
+            opn('http://localhost:8910/');
+        }
+    });
 }
 
 // Routen
@@ -104,7 +112,7 @@ server.post('/uploadImg', (request, response) => {
     myForm.parse(request, (err, fields, files) => {
         // console.log(files.upload);
         response.json({
-            status:'ok',
+            status: 'ok',
             filename: files.upload.newFilename
         })
     })
