@@ -1,0 +1,1 @@
+{"content":[{"type":"paragraph","crDate":1701444449503,"chDate":1701444461614,"text":"Int8Array, Uint8Array, Uint8ClampedArray, Int16Array, Uint16Array, Int32Array, Uint32Array, Float32Array, Float64Array: Diese Konstruktoren erstellen typisierte Arrays, die eine Möglichkeit bieten, rohe binäre Daten in JavaScript zu handhaben."}]}
