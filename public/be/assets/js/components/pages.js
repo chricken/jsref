@@ -59,6 +59,20 @@ const pages = {
             classes: ['details']
         })
 
+        // Opener
+        dom.create({
+            type: 'span',
+            parent: details,
+            content: '⯈',
+            classes: ['opener', 'transit'],
+            listeners:{
+                click(evt){
+                    evt.stopPropagation();
+                    parent.classList.toggle('opened')
+                }
+            }
+        })
+
         // Title
         dom.create({
             parent: details,
@@ -148,7 +162,7 @@ const pages = {
             elSelectShowContentOf.value = page.showContentOf;
         }
 
-        
+
         // CreationDate
         dom.create({
             classes: ['info'],
@@ -192,6 +206,7 @@ const pages = {
         if (page.visible) cbVisible.checked = true;
         return details
     },
+
     pageContainer({
         parent = false,
         page = {},
@@ -226,7 +241,7 @@ const pages = {
                     container.classList.remove('hover')
                 }
             },
-            attr:{
+            attr: {
                 'data-pageid': page.id
             }
         })
@@ -235,24 +250,44 @@ const pages = {
 
         dom.create({
             parent: container,
-            classes:['kante']
+            classes: ['kante']
         })
 
         page.moveMe && container.classList.add('moveMe');
         page.visible || container.classList.add('hidden');
 
         // Title
-        dom.create({
+        const header = dom.create({
             parent: container,
-            content: page.title,
             classes: ['divHeader'],
+        })
+        
+        // Opener
+        dom.create({
+            type: 'span',
+            parent: header,
+            content: '⯈',
+            classes: ['opener', 'transit'],
+            listeners:{
+                click(evt){
+                    evt.stopPropagation();
+                    console.log(container);
+                    container.classList.toggle('opened')
+                }
+            }
+        })
+        
+        dom.create({
+            type:'span',
+            parent: header,
+            content: page.title,
+            classes:['headerContent']
         })
 
         let details = pages.pageDetails({
-            parent:container,
+            parent: container,
             page
         })
-
 
         // Buttons
         let containerBtns = dom.create({
