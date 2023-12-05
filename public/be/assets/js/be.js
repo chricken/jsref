@@ -34,7 +34,7 @@ const renderPages = () => {
             page,
             index,
             renderPages,
-        })      
+        })
     })
     // Checken, welche Seiten Kinder hat und welche nicht
     settings.pages.forEach(page => {
@@ -42,8 +42,8 @@ const renderPages = () => {
             pgsStr[page.parent].container.classList.add('hasChildren');
         }
     })
-    
-    console.log(pgsStr);
+
+    // console.log(pgsStr);
 
     // Anhand der ID ineinander verschachteln
     settings.pages.forEach((page, index) => {
@@ -64,7 +64,21 @@ const renderPages = () => {
 
         // Seite im Menü hervorheben
         let el = document.querySelector(`[data-pageid="${activePageID}"]`);
-        if (el) el.classList.add('open');
+        if (el) {
+            el.classList.add('open');
+            const activateAndParent = id => {
+                // console.log(id);
+                let page = settings.pages.find(page => page.id == id);
+                if (page) {
+                    // console.log(pgsStr, id);
+                    pgsStr[id].container.classList.add('opened');
+                    if (page.parent) {
+                        activateAndParent(page.parent)
+                    }
+                }
+            }
+            activateAndParent(activePageID);
+        }
     }
 }
 

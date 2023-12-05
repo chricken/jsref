@@ -30,6 +30,8 @@ const pages = {
             parent: parentID
         });
 
+        localStorage.setItem('activePageID', newPage.id);
+
         // Neue Seitendatei anlegen
         ajax.createPageFile(newPage.id);
 
