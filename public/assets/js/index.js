@@ -5,7 +5,6 @@ import settings from './settings.js';
 import ajax from './ajax.js';
 import dom from './dom.js';
 import components from './components.js';
-import helpers from './helpers.js';
 
 // KONSTANTEN / VARIABLEN
 const els = settings.elements;

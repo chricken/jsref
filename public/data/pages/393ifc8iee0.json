@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1702298058234,"chDate":1702298847495,"text":"Das Sessionstorage funktioniert ebenso wie das Localstorage.\nDer einzige Unterschied ist der Umgang mit einer Session. Daten, die im Sessionstorage abgelegt werden, sind nur in der aktuellen Session sichtbar. D.h, in einem anderen Tab, Fenster oder nach einem Neustart sind die Daten weg.\nAlles weitere kann aus dem Artikel zu localstorage (<a href=\"/?id=hx773up6k6w\">Link</a>) entfernt werden."}]}
