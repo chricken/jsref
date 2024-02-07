@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1707315868519,"chDate":1707316222119,"text":"Der Window()-Constructor ist eigentlich nur aus historischer Sicht interessant, da sie ein neues Fenster erzeugt. \nDies wird in der modernen Webentwicklung skeptisch gesehen, da neue Fenster (<i>Pop-Ups</i>) meistens durch <i>Pop-Up-Blocker</i> unterbunden werden und von den Benutzern abgelehnt werden.\nDaher soll diese Constructor hier nicht weiter betrachtet werden."}]}
