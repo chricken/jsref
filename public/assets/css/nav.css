@@ -41,10 +41,10 @@ nav .link a:hover {
 nav .link .extender {
     position: absolute;
     display: block;
-    border: 2px solid #000;
+    border: 1px solid #000;
     width: 8px;
     height: 8px;
-    left: -7px;
+    left: -6px;
     top: 8px;
     opacity: .5;
 }
@@ -55,10 +55,10 @@ nav .link .iconMinus {
     background: #000;
     color: #fff;
     text-align: center;
-    width: 6px;
-    height: 6px;
-    left: 1px;
-    top: 1px;
+    width: 8px;
+    height: 8px;
+    left: 0px;
+    top: 0px;
     background-image: url(/assets/img/icon_plus.png);
     background-repeat: no-repeat;
     background-size: cover;
