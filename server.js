@@ -28,8 +28,8 @@ const init = () => {
         if (err) console.log(err);
         else {
             console.log('Server läuft');
-            opn('http://localhost:8910/');
             opn('http://localhost:8910/be');
+            opn('http://localhost:8910/');
         }
     });
 }
