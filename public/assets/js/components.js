@@ -212,23 +212,37 @@ const components = {
     header(content) {
         // console.log('header', content);
 
-        return dom.create({
+        const container = dom.create({
             type: 'h2',
             content: content.text,
             parent
         })
 
+        dom.create({
+            type: 'p',
+            content: content.text.length + ' Zeichen',
+            // parent: container
+        })
+
+        return container;
     },
 
     subheader(content) {
         // console.log('subheader', content);
 
-        return dom.create({
+        const container = dom.create({
             type: 'h3',
             content: content.text,
             parent
         })
 
+        dom.create({
+            type: 'p',
+            content: content.text.length + ' Zeichen',
+            // parent: container
+        })
+
+        return container;
     },
 
     image(content) {

@@ -63,8 +63,20 @@
 .paragraph p td {
     padding-right: 10px;
     padding-left: 10px;
-    background: rgba(0, 0, 0, .1);
+    /* background: rgba(0, 0, 0, .1); */
     vertical-align: top;
+}
+.paragraph p tr {
+    background: rgba(0, 0, 0, .2);
+    
+}
+.paragraph p tr:nth-of-type(odd) {
+    background: rgba(0, 0, 0, .12);
+}
+
+.paragraph p tr:nth-of-type(1) {
+    background: rgba(0, 0, 0, .08);
+    font-size: 1.2em;
 }
 
 p.innerLink {
