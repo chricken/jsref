@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1716810673176,"chDate":1716810808148,"text":"Das Facade-Pattern ist kein eigenes Pattern sondern eher ein Oberbegriff für alle Patterns, deren Zweck es ist, die Komplexität einer Tätigkeit hinter einer Fassade zu verstecken. Man könnte es auch Abstraktion nennen. \nBeispeile könnten die Higher-Class-Methoden eines Array sein (map(), filter(), etc) oder auch jede Form einer Komponente."}]}

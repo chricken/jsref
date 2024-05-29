@@ -22,7 +22,13 @@
     font-family: hackregular;
     font-size: .9em;
 }
-
+.paragraph svg.illu {
+  width: 200px;
+  height:200px;
+  background-color: rgba(255,255,255,.5);
+  border: 1px solid rgba(0,0,0,.5);
+  border-radius: 5px;
+}
 .container.searchResults {
     margin: 0px;
     /* border-radius: 0; */
