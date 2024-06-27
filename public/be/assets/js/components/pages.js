@@ -55,6 +55,23 @@ const pages = {
         page = {},
     } = {}) {
 
+        // Seitenauswahl füllen.
+        // Muss hier oben sein, um aufgerufen werden zu können.
+        const fillPages = pages => {
+            // Seiten zur Auswahl hinzufügen
+            elSelectShowContentOf.innerHTML = '';
+            pages.forEach(page => {
+                dom.create({
+                    type: 'option',
+                    parent: elSelectShowContentOf,
+                    content: `${page.title} <span style="font-size:.5em">(${page.id})</span>`,
+                    attr: {
+                        value: page.id
+                    }
+                })
+            })
+        }
+
         // Container für Details, die ausgeblendet werden können
         const details = dom.create({
             parent,
@@ -67,8 +84,8 @@ const pages = {
             parent: details,
             content: '⯈',
             classes: ['opener', 'transit'],
-            listeners:{
-                click(evt){
+            listeners: {
+                click(evt) {
                     evt.stopPropagation();
                     parent.classList.toggle('opened')
                 }
@@ -102,23 +119,6 @@ const pages = {
             parent: details
         })
 
-        /*
-        // Eingabefeld für Übersichtstext
-        dom.create({
-            type: 'textarea',
-            parent: details,
-            value: page.overview,
-            listeners: {
-                input(evt) {
-                    page.overview = evt.target.value;
-                    page.chDate = Date.now();
-                },
-                change() {
-                    ajax.savePages();
-                }
-            }
-        })
-*/
         // Zeige Inhalt von anderer Seite
         dom.create({
             type: 'span',
@@ -137,6 +137,31 @@ const pages = {
             }
         })
 
+        // Filter für "Zeige Inhalt von Seite"
+        dom.create({
+            type: 'input',
+            classes: ['showActive'],
+            attr: {
+                type: 'text',
+                placeholder: 'Filter',
+            },
+            parent: details,
+            listeners: {
+                input(evt) {
+                    let val = evt.target.value;
+                    let pages = settings.pages.filter(page => {
+                        if (page.id.includes(val))
+                            return true;
+                        if (page.title.toLowerCase().includes(val.toLowerCase()))
+                            return true;
+                        return false;
+                    });
+                    // console.log(pages);
+                    fillPages(pages);
+                }
+            }
+        })
+
         // Option für "keine Seite gewählt"
         dom.create({
             type: 'option',
@@ -147,17 +172,8 @@ const pages = {
             },
         })
 
-        // Seiten zur Auswahl hinzufügen
-        settings.pages.forEach(page => {
-            dom.create({
-                type: 'option',
-                parent: elSelectShowContentOf,
-                content: `${page.title} <span style="font-size:.5em">(${page.id})</span>`,
-                attr: {
-                    value: page.id
-                }
-            })
-        })
+
+        fillPages([...settings.pages])
 
 
         if (page.showContentOf && page.showContentOf != '') {
@@ -263,27 +279,27 @@ const pages = {
             parent: container,
             classes: ['divHeader'],
         })
-        
+
         // Opener
         dom.create({
             type: 'span',
             parent: header,
             content: '⯈',
             classes: ['opener', 'transit'],
-            listeners:{
-                click(evt){
+            listeners: {
+                click(evt) {
                     evt.stopPropagation();
                     console.log(container);
                     container.classList.toggle('opened')
                 }
             }
         })
-        
+
         dom.create({
-            type:'span',
+            type: 'span',
             parent: header,
             content: page.title,
-            classes:['headerContent']
+            classes: ['headerContent']
         })
 
         let details = pages.pageDetails({

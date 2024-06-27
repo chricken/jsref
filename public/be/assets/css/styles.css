@@ -114,3 +114,8 @@ button.btnHighlight {
 input, textarea {
     font-family: 'Museo_Slab_500';
 }
+input.showActive {
+    background-color: rgba(255, 255, 255, .8);
+    border: 1px solid #888;
+    border-radius: 2px;
+}
