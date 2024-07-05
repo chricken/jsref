@@ -29,7 +29,11 @@ const init = () => {
         else {
             console.log('Server läuft');
             opn('http://localhost:8910/be');
-            opn('http://localhost:8910/');
+            setTimeout(
+                opn,
+                500,
+                'http://localhost:8910/'
+            )
         }
     });
 }
