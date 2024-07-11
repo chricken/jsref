@@ -1,1 +1,1 @@
-{"content":[]}
+{"content":[{"type":"paragraph","crDate":1720697530504,"chDate":1720698013209,"text":"Eine <i>Abstract Factory</i>ist ein Pattern zur Erzeugung von Objekten, bei dem eine Schnittstelle für die Erstellung von Objektfamilien bereitgestellt wird. So muss nicht für jeden Objekttypen eine eigene Klasse erstellt werden. Sie ermöglicht die Erzeugung von Objekten, die durch ein gemeinsames Thema miteinander verbunden sind. \n"}]}
