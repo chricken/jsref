@@ -210,12 +210,14 @@ const content = {
                 change() {
                     el.type = select.value;
                     console.log(el);
+                    ajax.savePageFile(content.data).then(
+                        () => content.renderPageContent()  
+                    );
                 }
             }
         })
 
-        let types = ['header', 'subheader', 'paragraph', 'code', 'terminal'];
-        types.forEach(type => {
+        settings.contentTypes.forEach(type => {
             dom.create({
                 type: 'option',
                 parent: select,
@@ -312,7 +314,7 @@ const content = {
         })
         content.minusParagraph(index, container)
         content.plusParagraph(index + 1, container)
-        
+
         // content.btnHTMLToSpecialChars(container, el);
         content.saveContent(container);
 
@@ -581,6 +583,9 @@ const content = {
             content: 'New Link',
             listeners: {
                 click() {
+                    // ggf Links anlegen
+                    if (!el.links) el.links = [];
+
                     // Neuen Link anlegen
                     el.links.push({
                         title: '',
@@ -591,11 +596,11 @@ const content = {
                 }
             }
         })
-
-        el.links.forEach((link, index) => {
-            content.singleLink(link, containerLinks, el.links, index);
-        })
-
+        if (el.links) {
+            el.links.forEach((link, index) => {
+                content.singleLink(link, containerLinks, el.links, index);
+            })
+        }
 
         // Neues Element hierunter anlegen
         dom.create({
@@ -614,10 +619,8 @@ const content = {
             classes: ['container', 'control'],
             parent: container
         })
-        // console.log(containerControl);
-        // Linklisten können nicht umgewandelt werden
-        // content.selectType(el, containerControl);
-
+        // Elemente, um den Typ und die Position zu steuern
+        content.selectType(el, containerControl);
         content.moveUpDown(el, containerControl, index);
 
     },
@@ -762,6 +765,95 @@ const content = {
         // Ein Image nachträglich zu ändern macht keinen Sinn, da die Daten nicht sinnvoll übertragen werden können
         // content.selectType(el, containerControl);
         content.moveUpDown(el, containerControl, index);
+    },
+
+    // Fun Fact
+    funfact(el, index) {
+        const container = dom.create({
+            classes: ['container', 'containerFunFact'],
+            parent: settings.elements.containerContent
+        })
+
+        dom.create({
+            type:'h3',
+            content: 'Fun Fact:',
+            parent: container
+        })
+        dom.create({
+            type: 'textarea',
+            value: el.text,
+            parent: container,
+            listeners: {
+                input(evt) {
+                    el.text = evt.target.value;
+                    el.chDate = Date.now();
+                }
+            }
+        })
+
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch'],
+            parent: container
+        })
+        content.minusParagraph(index, container)
+        content.plusParagraph(index + 1, container)
+        content.saveContent(container);
+
+        content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container', 'control'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
+
+    },
+    
+    // Hinweis / Hint
+    hint(el, index) {
+        const container = dom.create({
+            classes: ['container', 'containerHint'],
+            parent: settings.elements.containerContent
+        })
+        dom.create({
+            type:'h3',
+            content: 'Hint:',
+            parent: container
+        })
+        dom.create({
+            type: 'textarea',
+            value: el.text,
+            parent: container,
+            listeners: {
+                input(evt) {
+                    el.text = evt.target.value;
+                    el.chDate = Date.now();
+                }
+            }
+        })
+
+        dom.create({
+            type: 'p',
+            classes: ['platzhalter', 'umbruch'],
+            parent: container
+        })
+        content.minusParagraph(index, container)
+        content.plusParagraph(index + 1, container)
+        content.saveContent(container);
+
+        content.timestamps(el, container);
+
+        // Elemente, um den Typ und die Position zu steuern
+        const containerControl = dom.create({
+            classes: ['container', 'control'],
+            parent: container
+        })
+        content.selectType(el, containerControl);
+        content.moveUpDown(el, containerControl, index);
+
     },
 
     renderPageContent() {

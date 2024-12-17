@@ -297,6 +297,79 @@ const components = {
         components.timestamps(content, container);
     },
 
+    hint(content) {
+
+        let text = content.text.replaceAll('\n', '<br />');
+        // Für einige im Code liegenden Zeilenumbrüche das <br>-Tag entfernen
+        text = text.replaceAll('<br>', '<br />');
+        text = text.replaceAll('<br /><br />', '<br />');
+        text = text.replaceAll('<td><br />', '<td>');
+        text = text.replaceAll('</td><br />', '</td>');
+        text = text.replaceAll('<tr><br />', '<tr>');
+        text = text.replaceAll('</tr><br />', '</tr>');
+        text = text.replaceAll('<ul><br />', '<ul>');
+        text = text.replaceAll('<ul><br>', '<ul>');
+        text = text.replaceAll('</li><br />', '</li>');
+        text = text.replaceAll('</li><br>', '</li>');
+
+        // console.log('paragraph', text);
+
+        const container = dom.create({
+            classes: ['container', 'hint'],
+            parent
+        })
+
+        dom.create({
+            type: 'p',
+            parent: container,
+            content: text
+        })
+
+        dom.create({
+            classes:['icon', 'hint'],
+            parent: container,
+            content: '!'
+        })
+        // components.timestamps(content, container);
+
+    },
+
+    funfact(content) {
+
+        let text = content.text.replaceAll('\n', '<br />');
+        // Für einige im Code liegenden Zeilenumbrüche das <br>-Tag entfernen
+        text = text.replaceAll('<br>', '<br />');
+        text = text.replaceAll('<br /><br />', '<br />');
+        text = text.replaceAll('<td><br />', '<td>');
+        text = text.replaceAll('</td><br />', '</td>');
+        text = text.replaceAll('<tr><br />', '<tr>');
+        text = text.replaceAll('</tr><br />', '</tr>');
+        text = text.replaceAll('<ul><br />', '<ul>');
+        text = text.replaceAll('<ul><br>', '<ul>');
+        text = text.replaceAll('</li><br />', '</li>');
+        text = text.replaceAll('</li><br>', '</li>');
+
+        // console.log('paragraph', text);
+
+        const container = dom.create({
+            classes: ['container', 'funfact'],
+            parent
+        })
+
+        dom.create({
+            type: 'p',
+            parent: container,
+            content: text
+        })
+
+        dom.create({
+            classes:['icon', 'funfact'],
+            parent: container,
+        })
+        // components.timestamps(content, container);
+
+    },
+
     // Element, das die letzten Änderungen anzeigen soll
     lastChanges(callback) {
 
@@ -409,6 +482,7 @@ const components = {
 
     contents() {
         parent.innerHTML = '';
+
         // Im Menü den richtigen Link auf 'current' setzen
         components.setActiveLink();
         components.setTitle();
@@ -424,6 +498,7 @@ const components = {
 
         settings.page.content.forEach(
             content => {
+                console.log(content.type);
                 const contentEl = components[content.type](content);
 
                 // Links zu den Überschriften ins Submenü einfügen

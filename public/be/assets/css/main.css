@@ -64,6 +64,8 @@ main>.container.containerTerminal:hover textarea {
 
 .containerParagraph textarea,
 .containerTerminal textarea,
+.containerHint textarea,
+.containerFunFact textarea,
 .containerCode textarea {
     width: 98%;
     height: 200px;
@@ -73,7 +75,9 @@ main>.container.containerTerminal:hover textarea {
     border-radius: 5px;
 }
 
-.containerParagraph textarea {
+.containerParagraph textarea ,
+.containerHint textarea ,
+.containerFunFact textarea {
     font-family: 'acre-light';
     /* color: #444; */
     max-width: 98%;

@@ -22,13 +22,15 @@
     font-family: hackregular;
     font-size: .9em;
 }
+
 .paragraph svg.illu {
-  width: 200px;
-  height:200px;
-  background-color: rgba(255,255,255,.5);
-  border: 1px solid rgba(0,0,0,.5);
-  border-radius: 5px;
+    width: 200px;
+    height: 200px;
+    background-color: rgba(255, 255, 255, .5);
+    border: 1px solid rgba(0, 0, 0, .5);
+    border-radius: 5px;
 }
+
 .container.searchResults {
     margin: 0px;
     /* border-radius: 0; */
@@ -55,10 +57,44 @@
 .container .contentImage {
     border: 1px solid #ccc;
     border-radius: 5px;
-    background:#fff;
-    box-shadow: 2px 2px 5px 0 rgba(0,0,0,.1);
-    max-width:735px;
+    background: #fff;
+    box-shadow: 2px 2px 5px 0 rgba(0, 0, 0, .1);
+    max-width: 735px;
     height: auto;
+}
+
+.container.funfact {
+    padding-right: 60px;
+    background: #b6cad8;
+}
+
+.container.hint {
+    background: #d8d7b6;
+    padding-right: 60px;
+}
+
+.icon.hint,
+.icon.funfact {
+    position: absolute;
+    top: 10px;
+    right: -10px;
+    font-size: 44px;
+    width: 50px;
+    height: 50px;
+    background-color: #fff;
+    text-align: center;
+    border-radius: 50%;
+    border: 3px solid #000;
+    font-weight: bold;
+    box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
+}
+
+.icon.hint {}
+
+.icon.funfact {
+    background-image: url(/assets/img/bunny.jpg);
+    background-size: cover;
+    background-position: center center;
 }
 
 .paragraph p {
@@ -72,10 +108,12 @@
     /* background: rgba(0, 0, 0, .1); */
     vertical-align: top;
 }
+
 .paragraph p tr {
     background: rgba(0, 0, 0, .2);
-    
+
 }
+
 .paragraph p tr:nth-of-type(odd) {
     background: rgba(0, 0, 0, .12);
 }
