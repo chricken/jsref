@@ -286,7 +286,7 @@ const components = {
             dom.create({
                 type: 'a',
                 parent: container,
-                content: `${link.title} (${link.url})`,
+                content: `${link.title} (<b>${link.url}</b>)`,
                 attr: {
                     href: link.url,
                     target: '_blank'
