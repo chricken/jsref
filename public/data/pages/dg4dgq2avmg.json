@@ -1,1 +1,1 @@
-{"content":[{"type":"paragraph","crDate":1722952920835,"chDate":1722952928893,"text":"useMemo()"}]}
+{"content":[{"type":"paragraph","crDate":1722952920835,"chDate":1755094532176,"text":"Die Hooks <i>useMemo()</i> und <i>useCallback</i> haben gewisse Gemeinsamkeiten, aber auch gewisse Unterschiede.\nIn beiden Hooks geht es darum, Dinge zwischenzuspeichern und dafür zu sorgen, dass Komponenten nicht unnötig neu gerendert werden müssen."}]}
