@@ -187,7 +187,6 @@ const renderNav = () => {
 
 }
 
-
 const refreshPages = () => {
     return ajax.loadPages().then(
         res => {

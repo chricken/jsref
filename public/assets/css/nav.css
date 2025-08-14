@@ -1,40 +1,73 @@
-
-
-nav .link {
-    position: relative;
+/* Sidebar */
+nav {
+    position: fixed;
     display: block;
-    margin-left: 0px;
-    padding-top: 5px;
-    padding-bottom: 5px;
-    border-left: 2px dotted #ccc;
-    padding-left: 10px;
+    width: var(--sidebar-width);
+    top: 0;
+    left: 0;
+    bottom: 0;
+    align-self: start;
+    overflow-y: auto;
+    height: 100vh;
+
+    /* Schmalerer, dezenter Scrollbalken */
+    scrollbar-width: thin; /* Firefox */
+    scrollbar-color: rgba(0,0,0,0.4) transparent; /* Firefox */
+
+    /* WebKit/Chrome/Safari */
+    &::-webkit-scrollbar {
+        width: 6px;
+        margin-right: 3px; /* Abstand zum Rand */
+    }
+
+    &::-webkit-scrollbar-track {
+        background: transparent;
+        border: 1px solid transparent;
+        border-radius: 4px;
+    }
+
+    &::-webkit-scrollbar-thumb {
+        background-color: rgba(0,0,0,0.4);
+        border-radius: 3px;
+    }
+
+
+    .link {
+        position: relative;
+        display: block;
+        margin-left: 0px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+        border-left: 2px dotted #ccc;
+        padding-left: 10px;
+    }
+
+    .link a {
+        position: relative;
+        display: block;
+        cursor: pointer;
+        color: #006698;
+        border-bottom: 1px solid transparent;
+    }
+
+    .link.current > a {
+        background: #006698;
+        outline: 3px solid #006698;
+        color: #fff;
+        border-radius: 1px;
+    }
+
+    .link a:hover {
+        /* background-color: rgba(0, 0, 0, .1); */
+        border-bottom-color: #006698;
+    }
 }
 
-nav .link a {
-    position: relative;
-    display: block;
-    cursor: pointer;
-    color: #006698;
-    border-bottom: 1px solid transparent;
-}
-
-nav .link.current>a {
-    background: #006698;
-    outline: 3px solid #006698;
-    color: #fff;
-    border-radius: 1px;
-}
-
-nav .link a:hover {
-    /* background-color: rgba(0, 0, 0, .1); */
-    border-bottom-color: #006698;
-}
-
-.link>.children {
+.link > .children {
     display: none;
 }
 
-.link.open>.children {
+.link.open > .children {
     display: block;
 }
 
@@ -64,20 +97,20 @@ nav .link .iconMinus {
     background-size: cover;
 }
 
-nav .link>.extender .iconMinus {
+nav .link > .extender .iconMinus {
     background-image: url(/assets/img/icon_minus.png);
     display: none;
 }
 
-nav .link>.extender .iconPlus {
+nav .link > .extender .iconPlus {
     display: block;
 }
 
-nav .link.open>.extender .iconPlus {
+nav .link.open > .extender .iconPlus {
     display: none;
 }
 
-nav .link.open>.extender .iconMinus {
+nav .link.open > .extender .iconMinus {
     display: block;
 }
 
@@ -85,12 +118,15 @@ subnav {
     position: fixed;
     background: #efefef;
     z-index: 100;
-    left:0;
-    right:0;
-    top:0;
-    padding:10px;
+    left: calc(var(--sidebar-width) + 20px);
+    right: 20px;
+    top: 0;
+    padding: 10px;
     border-bottom: 1px solid #d0d0d0;
-    box-shadow: 0 0 15px 2px rgba(0,0,0,.2);
+    box-shadow: 0 0 15px 2px rgba(0, 0, 0, .2);
+}
+.subnav:has(> .inner:empty) {
+    display: none;
 }
 subnav inner {
     position: relative;
@@ -98,17 +134,22 @@ subnav inner {
     margin-left: auto;
     margin-right: auto;
     width: 760px;
-    padding-left: 240px;
+    padding-left: 0px;
+}
 
+subnav inner:empty {
+    /*display: none*/
 }
+
 subnav .inPageLink {
-    display:inline-block;
-    margin-right:20px;
+    display: inline-block;
+    margin-right: 20px;
     cursor: pointer;
-    font-size:.8em;
+    font-size: .8em;
 }
+
 subnav .inPageLink a {
-    color:#666;
+    color: #666;
 }
 
 .inPageLinks {
@@ -118,7 +159,7 @@ subnav .inPageLink a {
     font-size: .75em;
 }
 
-.current>.inPageLinks {
+.current > .inPageLinks {
     display: block;
     /* display: n   one; */
 }

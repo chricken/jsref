@@ -1,3 +1,34 @@
+/* Sidebar (nav) und Inhalt (all) nebeneinander; nav 230px breit und volle Höhe */
+:root {
+  --sidebar-width: 230px;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+
+/* Hauptbereich rechts der Sidebar */
+all {
+  display: block;     /* Custom-Element als Block behandeln */
+  margin-left: calc( var(--sidebar-width) + 20px);
+}
+
+/* Unbekannte Elemente als Block-Container setzen */
+subnav, inner, main, footer {
+  display: block;
+}
+
+/* Footer unten über die volle Breite */
+footer {
+  grid-column: 1 / -1;
+  grid-row: 2;
+}
 .container {
     position: relative;
     display: block;

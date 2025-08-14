@@ -486,6 +486,7 @@ const components = {
         // Im Menü den richtigen Link auf 'current' setzen
         components.setActiveLink();
         components.setTitle();
+
         let inPageLinks = dom.$('.current>.inPageLinks');
         inPageLinks.innerHTML = '';
         els.subnav.innerHTML = '';
