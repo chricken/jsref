@@ -9,6 +9,8 @@ const formidable = require('formidable');
 const express = require('express');
 const server = express();
 
+const port = 8910;
+
 
 // Server
 server.use(express.static('public', {
@@ -24,15 +26,15 @@ const paths = {
 }
 
 const init = () => {
-    server.listen(8910, err => {
+    server.listen(port, err => {
         if (err) console.log(err);
         else {
-            console.log('Server läuft');
-            opn('http://localhost:8910/be');
+            console.log(`Server läuft auf Port ${port}`);
+            opn(`http://localhost:${port}/be`);
             setTimeout(
                 opn,
                 500,
-                'http://localhost:8910/'
+                `http://localhost:${port}/`
             )
         }
     });

@@ -41,12 +41,3 @@ i {
     color: #ae4a00;
 }
 
-main {
-    flex: 1;
-    margin-top: 80px;
-    margin-bottom: 50px;
-}
-
-.transit {
-    transition: all 300ms ease-in-out;
-}

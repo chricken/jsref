@@ -9,10 +9,13 @@ nav {
     align-self: start;
     overflow-y: auto;
     height: 100vh;
+    padding-left:10px;
 
     /* Schmalerer, dezenter Scrollbalken */
     scrollbar-width: thin; /* Firefox */
-    scrollbar-color: rgba(0,0,0,0.4) transparent; /* Firefox */
+    scrollbar-color: rgba(0,0,0,0.2) rgba(0,0,0,0.05); /* Firefox */
+
+    border-right: 1px solid rgba(0,0,0,0.2);
 
     /* WebKit/Chrome/Safari */
     &::-webkit-scrollbar {
