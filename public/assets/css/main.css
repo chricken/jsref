@@ -31,8 +31,10 @@ footer {
 }
 
 main {
-    margin-top: 80px;
-    margin-bottom: 50px;
+   margin-top: 80px;
+  padding-bottom: 50px;
+  position: relative;
+  display: block;
 }
 
 .transit {
@@ -47,6 +49,7 @@ main {
     background: #eee;
     border: 1px solid #aaa;
     border-radius: 5px;
+	max-width:1000px;
 }
 
 .container.code {
@@ -141,6 +144,7 @@ main {
 .paragraph p {
     /* font-family: 'Lora', serif; */
     line-height: 1.4em;
+	max-width:800px;
 }
 
 .paragraph p td {

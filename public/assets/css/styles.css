@@ -41,3 +41,7 @@ i {
     color: #ae4a00;
 }
 
+ul {
+	position: relative;
+	margin:0;
+}
