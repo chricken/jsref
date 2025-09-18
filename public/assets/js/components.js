@@ -78,7 +78,7 @@ const components = {
             parent: container
         })
 
-        return { container, elLink, containerChildren };
+        return {container, elLink, containerChildren};
     },
 
     linkExtender(parent) {
@@ -180,7 +180,38 @@ const components = {
             // textContent: text,
         })
 
-        // settings.observerTextWriting.observe(elText);
+        // Kopier-Button für den Code-Block
+        const copyButton = dom.create({
+            type: 'button',
+            parent: container,
+            content: '📋 Kopieren',
+            classes: ['copyButton'],
+            listeners: {
+                click() {
+                    // Text aus dem data-content Attribut verwenden (ohne HTML-Formatierung)
+                    const textToCopy = elText.dataset.content
+                        .replaceAll('&nbsp;', ' ')
+                        .replaceAll('&lt;', '<')
+                        .replaceAll('<br />', '\n');
+                    navigator.clipboard.writeText(textToCopy).then(
+                        () => {
+                            // Visuelles Feedback
+                            copyButton.textContent = '✅ Kopiert!';
+                            copyButton.classList.add('copied');
+
+                            // Nach 2 Sekunden zurücksetzen
+                            setTimeout(() => {
+                                copyButton.textContent = '📋 Kopieren';
+                                copyButton.classList.remove('copied');
+                            }, 2000);
+                        }
+                    )
+                }
+            }
+        })
+
+
+// settings.observerTextWriting.observe(elText);
 
         components.timestamps(content, container);
 
@@ -207,7 +238,8 @@ const components = {
 
         components.timestamps(content, container);
 
-    },
+    }
+    ,
 
     header(content) {
         // console.log('header', content);
@@ -225,7 +257,8 @@ const components = {
         })
 
         return container;
-    },
+    }
+    ,
 
     subheader(content) {
         // console.log('subheader', content);
@@ -243,7 +276,8 @@ const components = {
         })
 
         return container;
-    },
+    }
+    ,
 
     image(content) {
         const container = dom.create({
@@ -273,9 +307,10 @@ const components = {
         }
 
         components.timestamps(content, container);
-    },
+    }
+    ,
 
-    // Elemente für Linksammlungen im Content
+// Elemente für Linksammlungen im Content
     links(content) {
         const container = dom.create({
             parent,
@@ -295,7 +330,8 @@ const components = {
         })
 
         components.timestamps(content, container);
-    },
+    }
+    ,
 
     hint(content) {
 
@@ -326,13 +362,14 @@ const components = {
         })
 
         dom.create({
-            classes:['icon', 'hint'],
+            classes: ['icon', 'hint'],
             parent: container,
             content: '!'
         })
         // components.timestamps(content, container);
 
-    },
+    }
+    ,
 
     funfact(content) {
 
@@ -363,14 +400,15 @@ const components = {
         })
 
         dom.create({
-            classes:['icon', 'funfact'],
+            classes: ['icon', 'funfact'],
             parent: container,
         })
         // components.timestamps(content, container);
 
-    },
+    }
+    ,
 
-    // Element, das die letzten Änderungen anzeigen soll
+// Element, das die letzten Änderungen anzeigen soll
     lastChanges(callback) {
 
         dom.create({
@@ -411,7 +449,8 @@ const components = {
 
         })
 
-    },
+    }
+    ,
 
     suche(callback) {
         // suche
@@ -435,9 +474,10 @@ const components = {
                 click: () => callback(inputSearch.value)
             }
         })
-    },
+    }
+    ,
 
-    // Ergebnisse der Suche
+// Ergebnisse der Suche
     searchResults(found, searchVal, callback) {
 
         found.forEach(page => {
@@ -455,7 +495,7 @@ const components = {
             const containerLink = dom.create({
                 parent: els.containerSearchResults,
                 classes: ['link'],
-                /*                
+                /*
                 attr: {
                     href: `/?id=${page.id}`
                 }
@@ -478,7 +518,8 @@ const components = {
 
 
         })
-    },
+    }
+    ,
 
     contents() {
         parent.innerHTML = '';
@@ -514,7 +555,7 @@ const components = {
                     dom.create({
                         parent: containerLink,
                         content:
-                            // Nur die ersten Zeichen sollen sichtbar sein
+                        // Nur die ersten Zeichen sollen sichtbar sein
                             (content.text.length < settings.maxLengthInPageHeader)
                                 ? content.text
                                 : content.text.substr(0, settings.maxLengthInPageHeader - 2) + '...',

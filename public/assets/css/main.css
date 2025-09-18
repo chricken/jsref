@@ -186,6 +186,38 @@ p.innerLink:hover {
     word-wrap: break-word;
 }
 
+.container.code .copyButton {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background-color: rgba(0, 0, 0, .1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 12px;
+    font-size: 0.8em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 10;
+}
+
+.container.code .copyButton:hover {
+    background-color: rgba(0, 0, 0, .5);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.container.code .copyButton.copied {
+    background-color:hsl(141, 71%, 48%);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(56, 161, 105, 0.4);
+}
+
+.container.code .copyButton.copied:hover {
+    background-color: #2f855a;
+}
+
 .container.links {
     background-color: rgb(197, 223, 235);
     font-size: .9em;
