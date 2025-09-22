@@ -284,6 +284,23 @@ const components = {
             parent,
             classes: ['container', 'image']
         })
+        
+        // Modal-Button hinzufügen
+        const modalButton = dom.create({
+            type: 'button',
+            parent: container,
+            content: '🔍 Bild vergrößern',
+            classes: ['modalButton'],
+            listeners: {
+                click() {
+                    // Neue imageModal-Komponente verwenden
+                    components.imageModal(
+                        `/assets/img/uploads/${content.filename}`,
+                        content.subtext || ''
+                    );
+                }
+            }
+        });
 
         const elImage = dom.create({
             type: 'img',
@@ -307,6 +324,75 @@ const components = {
         }
 
         components.timestamps(content, container);
+    }
+    ,
+
+    imageModal(imageSrc, caption = '') {
+        // Modal-Dialog erstellen
+        const modal = dom.create({
+            type: 'dialog',
+            parent: document.body,
+            classes: ['imageModal']
+        });
+
+        // Modal-Inhalt
+        const modalContent = dom.create({
+            parent: modal,
+            classes: ['modalContent']
+        });
+
+        // Schließen-Button
+        const closeButton = dom.create({
+            type: 'button',
+            parent: modalContent,
+            content: '✕',
+            classes: ['modalCloseButton'],
+            listeners: {
+                click() {
+                    modal.close();
+                    modal.remove();
+                }
+            }
+        });
+
+        // Bild im Modal
+        const modalImage = dom.create({
+            type: 'img',
+            parent: modalContent,
+            attr: {
+                src: imageSrc,
+                alt: caption || 'Vergrößerte Bildansicht'
+            },
+            classes: ['modalImage']
+        });
+
+        // Bildtext im Modal
+        if (caption) {
+            dom.create({
+                parent: modalContent,
+                type: 'p',
+                content: caption,
+                classes: ['modalImageCaption']
+            });
+        }
+
+        // Modal öffnen
+        modal.showModal();
+
+        // Modal schließen beim Klick auf den Hintergrund
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                modal.close();
+                modal.remove();
+            }
+        });
+
+        // Modal schließen mit Escape-Taste
+        modal.addEventListener('close', () => {
+            modal.remove();
+        });
+
+        return modal;
     }
     ,
 

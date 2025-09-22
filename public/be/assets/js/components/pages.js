@@ -426,9 +426,9 @@ const pages = {
         // Sichergehen, dass ein Element nicht ein eigenes Kind-Element verschoben wird
         const checkID = page => {
 
-            if (settings.cutPage.id == page.id) canBePasted = false;
+            if (page && settings.cutPage.id == page.id) canBePasted = false;
             // Eltern-Element prüfen, ob hier eine Übereinstimmung vorliegt
-            if (page.parent) checkID(settings.pages.find(val => val.id == page.parent));
+            if (page && page.parent) checkID(settings.pages.find(val => val.id == page.parent));
         }
         checkID(page);
 

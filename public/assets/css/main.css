@@ -1,40 +1,40 @@
 /* Sidebar (nav) und Inhalt (all) nebeneinander; nav 230px breit und volle Höhe */
 :root {
-  --sidebar-width: 250px;
+    --sidebar-width: 250px;
 }
 
 html, body {
-  height: 100%;
+    height: 100%;
 }
 
 body {
-  margin: 0;
-  min-height: 100vh;
+    margin: 0;
+    min-height: 100vh;
 }
 
 
 /* Hauptbereich rechts der Sidebar */
 all {
-  display: block;     /* Custom-Element als Block behandeln */
-  margin-left: calc( var(--sidebar-width) + 20px);
+    display: block; /* Custom-Element als Block behandeln */
+    margin-left: calc(var(--sidebar-width) + 20px);
 }
 
 /* Unbekannte Elemente als Block-Container setzen */
 subnav, inner, main, footer {
-  display: block;
+    display: block;
 }
 
 /* Footer unten über die volle Breite */
 footer {
-  grid-column: 1 / -1;
-  grid-row: 2;
+    grid-column: 1 / -1;
+    grid-row: 2;
 }
 
 main {
-   margin-top: 80px;
-  padding-bottom: 50px;
-  position: relative;
-  display: block;
+    margin-top: 80px;
+    padding-bottom: 50px;
+    position: relative;
+    display: block;
 }
 
 .transit {
@@ -49,7 +49,7 @@ main {
     background: #eee;
     border: 1px solid #aaa;
     border-radius: 5px;
-	max-width:1000px;
+    max-width: 1000px;
 }
 
 .container.code {
@@ -133,7 +133,8 @@ main {
     box-shadow: 2px 2px 6px rgba(0, 0, 0, .3);
 }
 
-.icon.hint {}
+.icon.hint {
+}
 
 .icon.funfact {
     background-image: url(/assets/img/bunny.jpg);
@@ -144,7 +145,7 @@ main {
 .paragraph p {
     /* font-family: 'Lora', serif; */
     line-height: 1.4em;
-	max-width:800px;
+    max-width: 800px;
 }
 
 .paragraph p td {
@@ -209,7 +210,7 @@ p.innerLink:hover {
 }
 
 .container.code .copyButton.copied {
-    background-color:hsl(141, 71%, 48%);
+    background-color: hsl(141, 71%, 48%);
     transform: scale(1.05);
     box-shadow: 0 4px 12px rgba(56, 161, 105, 0.4);
 }
@@ -264,15 +265,15 @@ h1:empty {
 }
 
 h2 {
-  font-size: 2em;
-  color: #fff;
-  font-weight: bold;
-  border-bottom: none;
-  background-color: #01496c;
-  padding: 10px;
-  border-radius: 5px;
-  margin: 5px;
-  margin-top: 50px;
+    font-size: 2em;
+    color: #fff;
+    font-weight: bold;
+    border-bottom: none;
+    background-color: #01496c;
+    padding: 10px;
+    border-radius: 5px;
+    margin: 5px;
+    margin-top: 50px;
 }
 
 h3 {
@@ -286,4 +287,100 @@ h3 {
     margin: 5px;
     margin-top: 5px;
     margin-top: 50px;
+}
+
+/* Modal-Button Styles */
+.modalButton {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background-color: rgba(0, 102, 152, 0.9);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 12px;
+    font-size: 0.9em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 5;
+}
+
+.modalButton:hover {
+    background-color: rgba(0, 102, 152, 1);
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* Modal-Dialog Styles */
+.imageModal {
+    position: fixed;
+    width: calc(100% - 80px);
+    height: calc(100% - 80px);
+    background-color: rgb(227, 218, 209);
+    z-index: 1000;
+    margin: 20px;
+    border-radius: 20px;
+}
+
+.imageModal::backdrop {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+.modalContent {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.modalCloseButton {
+    position: absolute;
+    top: 20px;
+    right: 30px;
+    background-color: rgba(255, 255, 255, 0.9);
+    color: #333;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 1.5em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    z-index: 1001;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modalCloseButton:hover {
+    background-color: rgba(255, 255, 255, 1);
+    transform: scale(1.1);
+}
+
+.modalImage {
+    max-width: 90vw;
+    max-height: 80vh;
+    width: auto;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+    object-fit: contain;
+    background-color: #fff;
+}
+
+.modalImageCaption {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 10px 20px;
+    border-radius: 5px;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 1em;
+    max-width: 80%;
 }
