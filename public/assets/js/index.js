@@ -77,15 +77,15 @@ const initializeSearchContent = () => {
                     })
                 })
                 settings.lastChanges.sort((a, b) => {
-                    let aChDate = Math.max(...a.content.map(el=>el.chDate));
-                    let bChDate = Math.max(...b.content.map(el=>el.chDate));
+                    let aChDate = Math.max(...a.content.map(el => el.chDate));
+                    let bChDate = Math.max(...b.content.map(el => el.chDate));
                     a.lastChange = aChDate;
                     b.lastChange = bChDate;
                     return aChDate > bChDate ? -1 : 1;
                 })
                 // console.log(settings.lastChanges);
                 // Daten in eine nützliche Form konvertieren
-                
+
                 settings.lastChanges = settings.lastChanges.map(page => {
                     return {
                         id: page.id,
@@ -98,7 +98,7 @@ const initializeSearchContent = () => {
                 // Letzte Änderugen als Linkliste ausgeben
                 // console.log(settings.lastChanges);
                 components.lastChanges(refreshContents);
-                
+
             }
         }
     ).catch(
@@ -168,7 +168,7 @@ const renderNav = () => {
         // console.log(page);
         if (page.visible) {
             // Navigationslink erzeugen. Die Rückgabewerte sind der Container und das a-Tag (Link)
-            const { container, elLink, containerChildren } = components.navLink(page, parent, refreshContents);
+            const {container, elLink, containerChildren} = components.navLink(page, parent, refreshContents);
 
             // Wenn es Kinder hat, das plus/minus-Symbol einblenden und die Kinder iterieren
             if (anyChildrenVisible(page)) {
@@ -194,10 +194,17 @@ const refreshPages = () => {
             settings.pageNamesByIds = new Map(res.pages.map(el => [el.id, el.title]))
 
             // Leeres Kind-Array anlegen
-            res.pages.map(page => page.children = [])
+            res.pages.map(page => {
+                    // console.log('page', page);
+                    if (page) {
+                        page.children = []
 
-            // Seite als geschlossen markieren
-            res.pages.map(page => page.open = false)
+                        // Seite als geschlossen markieren
+                        page.open = false
+                    }
+                }
+            )
+
             return res;
         }
     ).then(
@@ -290,7 +297,6 @@ const init = () => {
                 }
             }
         }
-
     ).catch(
         console.warn
     )

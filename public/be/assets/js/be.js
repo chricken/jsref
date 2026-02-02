@@ -25,16 +25,19 @@ const renderPages = () => {
     els.containerPages.innerHTML = '';
 
     settings.pages.forEach((page, index) => {
-        page.hasChildren = false;
-        // Eintrag für eine Seite im Navigations-Container
-        // Elemente erzeugen und in ein Objekt schreiben
-        // Die Komponente liefert ein Objekt mit dem Container und dem Container für Kindelemente
-        pgsStr[page.id] = compPages.pageContainer({
-            parent: els.containerPages,
-            page,
-            index,
-            renderPages,
-        })
+        // console.log(page);
+        if (page) {
+            page.hasChildren = false;
+            // Eintrag für eine Seite im Navigations-Container
+            // Elemente erzeugen und in ein Objekt schreiben
+            // Die Komponente liefert ein Objekt mit dem Container und dem Container für Kindelemente
+            pgsStr[page.id] = compPages.pageContainer({
+                parent: els.containerPages,
+                page,
+                index,
+                renderPages,
+            })
+        }
     })
     // Checken, welche Seiten Kinder hat und welche nicht
     settings.pages.forEach(page => {
@@ -53,7 +56,6 @@ const renderPages = () => {
             pgsStr[page.parent].elChildren.append(pgsStr[page.id].container)
         }
     });
-
 
 
     // Zuletzt geladene Seite anzeigen

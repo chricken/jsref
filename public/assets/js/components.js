@@ -626,7 +626,7 @@ const components = {
 
         settings.page.content.forEach(
             content => {
-                console.log(content.type);
+                // console.log(content.type);
                 const contentEl = components[content.type](content);
 
                 // Links zu den Überschriften ins Submenü einfügen
