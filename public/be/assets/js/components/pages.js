@@ -232,7 +232,6 @@ const pages = {
         renderPages = () => { },
     } = {}) {
 
-        // console.log(page);
 
         // Container für einen Menüeintrag
         const container = dom.create({
@@ -401,6 +400,8 @@ const pages = {
             parent: container
         })
 
+        // console.log(page);
+
         // Diese Seite entfernen
         dom.create({
             type: 'button',
@@ -411,10 +412,14 @@ const pages = {
                 click(evt) {
                     // moveMe bedeutet: Dieses Element wird verschoben
                     // Allen cutOut-Elementen die Klasse entfernen
-                    settings.pages.forEach(page => page.moveMe = false);
+                    console.log('at click', page);
+                    // console.log('at click pages', settings.pages);
+                    settings.pages.forEach(page => {
+                        if(page?.moveMe)
+                            page.moveMe = false
+                    });
                     page.moveMe = true;
                     evt.stopPropagation();
-                    // console.log(page);
                     settings.cutPage = page;
                     renderPages();
                 }
