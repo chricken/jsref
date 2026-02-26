@@ -20,11 +20,14 @@ const appendEventlisteners = () => {
 }
 
 const renderPages = () => {
-
+    const timerID = (Math.random()*1e17).toString(36)
+console.time('renderPages_'+timerID)
     const pgsStr = settings.pagesStructured;
     els.containerPages.innerHTML = '';
+console.timeLog('renderPages_'+timerID)
 
     settings.pages.forEach((page, index) => {
+console.timeLog('renderPages_'+timerID)
         // console.log(page);
         if (page) {
             page.hasChildren = false;
@@ -39,12 +42,14 @@ const renderPages = () => {
             })
         }
     })
+console.timeLog('renderPages_'+timerID)
     // Checken, welche Seiten Kinder hat und welche nicht
     settings.pages.forEach(page => {
         if (page.parent) {
             pgsStr[page.parent].container.classList.add('hasChildren');
         }
     })
+console.timeLog('renderPages_'+timerID)
 
     // console.log(pgsStr);
 
@@ -58,6 +63,7 @@ const renderPages = () => {
     });
 
 
+console.timeLog('renderPages_'+timerID)
     // Zuletzt geladene Seite anzeigen
     let activePageID = localStorage.getItem('activePageID');
     if (activePageID) {
@@ -82,6 +88,8 @@ const renderPages = () => {
             activateAndParent(activePageID);
         }
     }
+
+    console.timeLog('renderPages_'+timerID)
 }
 
 const loadPages = () => {

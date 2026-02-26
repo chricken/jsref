@@ -6,8 +6,8 @@ import settings from '../settings.js';
 
 class Page {
     constructor({
-        parent = ''
-    }) {
+                    parent = ''
+                }) {
         let id = (Math.random() * 1e17).toString(36);
         while (settings.pages.find(val => val.id == id)) {
             id = (Math.random() * 1e17).toString(36);
@@ -23,37 +23,44 @@ class Page {
         this.visible = false;
     }
 }
+
 const pages = {
     createNewPage(newIndex, parentID, callback) {
+console.time('pages.createNewPage')
         // Neue Seite erzeugen
         let newPage = new Page({
             parent: parentID
         });
-
         localStorage.setItem('activePageID', newPage.id);
-
+console.timeLog('pages.createNewPage')
         // Neue Seitendatei anlegen
         ajax.createPageFile(newPage.id);
+console.timeLog('pages.createNewPage')
 
         // Neue Seite in Liste eintragen
         settings.pages.splice(newIndex, 0, newPage);
+console.timeLog('pages.createNewPage')
 
         // Pages sichern, dann neu rendern
         ajax.savePages().then(
-            callback
+            result => {
+                callback(result)
+                console.timeLog('pages.createNewPage')
+            }
         ).then(
             () => {
                 let el = settings.pagesStructured[newPage.id].container;
                 el.classList.add('open');
                 el.querySelector('.inputHeader').focus();
+                console.timeEnd('pages.createNewPage')
             }
         )
     },
 
     pageDetails({
-        parent = false,
-        page = {},
-    } = {}) {
+                    parent = false,
+                    page = {},
+                } = {}) {
 
         // Seitenauswahl füllen.
         // Muss hier oben sein, um aufgerufen werden zu können.
@@ -226,11 +233,12 @@ const pages = {
     },
 
     pageContainer({
-        parent = false,
-        page = {},
-        index = false,
-        renderPages = () => { },
-    } = {}) {
+                      parent = false,
+                      page = {},
+                      index = false,
+                      renderPages = () => {
+                      },
+                  } = {}) {
 
 
         // Container für einen Menüeintrag
@@ -412,19 +420,23 @@ const pages = {
                 click(evt) {
                     // moveMe bedeutet: Dieses Element wird verschoben
                     // Allen cutOut-Elementen die Klasse entfernen
-                    console.log('at click', page);
+                    // console.log('at click', page);
                     // console.log('at click pages', settings.pages);
+                    console.time()
                     settings.pages.forEach(page => {
-                        if(page?.moveMe)
+                        if (page?.moveMe)
                             page.moveMe = false
                     });
                     page.moveMe = true;
                     evt.stopPropagation();
                     settings.cutPage = page;
+                    console.timeLog()
                     renderPages();
+                    console.timeEnd()
                 }
             }
         })
+
         // Testen, ob die Seite eingefügt werden darf
         let canBePasted = true;
         if (!settings.cutPage) canBePasted = false;
@@ -502,6 +514,7 @@ const pages = {
                 classes: ['btnShy'],
                 listeners: {
                     click(evt) {
+                        // console.time()
                         evt.stopPropagation();
                         // Seite ausschneiden
                         settings.pages = settings.pages.filter(
@@ -511,14 +524,18 @@ const pages = {
                         // let newIndex = settings.pages.indexOf(page);
                         // Neues Element ans Ende des Array hängen hat den Effekt, dass die Seite als letztes gefunden und in das Parent-Element eingehängt wird.
                         settings.pages.push(settings.cutPage);
+                        // console.timeLog()
                         // Eltern-ID übertragen
                         settings.cutPage.parent = page.id;
                         settings.cutPage.moveMe = false;
                         settings.cutPage = false;
+                        // console.timeLog()
                         // Speichern
-                        console.log(settings.pages);
+                        // console.log(settings.pages);
                         ajax.savePages().then(
                             renderPages
+                        ).then(
+                            // () => console.timeEnd()
                         )
                     }
                 }
@@ -547,7 +564,7 @@ const pages = {
             classes: ['childrenContainer']
         })
 
-        return { container, elChildren };
+        return {container, elChildren};
 
     }
 }

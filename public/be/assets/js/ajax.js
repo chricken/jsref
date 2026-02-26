@@ -11,13 +11,17 @@ const ajax = {
     },
 
     savePages() {
+        let timerID = (Math.random()*1e17).toString(36)
+        console.time(timerID)
         return ajax.getJSON(settings.urlPages).then(
             res => {
+                console.timeLog(timerID)
                 res.pages = settings.pages
                 return res
             }
         ).then(
             res => {
+                console.timeLog(timerID)
                 return fetch('/savePages', {
                     method: 'post',
                     headers: { 'content-type': 'application/json' },
@@ -25,7 +29,10 @@ const ajax = {
                 })
             }
         ).then(
-            res => res.json()
+            res => {
+                console.timeEnd(timerID)
+                return res.json()
+            }
         )
     },
 
