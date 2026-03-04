@@ -22,7 +22,6 @@ const appendEventlisteners = () => {
 }
 
 const initializeSearchContent = () => {
-
     // Anzeige, dass gesucht wird
     els.containerSearch.innerHTML = '';
 
@@ -40,10 +39,13 @@ const initializeSearchContent = () => {
                 .all(
                     res.pages
                         .map(page => page.id)
-                        .map(id => fetch(`/data/pages/${id}.json`)))
+                        .filter(id => id !== undefined)
+                        .map(id => fetch(`/data/pages/${id}.json`))
+                )
         }
     ).then(
         res => Promise.all(res.map(response => {
+            // console.log('page loaded', response.url)
             // der Response muss noch um die ID erweitert werden. Das wird hier erledigt
             return response.json().then(
                 res => {
