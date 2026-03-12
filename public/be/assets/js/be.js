@@ -30,6 +30,8 @@ console.timeLog('renderPages_'+timerID)
 console.timeLog('renderPages_'+timerID)
         // console.log(page);
         if (page) {
+            console.log(page.id);
+
             page.hasChildren = false;
             // Eintrag für eine Seite im Navigations-Container
             // Elemente erzeugen und in ein Objekt schreiben
