@@ -1,0 +1,1 @@
+{"content":[{"type":"code","crDate":1726125986432,"chDate":1726125987321,"text":"\n  // Create an index to search customers by name. We may have duplicates\n  // so we can't use a unique index.\n  objectStore.createIndex(\"name\", \"name\", { unique: false });"}]}

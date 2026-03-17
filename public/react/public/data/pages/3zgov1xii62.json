@@ -1,0 +1,1 @@
+{"content":[{"type":"paragraph","crDate":1706104536645,"chDate":1706104553789,"text":"Inhalte werden als Slot übergeben. Im Template wird ein Element mit dem type=\"slot\" angelegt. Dieser wird mit dem Übergebenen Inhalt überschrieben.\nEin Inhalt kann auch das Attribut slot=\"nameDesSlots\" tragen. Dieser Inhalt ersetzt einen Slot im Template mit dem selben Namen."}]}
