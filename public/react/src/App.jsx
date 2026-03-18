@@ -1,121 +1,92 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from './assets/vite.svg'
-import heroImg from './assets/hero.png'
-import './App.css'
+import './App.css';
 
-function App() {
-  const [count, setCount] = useState(0)
+import {useStore} from "./store/index.js";
+import React, {useEffect, useState} from "react";
+import Link from './components/Link/Link.jsx';
+import Paragraph from './components/Paragraph/Paragraph.jsx';
+import Subheader from './components/Subheader/Subheader.jsx';
 
-  return (
-    <>
-      <section id="center">
-        <div className="hero">
-          <img src={heroImg} className="base" width="170" height="179" alt="" />
-          <img src={reactLogo} className="framework" alt="React logo" />
-          <img src={viteLogo} className="vite" alt="Vite logo" />
+const App = () => {
+
+    const pages = useStore((state) => state.pages);
+    const currentID = useStore((state) => state.startPageID);
+    const [page1, setPage1] = useState(null);
+    const [currentPage, setCurrentPage] = useState(null);
+    const replacePages = useStore((state) => state.replacePages);
+    const [content, setContent] = useState(null)
+
+    useEffect(() => {
+        fetch('/data/pages.json').then(
+            res => res.json()
+        ).then(
+            res => replacePages(res)
+        ).catch(
+            console.warn
+        )
+    }, []);
+
+    useEffect(() => {
+        setPage1(pages.find(p => p.id === currentID))
+        setCurrentPage(pages.find(p => p.id === currentID))
+    }, [pages]);
+
+    useEffect(() => {
+        console.log('Current Page', currentPage);
+
+        fetch(`/data/pages/${currentPage?.id}.json`).then(
+            res => res.json()
+        ).then(
+            res => setContent(res)
+        ).catch(
+            console.warn
+        )
+
+    }, [currentPage])
+
+    const createNav = () => {
+        return <>
+            <div>
+                {
+                    page1
+                    && pages.length
+                    && <Link
+                        page={page1}
+                        handlerOpen={() => setPage1({...page1, open: !page1?.open})}
+                        handlerPageChange={(page) => {
+                            setCurrentPage(page)
+                        }}
+                    />
+                }
+            </div>
+        </>
+    }
+
+    const createContent = () => {
+        console.log('Create Content', content);
+        return content.content.map(item => {
+
+            if (item.type === 'paragraph') return Paragraph({item})
+            else if (item.type === 'subheader') return Subheader({item})
+
+        })
+    }
+
+    return (
+        <div className={'all'}>
+            <nav>
+                {createNav()}
+            </nav>
+            <div className={'content'}>
+                <div className={'subnav'}>
+                    <div className={'inner'}></div>
+                </div>
+                <main>
+                    {content ? createContent() : ''}
+                </main>
+            </div>
+            <footer></footer>
         </div>
-        <div>
-          <h1>Get started</h1>
-          <p>
-            Edit <code>src/App.jsx</code> and save to test <code>HMR</code>
-          </p>
-        </div>
-        <button
-          className="counter"
-          onClick={() => setCount((count) => count + 1)}
-        >
-          Count is {count}
-        </button>
-      </section>
-
-      <div className="ticks"></div>
-
-      <section id="next-steps">
-        <div id="docs">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#documentation-icon"></use>
-          </svg>
-          <h2>Documentation</h2>
-          <p>Your questions, answered</p>
-          <ul>
-            <li>
-              <a href="https://vite.dev/" target="_blank">
-                <img className="logo" src={viteLogo} alt="" />
-                Explore Vite
-              </a>
-            </li>
-            <li>
-              <a href="https://react.dev/" target="_blank">
-                <img className="button-icon" src={reactLogo} alt="" />
-                Learn more
-              </a>
-            </li>
-          </ul>
-        </div>
-        <div id="social">
-          <svg className="icon" role="presentation" aria-hidden="true">
-            <use href="/icons.svg#social-icon"></use>
-          </svg>
-          <h2>Connect with us</h2>
-          <p>Join the Vite community</p>
-          <ul>
-            <li>
-              <a href="https://github.com/vitejs/vite" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#github-icon"></use>
-                </svg>
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href="https://chat.vite.dev/" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#discord-icon"></use>
-                </svg>
-                Discord
-              </a>
-            </li>
-            <li>
-              <a href="https://x.com/vite_js" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#x-icon"></use>
-                </svg>
-                X.com
-              </a>
-            </li>
-            <li>
-              <a href="https://bsky.app/profile/vite.dev" target="_blank">
-                <svg
-                  className="button-icon"
-                  role="presentation"
-                  aria-hidden="true"
-                >
-                  <use href="/icons.svg#bluesky-icon"></use>
-                </svg>
-                Bluesky
-              </a>
-            </li>
-          </ul>
-        </div>
-      </section>
-
-      <div className="ticks"></div>
-      <section id="spacer"></section>
-    </>
-  )
+    )
 }
 
-export default App
+export default App;
