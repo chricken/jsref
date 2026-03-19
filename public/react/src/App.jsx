@@ -6,6 +6,8 @@ import Link from './components/Link/Link.jsx';
 import Paragraph from './components/Paragraph/Paragraph.jsx';
 import Subheader from './components/Subheader/Subheader.jsx';
 
+import Subnav from './components/Subnav/Subnav.jsx';
+
 const App = () => {
 
     const pages = useStore((state) => state.pages);
@@ -31,7 +33,7 @@ const App = () => {
     }, [pages]);
 
     useEffect(() => {
-        console.log('Current Page', currentPage);
+        // console.log('Current Page', currentPage);
 
         fetch(`/data/pages/${currentPage?.id}.json`).then(
             res => res.json()
@@ -50,8 +52,16 @@ const App = () => {
                     page1
                     && pages.length
                     && <Link
+                        currentPage={currentPage}
                         page={page1}
-                        handlerOpen={() => setPage1({...page1, open: !page1?.open})}
+                        handlerOpen={(openOnly = false) => {
+                            console.log('openOnly', openOnly);
+
+                            if (openOnly)
+                                setPage1({...page1, open: true})
+                            else
+                                setPage1({...page1, open: !page1?.open})
+                        }}
                         handlerPageChange={(page) => {
                             setCurrentPage(page)
                         }}
@@ -62,11 +72,11 @@ const App = () => {
     }
 
     const createContent = () => {
-        console.log('Create Content', content);
-        return content.content.map(item => {
+        // console.log('Create Content', content);
+        return content.content.map((item, index) => {
 
-            if (item.type === 'paragraph') return Paragraph({item})
-            else if (item.type === 'subheader') return Subheader({item})
+            if (item.type === 'paragraph') return <Paragraph item={item} key={index}/>
+            else if (item.type === 'subheader') return <Subheader item={item} key={index}/>
 
         })
     }
@@ -78,8 +88,9 @@ const App = () => {
             </nav>
             <div className={'content'}>
                 <div className={'subnav'}>
-                    <div className={'inner'}></div>
+                    <Subnav items={content?.content}/>
                 </div>
+                <h1>{currentPage?.title}</h1>
                 <main>
                     {content ? createContent() : ''}
                 </main>

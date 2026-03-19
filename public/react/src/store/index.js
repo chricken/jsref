@@ -5,8 +5,6 @@ export const useStore = create((set, get) => ({
     startPageID: '123',
     replacePages(payload) {
 
-        console.log(payload);
-
         set(() => ({
             pages: payload.pages
         }))

@@ -2,13 +2,12 @@ import './Link.css'
 import {useStore} from "../../store/index.js";
 import {useEffect, useState} from "react";
 
-const Link = ({page, handlerOpen, handlerPageChange}) => {
+const Link = ({page, currentPage, handlerOpen, handlerPageChange}) => {
 
     const pages = useStore((state) => state.pages);
     const [children, setChildren] = useState([]);
 
     useEffect(() => {
-
         setChildren(pages.filter(p => p.parent === page?.id));
     }, []);
 
@@ -16,9 +15,14 @@ const Link = ({page, handlerOpen, handlerPageChange}) => {
 
     return (
         <>
-            <div className={'Link'}>
+            <div className={`Link ${(page.id === currentPage.id) ? 'currentPage' : ''}`}>
                 <h4
-                    onClick={() => handlerPageChange(page)}
+                    onClick={() => {
+
+                        handlerPageChange(page);
+                        handlerOpen(true);
+                        // console.log('Link clicked');
+                    }}
                 >
                     {page?.title}
                 </h4>
@@ -38,13 +42,23 @@ const Link = ({page, handlerOpen, handlerPageChange}) => {
                         page?.open
                             ? children
                                 .map(p => {
+                                    // console.log(p);
+
                                     return <Link
+                                        currentPage={currentPage}
                                         key={p.id}
                                         page={p}
                                         // handlerOpen={setChildren([...children])}
-                                        handlerOpen={() => setChildren(children.map(child =>
-                                            child.id === p.id ? {...child, open: !child.open} : child
-                                        ))}
+                                        handlerOpen={(openOnly) => {
+                                            return setChildren(children.map(child => {
+                                                if (openOnly) {
+                                                    return (child.id === p.id) ? {...child, open: true} : child
+                                                    // return (child.id === p.id) ? {...child, open: !child.open} : child
+                                                } else {
+                                                    return (child.id === p.id) ? {...child, open: !child.open} : child
+                                                }
+                                            }))
+                                        }}
                                         handlerPageChange={handlerPageChange}
                                     />
                                 })
