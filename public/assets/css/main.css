@@ -384,3 +384,8 @@ h3 {
     font-size: 1em;
     max-width: 80%;
 }
+
+code {
+    color: #155584;
+    font-style: italic;
+}
